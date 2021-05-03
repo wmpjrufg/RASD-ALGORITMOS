@@ -15,6 +15,7 @@
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from scipy.stats.distributions import *
 
 ################################################################################
 # BIBLIOTECAS DESENVOLVEDORES GPEE
@@ -64,7 +65,27 @@ def SAMPLING(SETUP):
             ####
             ####
     elif MODEL == 'LHS':
-        pass
+        DESIGN = lhs(TOTAL_SAMPLING)
+        for I_COUNT in range(D):
+            # SETUP TYPE, MEAN AND STD I VARIABLE
+            TYPE = SETUP['VARS'][I_COUNT][0]
+            MEAN = SETUP['VARS'][I_COUNT][1]
+            STD = SETUP['VARS'][I_COUNT][2]
+            # NORMAL AND GAUSSIAN DISTRIBUITION
+            if (TYPE == 'NORMAL'):
+                RANDOM_NUMBERS=[]
+                RANDOM_NUMBERS = norm(loc=MEAN, scale=STD).ppf(DESIGN)
+                for I_AUX in ARRAY_RANDOM:
+                    for J_AUX in I_AUX:
+                      RANDOM_NUMBERS.append(J_AUX)
+                for J_COUNT in range (NEW_TOTAL_SAMPLING):
+                    RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]
+
+                        
+        
+        
+        
+        
         # DONIZETTI ADD O LHS
         #####
         #####
