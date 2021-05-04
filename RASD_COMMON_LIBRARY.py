@@ -2,7 +2,7 @@
 # UNIVERSIDADE FEDERAL DE CATALÃO (UFCAT)
 # WANDERLEI MALAQUIAS PEREIRA JUNIOR         ENG. CIVIL / PROF (UFCAT)
 # ROMES ANTÔNIO BORGES                             MATE / PROF (UFCAT)
-# DONIZETTI A. DE SOUZA JÚNIOR                  ENG. CIVIL (UFCAT)
+# DONIZETTI A. DE SOUZA JÚNIOR                      ENG. CIVIL (UFCAT)
 ######################################################################
 
 ######################################################################
