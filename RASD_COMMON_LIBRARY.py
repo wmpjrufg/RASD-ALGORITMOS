@@ -123,7 +123,8 @@ def SAMPLING(SETUP):
                       RANDOM_NUMBERS.append(J_AUX)
                 for J_COUNT in range (NEW_TOTAL_SAMPLING):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]   
-                    
+            
+            
              # DONIZETTI ADD OUTRAS DISTRIBUIÇÕES
  
     return RANDOM_SAMPLING
