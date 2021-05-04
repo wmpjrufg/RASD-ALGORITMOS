@@ -12,6 +12,7 @@
 
 ################################################################################
 # BIBLIOTECAS NATIVAS PYTHON
+from pyDOE import *
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
