@@ -80,14 +80,25 @@ def SAMPLING(SETUP):
                       RANDOM_NUMBERS.append(J_AUX)
                 for J_COUNT in range (NEW_TOTAL_SAMPLING):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]
-
-                        
-        
-        
-        
-        
-        # DONIZETTI ADD O LHS
-        #####
-        #####
-        #####
+                    
+            if (TYPE == 'GUMBEL'):
+                RANDOM_NUMBERS=[]
+                RANDOM_NUMBERS = gumbel_r(loc=MEAN, scale=STD).ppf(DESIGN)
+                for I_AUX in ARRAY_RANDOM:
+                    for J_AUX in I_AUX:
+                      RANDOM_NUMBERS.append(J_AUX)
+                for J_COUNT in range (NEW_TOTAL_SAMPLING):
+                    RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]
+                    
+            if (TYPE == 'LOGNORMAL'):
+                RANDOM_NUMBERS=[]
+                RANDOM_NUMBERS = lognorm(loc=MEAN, scale=STD).ppf(DESIGN)
+                for I_AUX in ARRAY_RANDOM:
+                    for J_AUX in I_AUX:
+                      RANDOM_NUMBERS.append(J_AUX)
+                for J_COUNT in range (NEW_TOTAL_SAMPLING):
+                    RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]   
+                    
+             # DONIZETTI ADD OUTRAS DISTRIBUIÇÕES
+ 
     return RANDOM_SAMPLING
