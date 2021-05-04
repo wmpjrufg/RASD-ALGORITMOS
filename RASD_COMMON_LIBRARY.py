@@ -59,7 +59,7 @@ def SAMPLING(SETUP):
                 RANDOM_NUMBERS = np.random.gamma(MEAN, STD, N_SAMPLING)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBER                 
             # LAPLACE DISTRIBUITION
-            elif TYPE == 'LAPLACE:
+            elif TYPE == 'LAPLACE':
                 RANDOM_NUMBERS = np.random.laplace(MEAN, STD, N_SAMPLING)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
             # LOGISTIC DISTRIBUITION
