@@ -85,10 +85,7 @@ def SAMPLING(SETUP):
             # UNIFORM DISTRIBUITION
             elif TYPE == 'UNIFORM':
                 RANDOM_NUMBERS = np.random.uniform(MEAN, STD, N_SAMPLING)
-                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            
-            ##https://docs.scipy.org/doc/numpy-1.9.3/reference/routines.random.html
-            
+                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS           
     elif MODEL == 'LHS':
         DESIGN = lhs(TOTAL_SAMPLING)
         for I_COUNT in range(D):
