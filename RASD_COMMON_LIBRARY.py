@@ -57,13 +57,38 @@ def SAMPLING(SETUP):
             # GAMMA DISTRIBUITION
             elif TYPE == 'GAMMA':
                 RANDOM_NUMBERS = np.random.gamma(MEAN, STD, N_SAMPLING)
+                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBER                 
+            # LAPLACE DISTRIBUITION
+            elif TYPE == 'LAPLACE:
+                RANDOM_NUMBERS = np.random.laplace(MEAN, STD, N_SAMPLING)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # DONIZETTI ADD OUTRAS DISTRIBUIÇÕES
-            ####
-            ####
-            ####
-            ####
-            ####
+            # LOGISTIC DISTRIBUITION
+            elif TYPE == 'LOGISTIC':
+                RANDOM_NUMBERS = np.random.logistic(MEAN, STD, N_SAMPLING)
+                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
+            # MULTINOMIAL DISTRIBUITION
+            elif TYPE == 'MULTINOMIAL':
+                RANDOM_NUMBERS = np.random.multinomial(MEAN, STD, N_SAMPLING)
+                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
+            # MULTIVARIATE NORMAL
+            elif TYPE == 'MULTIVARIATE NORMAL':
+                RANDOM_NUMBERS = np.random.multivariate_normal(MEAN, STD, N_SAMPLING)
+                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
+            # NEGATIVE BINOMIAL DISTRIBUITION
+            elif TYPE == 'NEGATIVE BINOMIAL':
+                RANDOM_NUMBERS = np.random.negative_binomial(MEAN, STD, N_SAMPLING)
+                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
+            # NONCENTRAL CHISQUARE DISTRIBUITION
+            elif TYPE == 'NONCENTRAL CHISQUARE':
+                RANDOM_NUMBERS = np.random.noncentral_chisquare(MEAN, STD, N_SAMPLING)
+                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
+            # UNIFORM DISTRIBUITION
+            elif TYPE == 'UNIFORM':
+                RANDOM_NUMBERS = np.random.uniform(MEAN, STD, N_SAMPLING)
+                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
+            
+            ##https://docs.scipy.org/doc/numpy-1.9.3/reference/routines.random.html
+            
     elif MODEL == 'LHS':
         DESIGN = lhs(TOTAL_SAMPLING)
         for I_COUNT in range(D):
@@ -81,7 +106,7 @@ def SAMPLING(SETUP):
                 for J_COUNT in range (NEW_TOTAL_SAMPLING):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]
                     
-            if (TYPE == 'GUMBEL'):
+            elif TYPE == 'GUMBEL':
                 RANDOM_NUMBERS=[]
                 RANDOM_NUMBERS = gumbel_r(loc=MEAN, scale=STD).ppf(DESIGN)
                 for I_AUX in ARRAY_RANDOM:
@@ -90,7 +115,7 @@ def SAMPLING(SETUP):
                 for J_COUNT in range (NEW_TOTAL_SAMPLING):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]
                     
-            if (TYPE == 'LOGNORMAL'):
+            elif TYPE == 'LOGNORMAL':
                 RANDOM_NUMBERS=[]
                 RANDOM_NUMBERS = lognorm(loc=MEAN, scale=STD).ppf(DESIGN)
                 for I_AUX in ARRAY_RANDOM:
