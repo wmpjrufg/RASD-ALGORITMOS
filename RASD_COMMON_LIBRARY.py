@@ -43,6 +43,7 @@ def SAMPLING(SETUP):
             TYPE = SETUP['VARS'][I_COUNT][0]
             MEAN = SETUP['VARS'][I_COUNT][1]
             STD = SETUP['VARS'][I_COUNT][2]
+            
             # NORMAL AND GAUSSIAN DISTRIBUITION
             if (TYPE == 'GAUSSIAN' or TYPE == 'NORMAL'):
                 RANDOM_NUMBERS = np.random.normal(MEAN, STD, N_SAMPLING)
@@ -86,39 +87,41 @@ def SAMPLING(SETUP):
             # UNIFORM DISTRIBUITION
             elif TYPE == 'UNIFORM':
                 RANDOM_NUMBERS = np.random.uniform(MEAN, STD, N_SAMPLING)
-                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS           
-    elif MODEL == 'LHS':
-        DESIGN = lhs(TOTAL_SAMPLING)
+                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS  
+                
+        elif MODEL == 'LHS':
+        DESIGN = lhs(N_SAMPLING)
+        NEW_TOTAL_SAMPLING=N_SAMPLING
+        NEW_ARRAY_RANDOM = []
         for I_COUNT in range(D):
             # SETUP TYPE, MEAN AND STD I VARIABLE
             TYPE = SETUP['VARS'][I_COUNT][0]
             MEAN = SETUP['VARS'][I_COUNT][1]
             STD = SETUP['VARS'][I_COUNT][2]
+            
             # NORMAL AND GAUSSIAN DISTRIBUITION
             if (TYPE == 'NORMAL'):
-                RANDOM_NUMBERS=[]
-                RANDOM_NUMBERS = norm(loc=MEAN, scale=STD).ppf(DESIGN)   #MODIFICAR CONFORME MCS E TESTAR
+                ARRAY_RANDOM = norm(loc=MEAN, scale=STD).ppf(DESIGN)   #MODIFICAR CONFORME MCS E TESTAR
                 for I_AUX in ARRAY_RANDOM:
                     for J_AUX in I_AUX:
-                      RANDOM_NUMBERS.append(J_AUX)
+                      NEW_ARRAY_RANDOM.append(J_AUX)
+                
                 for J_COUNT in range (NEW_TOTAL_SAMPLING):
-                    RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]
+                    RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]   
             # GUMBEL MAXIMUM DISTRIBUITION        
             elif TYPE == 'GUMBEL':
-                RANDOM_NUMBERS=[]
-                RANDOM_NUMBERS = gumbel_r(loc=MEAN, scale=STD).ppf(DESIGN)  #MODIFICAR CONFORME MCS E TESTAR
+                ARRAY_RANDOM = gumbel_r(loc=MEAN, scale=STD).ppf(DESIGN)  #MODIFICAR CONFORME MCS E TESTAR
                 for I_AUX in ARRAY_RANDOM:
                     for J_AUX in I_AUX:
-                      RANDOM_NUMBERS.append(J_AUX)
+                      NEW_ARRAY_RANDOM.append(J_AUX)
                 for J_COUNT in range (NEW_TOTAL_SAMPLING):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]
             # LOGNORMAL MAXIMUM DISTRIBUITION        
             elif TYPE == 'LOGNORMAL':
-                RANDOM_NUMBERS=[]
-                RANDOM_NUMBERS = lognorm(loc=MEAN, scale=STD).ppf(DESIGN)  #MODIFICAR CONFORME MCS E TESTAR
+                ARRAY_RANDOM = lognorm(loc=MEAN, scale=STD).ppf(DESIGN)  #MODIFICAR CONFORME MCS E TESTAR
                 for I_AUX in ARRAY_RANDOM:
                     for J_AUX in I_AUX:
-                      RANDOM_NUMBERS.append(J_AUX)
+                      NEW_ARRAY_RANDOM.append(J_AUX)
                 for J_COUNT in range (NEW_TOTAL_SAMPLING):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]   
             
