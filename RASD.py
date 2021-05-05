@@ -4,9 +4,9 @@ import numpy as np
 def RASD(SETUP, OBJ):
     """
     THIS FUNCTION GENERATES RANDOM SAMPLES ACCORDING ,
-    TO CHOICE SAMPLING METHOD
+    TO CHOICE SAMPLING METHOD mudar mudar mudar ##############
     
-    INPUT:,
+    INPUT:
     SETUP: STOCHASTIC RANDOM VARIABLES DESCRIPTION (DICTIONARY MIXED)
 
     OUTPUT:
@@ -24,10 +24,13 @@ def RASD(SETUP, OBJ):
     RESULTS_I = np.zeros((N_SAMPLING, N_G))
     # LOPPING CHECK STATE LIMITE FUNCTIONS
     for I_COUNT in range(N_SAMPLING):
-        SAMPLE = DATASET_X[I_COUNT, :]
-        G = OBJ(SAMPLE)
+        # STORAGE OF DESIGN VARIABLES
         for J_COUNT in range(D):
             RESULTS_X[I_COUNT, J_COUNT] = DATASET_X[I_COUNT, J_COUNT]
+        # STATE LIMIT CHECK
+        SAMPLE = DATASET_X[I_COUNT, :]
+        G = OBJ(SAMPLE)
+        # FAILLURE OR NOT FAILURE - I VARIABLE
         for K_COUNT in range(N_G):
             RESULTS_G[I_COUNT, K_COUNT] = G[K_COUNT]
             if G[K_COUNT] >= 0: 
@@ -36,5 +39,6 @@ def RASD(SETUP, OBJ):
             elif G[K_COUNT] < 0: 
                 I = 1
                 RESULTS_I[I_COUNT, K_COUNT] = I 
+    # STORAGE ALL RESULTS
     RESULTS = np.hstack((RESULTS_X, RESULTS_G, RESULTS_I))               
     return RESULTS

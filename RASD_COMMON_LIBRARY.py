@@ -43,7 +43,6 @@ def SAMPLING(SETUP):
             TYPE = SETUP['VARS'][I_COUNT][0]
             MEAN = SETUP['VARS'][I_COUNT][1]
             STD = SETUP['VARS'][I_COUNT][2]
-            
             # NORMAL AND GAUSSIAN DISTRIBUITION
             if (TYPE == 'GAUSSIAN' or TYPE == 'NORMAL'):
                 RANDOM_NUMBERS = np.random.normal(MEAN, STD, N_SAMPLING)
@@ -89,7 +88,7 @@ def SAMPLING(SETUP):
                 RANDOM_NUMBERS = np.random.uniform(MEAN, STD, N_SAMPLING)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS  
                 
-        elif MODEL == 'LHS':
+    elif MODEL == 'LHS':
         DESIGN = lhs(N_SAMPLING)
         NEW_TOTAL_SAMPLING=N_SAMPLING
         NEW_ARRAY_RANDOM = []
