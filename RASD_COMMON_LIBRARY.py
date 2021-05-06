@@ -87,6 +87,8 @@ def SAMPLING(SETUP):
             elif TYPE == 'UNIFORM':
                 RANDOM_NUMBERS = np.random.uniform(MEAN, STD, N_SAMPLING)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS  
+            #https://docs.scipy.org/doc/numpy-1.9.3/reference/routines.random.html
+                
     # LATIN HYPER CUBE SAMPLING            
     elif MODEL == 'LHS':
         DESIGN = lhs(N_SAMPLING)
