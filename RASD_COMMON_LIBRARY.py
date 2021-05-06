@@ -125,5 +125,6 @@ def SAMPLING(SETUP):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]   
             
              # DONIZETTI ADD OUTRAS DISTRIBUIÇÕES
+                #https://docs.scipy.org/doc/scipy/reference/stats.html
  
     return RANDOM_SAMPLING
