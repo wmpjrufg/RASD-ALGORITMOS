@@ -31,12 +31,12 @@ def SAMPLING(SETUP):
     OUTPUT:
     RANDOM_SAMPLING: STOCHASTIC RANDOM SAMPLING (NP.ARRAY, FLOAT)
     """
-
     # START RESERVED SPACE FOR SAMPLING
     N_SAMPLING = SETUP['TOTAL SAMPLING']
     D = SETUP['TOTAL DESIGN VARIABLES']
     MODEL = SETUP['MODEL']
     RANDOM_SAMPLING = np.zeros((N_SAMPLING, D))
+    # MONTE CARLO SAMPLING
     if MODEL == 'MCS':
         for I_COUNT in range(D):
             # SETUP TYPE, MEAN AND STD I VARIABLE
@@ -87,7 +87,7 @@ def SAMPLING(SETUP):
             elif TYPE == 'UNIFORM':
                 RANDOM_NUMBERS = np.random.uniform(MEAN, STD, N_SAMPLING)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS  
-                
+    # LATIN HYPER CUBE SAMPLING            
     elif MODEL == 'LHS':
         DESIGN = lhs(N_SAMPLING)
         NEW_TOTAL_SAMPLING=N_SAMPLING
@@ -96,8 +96,7 @@ def SAMPLING(SETUP):
             # SETUP TYPE, MEAN AND STD I VARIABLE
             TYPE = SETUP['VARS'][I_COUNT][0]
             MEAN = SETUP['VARS'][I_COUNT][1]
-            STD = SETUP['VARS'][I_COUNT][2]
-            
+            STD = SETUP['VARS'][I_COUNT][2]     
             # NORMAL AND GAUSSIAN DISTRIBUITION
             if (TYPE == 'NORMAL'):
                 ARRAY_RANDOM = norm(loc=MEAN, scale=STD).ppf(DESIGN)   
@@ -124,7 +123,7 @@ def SAMPLING(SETUP):
                 for J_COUNT in range (NEW_TOTAL_SAMPLING):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]   
             
-             # DONIZETTI ADD OUTRAS DISTRIBUIÇÕES
-                #https://docs.scipy.org/doc/scipy/reference/stats.html
+            # DONIZETTI ADD OUTRAS DISTRIBUIÇÕES
+            #https://docs.scipy.org/doc/scipy/reference/stats.html
  
     return RANDOM_SAMPLING

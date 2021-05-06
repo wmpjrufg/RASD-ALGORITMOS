@@ -1,7 +1,7 @@
 import RASD_COMMON_LIBRARY as RASD_CL
 import numpy as np
 
-def RASD(SETUP, OBJ):
+def MAIN(SETUP, OBJ):
     """
     THIS FUNCTION GENERATES RANDOM SAMPLES ACCORDING ,
     TO CHOICE SAMPLING METHOD mudar mudar mudar ##############
