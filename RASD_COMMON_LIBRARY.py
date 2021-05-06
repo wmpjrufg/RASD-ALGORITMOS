@@ -100,7 +100,7 @@ def SAMPLING(SETUP):
             
             # NORMAL AND GAUSSIAN DISTRIBUITION
             if (TYPE == 'NORMAL'):
-                ARRAY_RANDOM = norm(loc=MEAN, scale=STD).ppf(DESIGN)   #MODIFICAR CONFORME MCS E TESTAR
+                ARRAY_RANDOM = norm(loc=MEAN, scale=STD).ppf(DESIGN)   
                 for I_AUX in ARRAY_RANDOM:
                     for J_AUX in I_AUX:
                       NEW_ARRAY_RANDOM.append(J_AUX)
@@ -109,7 +109,7 @@ def SAMPLING(SETUP):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]   
             # GUMBEL MAXIMUM DISTRIBUITION        
             elif TYPE == 'GUMBEL':
-                ARRAY_RANDOM = gumbel_r(loc=MEAN, scale=STD).ppf(DESIGN)  #MODIFICAR CONFORME MCS E TESTAR
+                ARRAY_RANDOM = gumbel_r(loc=MEAN, scale=STD).ppf(DESIGN)  
                 for I_AUX in ARRAY_RANDOM:
                     for J_AUX in I_AUX:
                       NEW_ARRAY_RANDOM.append(J_AUX)
@@ -117,7 +117,7 @@ def SAMPLING(SETUP):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]
             # LOGNORMAL MAXIMUM DISTRIBUITION        
             elif TYPE == 'LOGNORMAL':
-                ARRAY_RANDOM = lognorm(loc=MEAN, scale=STD).ppf(DESIGN)  #MODIFICAR CONFORME MCS E TESTAR
+                ARRAY_RANDOM = lognorm(loc=MEAN, scale=STD).ppf(DESIGN)  
                 for I_AUX in ARRAY_RANDOM:
                     for J_AUX in I_AUX:
                       NEW_ARRAY_RANDOM.append(J_AUX)
