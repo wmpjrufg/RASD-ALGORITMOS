@@ -1,35 +1,48 @@
-######################################################################
+################################################################################
 # UNIVERSIDADE FEDERAL DE CATALÃO (UFCAT)
-# WANDERLEI MALAQUIAS PEREIRA JUNIOR         ENG. CIVIL / PROF (UFCAT)
-# ROMES ANTÔNIO BORGES                             MATE / PROF (UFCAT)
-# DONIZETTI A. DE SOUZA JÚNIOR                      ENG. CIVIL (UFCAT)
-######################################################################
+# WANDERLEI MALAQUIAS PEREIRA JUNIOR                   ENG. CIVIL / PROF (UFCAT)
+# ROMES ANTÔNIO BORGES                                       MAT. / PROF (UFCAT)
+# DONIZETTI A. DE SOUZA JÚNIOR                                ENG. CIVIL (UFCAT)
+################################################################################
 
-######################################################################
+################################################################################
 # DESCRIÇÃO ALGORITMO:
-# BIBLIO. PRODES DE ALGORITMOS ESTOCÁSTICOS DE CONFIABILIDADE
-######################################################################
+# BIBLIO. RASD DE ALGORITMOS ESTOCÁSTICOS DE CONFIABILIDADE
+################################################################################
 
 ################################################################################
 # BIBLIOTECAS NATIVAS PYTHON
 import pyDOE
 import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
 from scipy.stats.distributions import *
 
 ################################################################################
 # BIBLIOTECAS DESENVOLVEDORES GPEE
 def SAMPLING(SETUP):
     """
-    THIS FUNCTION GENERATES RANDOM SAMPLES ACCORDING ,
-    TO CHOICE SAMPLING METHOD
+    THIS FUNCTION GENERATES RANDOM SAMPLES ACCORDING, TO CHOICE SAMPLING METHOD
     
-    INPUT:,
-    SETUP: STOCHASTIC RANDOM VARIABLES DESCRIPTION (DICTIONARY MIXED)
+    INPUT:
+    SETUP: STOCHASTIC RANDOM VARIABLES DESCRIPTION (DICTIONARY, MIXED)
 
     OUTPUT:
-    RANDOM_SAMPLING: STOCHASTIC RANDOM SAMPLING (NP.ARRAY, FLOAT)
+    RANDOM_SAMPLING: STOCHASTIC RANDOM SAMPLING (NP.ARRAY [N_SAMPLING x D], FLOAT)
+
+    EXAMPLE:
+    # CHARACTERISTICS OF THE VARIABLES 
+    V_1 = ['NORMAL', 500, 100]
+    V_2 = ['NORMAL', 1000, 1000]
+    # DICTIONARY
+    SETUP = {'REPETITIONS': 1,
+            'TOTAL SAMPLING': 10,
+            'TOTAL G FUNCTIONS': 3,
+            'TOTAL DESIGN VARIABLES': 2,
+            'VARS': [V_1, V_2],
+            'MODEL': 'MCS'}
+    
+    # DISTRIBUITIONS
+    # https://docs.scipy.org/doc/numpy-1.9.3/reference/routines.random.html
+    # https://docs.scipy.org/doc/scipy/reference/stats.html 
     """
     # START RESERVED SPACE FOR SAMPLING
     N_SAMPLING = SETUP['TOTAL SAMPLING']
@@ -87,8 +100,6 @@ def SAMPLING(SETUP):
             elif TYPE == 'UNIFORM':
                 RANDOM_NUMBERS = np.random.uniform(MEAN, STD, N_SAMPLING)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS  
-            #https://docs.scipy.org/doc/numpy-1.9.3/reference/routines.random.html
-                
     # LATIN HYPER CUBE SAMPLING            
     elif MODEL == 'LHS':
         DESIGN = lhs(N_SAMPLING)
@@ -124,8 +135,4 @@ def SAMPLING(SETUP):
                       NEW_ARRAY_RANDOM.append(J_AUX)
                 for J_COUNT in range (NEW_TOTAL_SAMPLING):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]   
-            
-            # DONIZETTI ADD OUTRAS DISTRIBUIÇÕES
-            #https://docs.scipy.org/doc/scipy/reference/stats.html
- 
     return RANDOM_SAMPLING
