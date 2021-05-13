@@ -40,26 +40,27 @@ def RASD_MAIN_STOCHASTIC(SETUP, OBJ):
     +2 : RESISTANCE AND DEMAND COLUMNS IN NP.ARRAY
 
     STOCHASTIC RASD EXAMPLE:
-    # CHARACTERISTICS OF THE VARIABLES 
-    V_1 = ['NORMAL', 500, 100]
-    V_2 = ['NORMAL', 1000, 1000]
-    # DICTIONARY
-    SETUP = {'REPETITIONS': 1,
-            'TOTAL SAMPLING': 10,
-            'TOTAL G FUNCTIONS': 1,
-            'TOTAL DESIGN VARIABLES': 2,
-            'VARS': [V_1, V_2],
-            'MODEL': 'MCS'}     # MCS - SIMPLE MONTE CARLO SAMPLING
-                                # LHS - LATIN HYPER CUBE SAMPLING
-    # STATE LIMIT FUNCTIONS
-    def OBJ(X):
-        R = []
-        S = []
-        G = []
-        D0 = 3
-        Length = 100
-        E = 30 * 10**6
-        W = 2
+    >>> # CHARACTERISTICS OF THE VARIABLES 
+    >>> V_1 = ['NORMAL', 500, 100]
+    >>> V_2 = ['NORMAL', 1000, 1000]
+    >>> # DICTIONARY
+    >>> SETUP = {'REPETITIONS': 1,
+                 'TOTAL SAMPLING': 10,
+                 'TOTAL G FUNCTIONS': 1,
+                 'TOTAL DESIGN VARIABLES': 2,
+                 'VARS': [V_1, V_2],
+                 'MODEL': 'MCS'}     
+    >>> # MCS - SIMPLE MONTE CARLO SAMPLING
+    >>> # LHS - LATIN HYPER CUBE SAMPLING
+    >>> # STATE LIMIT FUNCTIONS
+    >>> def OBJ(X):
+            R = []
+            S = []
+            G = []
+            D0 = 3
+            Length = 100
+            E = 30 * 10**6
+            W = 2
         T = 4
         Px = X[0]
         Py = X[1]
