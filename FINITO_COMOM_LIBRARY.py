@@ -1,0 +1,426 @@
+######################################################################
+# UNIVERSIDADE FEDERAL DE CATALÃO (UFCAT)
+# WANDERLEI MALAQUIAS PEREIRA JUNIOR,        ENG. CIVIL / PROF (UFCAT)
+# DAVIDSON DE OLIVEIRA FRANÇA JUNIOR,          ENG. CIVIL / PROF (UNA)
+# GABRIEL BERNARDES CARVALHO,                       ENG. CIVIL (UFCAT)
+# JOSÉ VITOR CARVALHO SILVA,                        ENG. CIVIL (UFCAT)
+# MURILO CARNEIRO RODRIGUES,                        ENG. CIVIL (UFCAT)
+# DONIZETTI A. DE SOUZA JÚNIOR,                     ENG. CIVIL (UFCAT)
+######################################################################
+
+######################################################################
+# DESCRIÇÃO ALGORITMO:
+# BIBLIO. FENON PARA FUNÇÕES COMUNS EM ELEMENTOS FINITOS
+######################################################################
+
+################################################################################
+# BIBLIOTECAS NATIVAS PYTHON
+import numpy as np
+
+################################################################################
+# BIBLIOTECAS DESENVOLVEDORES GPEE
+def GET_VALUE_FROM_DICT(DICTIONARY):
+    TYPE_ELEMENT = DICTIONARY["TYPE_ELEMENT"]
+    TYPE_SOLUTION = DICTIONARY["TYPE_SOLUTION"]
+    N_NODES = DICTIONARY["N_NODES"]
+    N_MATERIALS = DICTIONARY["N_MATERIALS"]
+    N_SECTIONS = DICTIONARY["N_SECTIONS"]
+    N_ELEMENTS = DICTIONARY["N_ELEMENTS"]
+    N_DOFPRESCRIPTIONS = DICTIONARY["N_DISPLACEMENTS"]
+    N_ELEMENTSLOADED = DICTIONARY["N_ELEMENTSLOADED"]
+    N_NODESLOADED = DICTIONARY["N_NODESLOADED"]
+    N_SPRINGS = DICTIONARY["N_SPRINGS"]
+    COORDINATES = DICTIONARY["COORDINATES"]
+    ELEMENTS = DICTIONARY["ELEMENTS"]
+    MATERIALS = DICTIONARY["MATERIALS"]
+    SECTIONS = DICTIONARY["SECTIONS"]
+    PRESCRIPTIONS = DICTIONARY["PRESCRIBED DISPLACEMENTS"]
+    ELEMENT_EXTERNAL_LOAD = DICTIONARY["ELEMENT LOADS"]
+    NODAL_EXTERNAL_LOAD = DICTIONARY["NODAL LOADS"]
+    SPRINGS = DICTIONARY["SPRINGS"]
+    return TYPE_SOLUTION, TYPE_ELEMENT, N_NODES, N_MATERIALS, N_SECTIONS, N_ELEMENTS, N_DOFPRESCRIPTIONS, N_ELEMENTSLOADED, N_NODESLOADED, N_SPRINGS, COORDINATES, ELEMENTS, MATERIALS, SECTIONS, PRESCRIPTIONS, ELEMENT_EXTERNAL_LOAD, NODAL_EXTERNAL_LOAD, SPRINGS
+
+def GET_VALUE_FROM_TXT(FILENAME):
+    """ THIS FUNCTION READ INPUT FILE """
+    # OPEN FILE
+    FILE = open(FILENAME, "r")
+    # DATASET READ
+    DATASET = FILE.read().split("\n")
+    # STRUCTURE QUANTITIES
+    TYPE_ELEMENT = int(DATASET.pop(0).split(':')[1])
+    TYPE_SOLUTION = int(DATASET.pop(0).split(':')[1])
+    N_NODES = int(DATASET.pop(0).split(':')[1])
+    N_MATERIALS = int(DATASET.pop(0).split(':')[1])
+    N_SECTIONS = int(DATASET.pop(0).split(':')[1])
+    N_ELEMENTS = int(DATASET.pop(0).split(':')[1])
+    N_DOFPRESCRIPTIONS = int(DATASET.pop(0).split(':')[1])
+    N_ELEMENTSLOADED = int(DATASET.pop(0).split(':')[1])
+    N_NODESLOADED = int(DATASET.pop(0).split(':')[1]) 
+    N_SPRINGS = int(DATASET.pop(0).split(':')[1]) 
+    # ELIMINATING SPACES AND TITLE
+    DATASET.pop(0)
+    DATASET.pop(0)
+    # READ COORDINATES
+    COORDINATES = np.zeros((N_NODES, 2))
+    for I_COUNT in range(N_NODES):
+        VALUES = DATASET.pop(0).split(',')
+        COORDINATES[int(VALUES[0]),0] = float(VALUES[1])
+        COORDINATES[int(VALUES[0]),1] = float(VALUES[2])
+    # ELIMINATING SPACES AND TITLE
+    DATASET.pop(0)
+    DATASET.pop(0)
+    # READ ELEMENTS
+    ELEMENTS = np.zeros((N_ELEMENTS, 6))
+    for J_COUNT in range(N_ELEMENTS):
+        VALUES = DATASET.pop(0).split(',')
+        ELEMENTS[int(VALUES[0]),0] = int(VALUES[1])
+        ELEMENTS[int(VALUES[0]),1] = int(VALUES[2])    
+        ELEMENTS[int(VALUES[0]),2] = int(VALUES[3])
+        ELEMENTS[int(VALUES[0]),3] = int(VALUES[4])
+        ELEMENTS[int(VALUES[0]),4] = int(VALUES[5])
+        ELEMENTS[int(VALUES[0]),5] = int(VALUES[6])
+    # ELIMINATING SPACES AND TITLE
+    DATASET.pop(0)
+    DATASET.pop(0)
+    # READ MATERIALS
+    MATERIALS = np.zeros((N_MATERIALS, 4))
+    for K_COUNT in range(N_MATERIALS):
+        VALUES = DATASET.pop(0).split(',')
+        MATERIALS[int(VALUES[0]),0] = float(VALUES[1])
+        MATERIALS[int(VALUES[0]),1] = float(VALUES[2])    
+        MATERIALS[int(VALUES[0]),2] = float(VALUES[3])
+        MATERIALS[int(VALUES[0]),3] = float(VALUES[4])
+    # ELIMINATING SPACES AND TITLE
+    DATASET.pop(0)
+    DATASET.pop(0)
+    # READ SECTIONS
+    SECTIONS = np.zeros((N_SECTIONS, 5))
+    for L_COUNT in range(N_SECTIONS):
+        VALUES = DATASET.pop(0).split(',')
+        SECTIONS[int(VALUES[0]),0] = float(VALUES[1])
+        SECTIONS[int(VALUES[0]),1] = float(VALUES[2])    
+        SECTIONS[int(VALUES[0]),2] = float(VALUES[3])
+        SECTIONS[int(VALUES[0]),3] = float(VALUES[4])
+        SECTIONS[int(VALUES[0]),4] = float(VALUES[5])
+    # ELIMINATING SPACES AND TITLE
+    DATASET.pop(0)
+    DATASET.pop(0)
+    # READ PRESCRIBED DISPLACEMENTS
+    PRESCRIPTIONS = np.zeros((N_DOFPRESCRIPTIONS, 3))
+    for M_COUNT in range(N_DOFPRESCRIPTIONS):
+        VALUES = DATASET.pop(0).split(',')
+        PRESCRIPTIONS[int(VALUES[0]),0] = int(VALUES[1])
+        PRESCRIPTIONS[int(VALUES[0]),1] = int(VALUES[2])
+        PRESCRIPTIONS[int(VALUES[0]),2] = float(VALUES[3]) 
+    # ELIMINATING SPACES AND TITLE
+    DATASET.pop(0)
+    DATASET.pop(0)
+    # READ ELEMENT LOAD ("AINDA É NECESSÁRRIO IMPLEMENTAR VAMOS SEMPRE DEIXAR A LEITURA NULL")
+    if N_ELEMENTSLOADED == 0:
+        DATASET.pop(0)
+        ELEMENT_EXTERNAL_LOAD = "null"
+    else:
+        ELEMENT_EXTERNAL_LOAD = np.zeros((N_ELEMENTSLOADED, 5))
+        for N_COUNT in range(N_ELEMENTSLOADED):
+            VALUES = DATASET.pop(0).split(',')
+            ELEMENT_EXTERNAL_LOAD[int(VALUES[0]),0] = float(VALUES[1])
+            ELEMENT_EXTERNAL_LOAD[int(VALUES[0]),1] = float(VALUES[2])    
+            ELEMENT_EXTERNAL_LOAD[int(VALUES[0]),2] = float(VALUES[3])
+            ELEMENT_EXTERNAL_LOAD[int(VALUES[0]),3] = float(VALUES[4])
+    # ELIMINATING SPACES AND TITLE
+    DATASET.pop(0)
+    DATASET.pop(0)
+    # READ NODAL LOAD
+    NODAL_EXTERNAL_LOAD = np.zeros((N_NODESLOADED, 3))
+    for O_COUNT in range(N_NODESLOADED):
+        VALUES = DATASET.pop(0).split(',')
+        NODAL_EXTERNAL_LOAD[int(VALUES[0]),0] = float(VALUES[1])
+        NODAL_EXTERNAL_LOAD[int(VALUES[0]),1] = float(VALUES[2]) 
+        NODAL_EXTERNAL_LOAD[int(VALUES[0]),2] = float(VALUES[3]) 
+    # ELIMINATING SPACES AND TITLE
+    DATASET.pop(0)
+    DATASET.pop(0)
+    # READ SPRING ELEMENTS
+    if N_SPRINGS == 0:
+        DATASET.pop(0)
+        SPRINGS = "null"
+    else:
+        SPRINGS = np.zeros((N_SPRINGS, 3))
+        for P_COUNT in range(N_SPRINGS):
+            VALUES = DATASET.pop(0).split(',')
+            SPRINGS[int(VALUES[0]),0] = int(VALUES[1])
+            SPRINGS[int(VALUES[0]),1] = int(VALUES[2])
+            SPRINGS[int(VALUES[0]),2] = float(VALUES[3]) 
+    return TYPE_SOLUTION, TYPE_ELEMENT, N_NODES, N_MATERIALS, N_SECTIONS, N_ELEMENTS, N_DOFPRESCRIPTIONS, N_ELEMENTSLOADED, N_NODESLOADED, N_SPRINGS, COORDINATES, ELEMENTS, MATERIALS, SECTIONS, PRESCRIPTIONS, ELEMENT_EXTERNAL_LOAD, NODAL_EXTERNAL_LOAD, SPRINGS
+
+def INDEX_ASSEMBLY(TYPE_ELEMENT):
+    """ THIS FUNCTION ESTABLISHES VALUES FOR THE VARIABLES 
+    THAT ARE USED IN THE METHOD """
+    # FRAME_2D_6DOF
+    if TYPE_ELEMENT == 0: 
+        N_DOFSNODE = 3
+        N_NODESELEMENT = 2
+        DOFS_ACTIVE = [1, 1, 1]
+        DOFS_LOCAL = [0, 1, 2, 3, 4, 5]
+    AUX_1 = N_NODESELEMENT + 0
+    AUX_2 = N_NODESELEMENT + 1
+    N_DOFSELEMENT = N_DOFSNODE * N_NODESELEMENT
+    return N_DOFSNODE, N_NODESELEMENT, DOFS_ACTIVE, DOFS_LOCAL, AUX_1, AUX_2, N_DOFSELEMENT
+
+def DOF_GLOBAL_ASSEMBLY(TYPE_ELEMENT, N_DOFSNODE, N_NODES):
+    """ THIS FUNCTION DETERMINES THE VALUE OF THE DEGREES OF GLOBAL 
+    FREEDOMS BY NODE OF THE STRUCTURE """
+    DOF_GLOBALNODAL = np.zeros((N_NODES, 3))
+    for I_COUNT in range (N_NODES):
+        # FRAME_2D_6DOF
+        if TYPE_ELEMENT == 0: 
+            DOF_GLOBALNODAL[I_COUNT, 0] = int(N_DOFSNODE * I_COUNT + 0)
+            DOF_GLOBALNODAL[I_COUNT, 1] = int(N_DOFSNODE * I_COUNT + 1)
+            DOF_GLOBALNODAL[I_COUNT, 2] = int(N_DOFSNODE * I_COUNT + 2)
+    return DOF_GLOBALNODAL
+
+def TOTAL_DEGREE_FREEDOM(N_DOFSNODE, N_NODES):
+    """ THIS FUNCTION DETERMINES THE QUANTITY AND VALUES OF THE STRUCTURE'S
+    GLOBAL DEGREES OF FREEDOM """
+    DOF_GLOBAL = []
+    N_DOFSGLOBAL = N_NODES * N_DOFSNODE
+    for I_COUNT in range (N_DOFSGLOBAL):
+        DOF_GLOBAL.append(I_COUNT)
+    return DOF_GLOBAL, N_DOFSGLOBAL
+
+def PRESCRIPTIONS_DEGREE_FREEDOM(PRESCRIPTIONS, DOF_GLOBALNODAL, N_DOFSNODE):
+    """ THIS FUNCTION DETERMINES THE QUANTITY AND VALUES OF THE STRUCTURE'S
+    PRESCRIPTIONS DEGREES OF FREEDOM """
+    DOF_PRESCRIPTIONS = []
+    DOF_PRESCRIPTIONSVALUE = []
+    N_DOFSPRESCRIPTIONS = PRESCRIPTIONS.shape[0]
+    for I_COUNT in range (N_DOFSPRESCRIPTIONS):
+        NODE = int(PRESCRIPTIONS[I_COUNT, 0])
+        INDEX_DOF = int(PRESCRIPTIONS[I_COUNT, 1])
+        DOF_VALUE = int(DOF_GLOBALNODAL[NODE, INDEX_DOF])
+        DOF_PRESCRIPTIONS.append(DOF_VALUE)
+        PRESCRIBED_VALUE = PRESCRIPTIONS[I_COUNT, 2]
+        DOF_PRESCRIPTIONSVALUE.append(PRESCRIBED_VALUE)
+    return DOF_PRESCRIPTIONS, DOF_PRESCRIPTIONSVALUE, N_DOFSPRESCRIPTIONS
+
+def FREE_DEGREE_FREEDOM(DOF_PRESCRIPTIONS, DOF_GLOBAL):
+    """ THIS FUNCTION DETERMINES THE QUANTITY AND VALUES OF THE STRUCTURE'S 
+    FREE DEGREES OF FREEDOM """
+    DOF_FREE = np.setdiff1d(DOF_GLOBAL, DOF_PRESCRIPTIONS)
+    N_DOFSFREE = len(DOF_FREE)
+    return DOF_FREE, N_DOFSFREE
+
+def CONTRIBUTION_NODAL_EXTERNAL_LOAD(NODAL_EXTERNAL_LOAD, N_DOFSGLOBAL, DOF_GLOBALNODAL):
+    """ THIS FUNCTION BUILDS THE VECTOR OF EXTERNAL LOADS ON THE LEVEL OF FREEDOM. 
+    IN THIS CASE THIS FUNCTION REPRESENTS THE CONTRIBUTION OF NODAL LOADS """
+    DOF_NODALFORCE = np.zeros((N_DOFSGLOBAL, 1))
+    N_NODALFORCE = NODAL_EXTERNAL_LOAD.shape[0]
+    for I_COUNT in range(N_NODALFORCE):
+        NODE = int(NODAL_EXTERNAL_LOAD[I_COUNT, 0])
+        INDEX_DOF = int(NODAL_EXTERNAL_LOAD[I_COUNT, 1])
+        DOF_VALUE = int(DOF_GLOBALNODAL[NODE, INDEX_DOF])
+        P = int(NODAL_EXTERNAL_LOAD[I_COUNT, 2])
+        DOF_NODALFORCE[DOF_VALUE, 0] = P
+    return DOF_NODALFORCE
+
+def MATERIALS_PROPERTIES(ELEMENTS, MATERIALS, I_ELEMENT, AUX_1):
+    """ THIS FUNCTION CREATES A VECTOR WITH THE MATERIAL INFORMATION 
+    OF THE I_ELEMENT ELEMENT """
+    MATERIAL_ID = int(ELEMENTS[I_ELEMENT, AUX_1])
+    E = MATERIALS[MATERIAL_ID, 0]
+    NU = MATERIALS[MATERIAL_ID, 1]
+    PHO = MATERIALS[MATERIAL_ID, 2]
+    ALPHA = MATERIALS[MATERIAL_ID, 3]
+    G = E / (2 * (1 + NU))
+    MATERIAL_IELEMENT = [E, G, NU, ALPHA, PHO]
+    return MATERIAL_IELEMENT
+
+def GEOMETRIC_PROPERTIES(COORDINATES, ELEMENTS, SECTIONS, I_ELEMENT, AUX_2):
+    """ THIS FUNCTION CREATES A VECTOR WITH THE GEOMETRIC INFORMATION 
+    OF THE I_ELEMENT ELEMENT """
+    NODE_1 = int(ELEMENTS[I_ELEMENT, 0])
+    NODE_2 = int(ELEMENTS[I_ELEMENT, 1])
+    X_NODE1 = COORDINATES[NODE_1, 0]
+    Y_NODE1 = COORDINATES[NODE_1, 1]
+    X_NODE2 = COORDINATES[NODE_2, 0]
+    Y_NODE2 = COORDINATES[NODE_2, 1]
+    DELTA_X = X_NODE2 - X_NODE1
+    DELTA_Y = Y_NODE2 - Y_NODE1
+    L = ((DELTA_X) ** 2 + (DELTA_Y) ** 2) ** 0.50
+    COS = DELTA_X / L
+    SIN = DELTA_Y / L
+    SECTION_ID = int(ELEMENTS[I_ELEMENT, AUX_2])
+    A = SECTIONS[SECTION_ID, 0]
+    I_1 = SECTIONS[SECTION_ID, 1]
+    I_2 = SECTIONS[SECTION_ID, 2]
+    SECTION_IELEMENT = [L, SIN, COS, A, I_1, I_2]
+    return SECTION_IELEMENT
+
+def HINGED_PROPERTIES(ELEMENTS):
+    HINGES = ELEMENTS[:,4:]
+    return HINGES
+
+def ELEMENT_STIFFNESS(TYPE_ELEMENT, SECTION_IELEMENT, MATERIAL_IELEMENT, HINGES_IELEMENT):
+    """ THIS FUNCTION CREATES THE ELEMENT STIFFNESS I_ELEMENT """
+    # http://www.ikb.poznan.pl/przemyslaw.litewka/06-matrix-stiffness-method.pdf
+    if (TYPE_ELEMENT == 0 and HINGES_IELEMENT[0] == 0 and HINGES_IELEMENT[1] == 0):
+        L = SECTION_IELEMENT[0]
+        A = SECTION_IELEMENT[3]
+        I = SECTION_IELEMENT[5]
+        E = MATERIAL_IELEMENT[0]
+        C1 = A * E / L
+        C2 = E * I / (L ** 3)
+        K_IELEMENT = np.array([[C1, 0, 0, -C1, 0, 0],
+                               [0, 12 * C2, 6 * C2 * L, 0, -12 * C2, 6 * C2 * L],
+                               [0, 6 * C2 * L, 4 * C2 * L ** 2, 0, -6 * C2 * L, 2 * C2 * L ** 2],
+                               [-C1, 0, 0, C1, 0, 0],
+                               [0, -12 * C2, -6 * C2 * L, 0, 12 * C2, -6 * C2 * L],
+                               [0, 6 * C2 * L, 2 * C2 * L ** 2, 0, -6 * C2 * L, 4 * C2 * L **2]])
+    elif (TYPE_ELEMENT == 0 and HINGES_IELEMENT[0] == 0 and HINGES_IELEMENT[1] == 1):
+        L = SECTION_IELEMENT[0]
+        A = SECTION_IELEMENT[3]
+        I = SECTION_IELEMENT[5]
+        E = MATERIAL_IELEMENT[0]
+        C1 = A * E / L
+        C2 = E * I / (L ** 3)
+        K_IELEMENT = np.array([[C1, 0, 0, -C1, 0, 0],
+                               [0, 3 * C2, 3 * C2 * L, 0, -3 * C2, 0],
+                               [0, 3 * C2 * L, 3 * C2 * L ** 2, 0, -3 * C2 * L, 0],
+                               [-C1, 0, 0, C1, 0, 0],
+                               [0, -3 * C2, -6 * C2 * L, 0, 3 * C2, 0],
+                               [0, 0, 0, 0, 0, 0]])    
+    elif (TYPE_ELEMENT == 0 and HINGES_IELEMENT[0] == 1 and HINGES_IELEMENT[1] == 0):
+        L = SECTION_IELEMENT[0]
+        A = SECTION_IELEMENT[3]
+        I = SECTION_IELEMENT[5]
+        E = MATERIAL_IELEMENT[0]
+        C1 = A * E / L
+        C2 = E * I / (L ** 3)
+        K_IELEMENT = np.array([[C1, 0, 0, -C1, 0, 0],
+                               [0, 3 * C2, 0, 0, -3 * C2, 3 * C2 * L],
+                               [0, 0, 0, 0, 0, 0],
+                               [-C1, 0, 0, C1, 0, 0],
+                               [0, -3 * C2, 0, 0, 3 * C2, -3 * C2 * L],
+                               [0, 3 * C2 * L, 0, 0, -3 * C2 * L, 3 * C2 * L **2]])     
+
+    elif (TYPE_ELEMENT == 0 and HINGES_IELEMENT[0] == 1 and HINGES_IELEMENT[1] == 1):
+        L = SECTION_IELEMENT[0]
+        A = SECTION_IELEMENT[3]
+        I = SECTION_IELEMENT[5]
+        E = MATERIAL_IELEMENT[0]
+        C1 = A * E / L
+        C2 = E * I / (L ** 3)
+        K_IELEMENT = np.array([[C1, 0, 0, -C1, 0, 0],
+                              [0, 0, 0, 0, 0, 0],
+                              [0, 0, 0, 0, 0, 0],
+                              [-C1, 0, 0, C1, 0, 0],
+                              [0, 0, 0, 0, 0, 0],
+                              [0, 0, 0, 0, 0, 0]])
+    return K_IELEMENT
+
+def SPRING_CONTRIBUTION(N_DOFSNODE, SPRINGS, N_SPRINGS):
+    """ THIS FUNCTION CREATES THE ELEMENT ROTATION I_ELEMENT """
+    SPRING_INDEX = []
+    SPRING_VALUES = []
+    for I_COUNT in range(N_SPRINGS):
+        NODE = int(SPRINGS[I_COUNT, 0])
+        INDEX_DOF = int(SPRINGS[I_COUNT, 1])
+        SPRING_INDEX.append(int(N_DOFSNODE * NODE + INDEX_DOF))
+        SPRING_VALUES.append(SPRINGS[I_COUNT, 2])
+    return SPRING_INDEX, SPRING_VALUES
+
+def ELEMENT_ROTATION(TYPE_ELEMENT, SECTION_IELEMENT):
+    """ THIS FUNCTION CREATES THE ELEMENT ROTATION I_ELEMENT """
+    SIN = SECTION_IELEMENT[1]
+    COS = SECTION_IELEMENT[2]
+    if TYPE_ELEMENT == 0:
+        R_IELEMENT = np.array([[COS, SIN, 0, 0, 0, 0],
+                               [-SIN, COS, 0, 0, 0, 0],
+                               [0, 0, 1, 0, 0, 0],
+                               [0, 0, 0, COS, SIN, 0],
+                               [0, 0, 0, -SIN, COS, 0],
+                               [0, 0, 0, 0, 0, 1]])
+    return R_IELEMENT
+
+# GlOBAL DOF I_ELEMENT
+def GLOBAL_DOF_ELEMENT(N_NODESELEMENT, N_DOFSNODE, DOF_GLOBALNODAL, ELEMENTS, I_ELEMENT):
+    """ THIS FUNCTION DETERMINES THE DEGREE OF GLOBAL FREEDOM OF THE ELEMENT I_ELEMENT """
+    DOF_GLOBALIELEMENT = []
+    for I_COUNT in range(N_NODESELEMENT):
+        NODE = int(ELEMENTS[I_ELEMENT, I_COUNT])
+        for J_COUNT in range(N_DOFSNODE):
+            DOF_VALUE = int(DOF_GLOBALNODAL[NODE, J_COUNT])
+            DOF_GLOBALIELEMENT.append(DOF_VALUE)
+    return DOF_GLOBALIELEMENT
+
+# GlOBAL STIFFNESS ASSEMBLY
+def GLOBAL_STIFFNESS(N_DOFSGLOBAL, DOF_GLOBALIELEMENT, K_IELEMENT):
+    """ THIS FUNCTION CREATES THE GLOBAL STIFFNESS """
+    K_G = np.zeros((N_DOFSGLOBAL, N_DOFSGLOBAL))
+    for I_COUNT, I_VALUE in enumerate(DOF_GLOBALIELEMENT):
+        for J_COUNT, J_VALUE in enumerate(DOF_GLOBALIELEMENT):
+            K_G[I_VALUE, J_VALUE] = K_G[I_VALUE, J_VALUE] + K_IELEMENT[I_COUNT, J_COUNT]
+    return K_G
+
+# CONDENSE GLOBAL FREE STIFFNESS 
+def CONDENSE_GLOBAL_FREE_STIFFNESS(K_G, DOF_FREE, N_DOFSFREE):
+    """ A FAZER """
+    K_FF = np.zeros((N_DOFSFREE, N_DOFSFREE))
+    for I_COUNT in range(N_DOFSFREE):
+        DOF_FREELINE = DOF_FREE[I_COUNT]
+        for J_COUNT in range(N_DOFSFREE):
+            DOF_FREECOLUMN = DOF_FREE[J_COUNT]
+            K_FF[I_COUNT, J_COUNT] = K_G[DOF_FREELINE, DOF_FREECOLUMN]
+    return K_FF
+
+# CONDENSE GLOBAL PRESCRIBED FREE STIFFNESS 
+def CONDENSE_PRESCRIBED_FREE_GLOBAL_STIFFNESS(K_G, DOF_FREE, N_DOFSFREE, DOF_PRESCRIPTIONS, N_DOFSPRESCRIPTIONS):
+    """ A FAZER """
+    K_PF = np.zeros((N_DOFSPRESCRIPTIONS, N_DOFSFREE))
+    for I_COUNT in range(N_DOFSPRESCRIPTIONS):
+        DOF_PRECRIBEDLINE = DOF_PRESCRIPTIONS[I_COUNT]
+        for J_COUNT in range(N_DOFSFREE):
+            DOF_FREECOLUMN = DOF_FREE[J_COUNT]
+            K_PF[I_COUNT, J_COUNT] = K_G[DOF_PRECRIBEDLINE, DOF_FREECOLUMN]
+    return K_PF
+
+# CONDENSE GLOBAL PRESCRIBED DISPLACEMENT
+def CONDENSE_PRESCRIBED_GLOBAL_DISPLACEMENT(DOF_PRESCRIPTIONSVALUE, N_DOFSPRESCRIPTIONS):
+    U_PP = np.zeros((N_DOFSPRESCRIPTIONS, 1))
+    for I_COUNT in range(N_DOFSPRESCRIPTIONS):
+        DOF_PRESCRIBEDVALUE = DOF_PRESCRIPTIONSVALUE[I_COUNT]
+        U_PP[I_COUNT, 0] = DOF_PRESCRIBEDVALUE
+    return U_PP
+
+# CONDENSE GLOBAL FREE EXTERNAL FORCES
+def CONDENSE_FREE_GLOBAL_FORCES(F_EXT, DOF_FREE, N_DOFSFREE):
+    F_FF = np.zeros((N_DOFSFREE, 1))
+    for I_COUNT in range(N_DOFSFREE):
+        FREE_DOF = DOF_FREE[I_COUNT]
+        F_FF[I_COUNT, 0] = F_EXT[FREE_DOF, 0]
+    return F_FF
+
+# ASSEMBLY GLOBAL DISPLACEMENT
+def ASSEMBLY_TOTAL_DISPLACEMENT(U_FF, U_PP, N_DOFSGLOBAL, DOF_PRESCRIPTIONS, DOF_FREE):
+    U_G = np.zeros((N_DOFSGLOBAL, 1))
+    for I_COUNT, I_VALUE in enumerate(DOF_PRESCRIPTIONS):
+        DOF_DISPLACEMENTVALUE = U_PP[I_COUNT, 0]
+        U_G[I_VALUE, 0] = DOF_DISPLACEMENTVALUE
+    for J_COUNT, J_VALUE in enumerate(DOF_FREE):
+        DOF_DISPLACEMENTVALUE = U_FF[J_COUNT, 0]
+        U_G[J_VALUE, 0] = DOF_DISPLACEMENTVALUE
+    return U_G
+
+# CONDENSE GLOBAL DISPLACEMENTS IN I_ELEMENT
+def CONDENSE_GLOBAL_ELEMENT_DISPLACEMENTS(U_G, N_DOFSELEMENT, DOF_GLOBALIELEMENT):
+    U_IELEMENT = np.zeros((N_DOFSELEMENT, 1))
+    for I_COUNT, J_COUNT in enumerate(DOF_GLOBALIELEMENT):
+        U_IELEMENT[I_COUNT, 0] = U_G[J_COUNT, 0]
+    return U_IELEMENT
+
+# ASSEMBLY INTERNAL LOADS
+def GLOBAL_INTERNAL_LOADS(F_INTIELEMENT, N_DOFSGLOBAL, DOF_GLOBALIELEMENT):
+    F_INT = np.zeros((N_DOFSGLOBAL, 1))
+    for I_COUNT, J_COUNT in enumerate(DOF_GLOBALIELEMENT):
+        F_INT[J_COUNT, 0] = F_INTIELEMENT[I_COUNT, 0]
+    return F_INT
