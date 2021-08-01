@@ -17,6 +17,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.cm import ScalarMappable
 import pandas as pd
+import numpy as np
+from datetime import datetime
 
 ################################################################################
 # BIBLIOTECAS DESENVOLVEDORES GPEE
@@ -140,6 +142,14 @@ def RASD_STOCHASTIC(SETUP, OBJ):
     P_F = RESULTS_RASD['I'].sum() / N_SAMPLING
     N_F = RESULTS_RASD['I'].sum()
     RESULTS = {"TOTAL RESULTS": RESULTS_RASD, "NUMBER OF FAILURES": N_F, "PROBABILITY OF FAILURE": P_F}
+
+    NAME_PT_1 = 'TOTAL RESULTS ' + str(SETUP['TOTAL SAMPLING']) + ' SAMPLES ' + str(
+        SETUP['TOTAL DESIGN VARIABLES']) + ' VARIABLES '
+    NAME_PT_2 = str(datetime.now().strftime('%Y%m%d %H%M%S')) + '.txt'
+
+    HEADER_NAMES =  ';'.join(COLUMNS_NAMES)
+    np.savetxt(NAME_PT_1 + NAME_PT_2, RESULTS['TOTAL RESULTS'], fmt='%d', delimiter=';' , header=HEADER_NAMES)
+
     return RESULTS
 
 # BIBLIOTECA GRÁFICA
@@ -410,5 +420,91 @@ def RASD_PLOT_3(DATASET, PLOT_SETUP):
     AX.tick_params(axis= 'y', labelsize = Y_AXIS_SIZE, colors = AXISES_COLOR)
     AUX1 =  ScalarMappable(norm = AUX, cmap = COLOR_MAP)
     FIG.colorbar(AUX1, ax = AX)
+    # SAVEFIG
+    SAVE_GRAPHIC(NAME, EXT, DPI)
+
+# PLOTAGEM 4
+def RASD_PLOT_4(DATASET, PLOT_SETUP):
+    """
+    THIS FUNCTION PLOTS TWO HISTOGRAMS IN A SINGLE ONE CHART
+
+    INPUT:
+    DATASET: RESULTS ABOUT RASD ALGORITHM (NP.ARRAY[? X ?] FLOAT)
+    PLOT_SETUP: CONTAINS THE SPECIFICATION OF EACH CHART MODEL
+
+    COLOR MAP:
+    https://matplotlib.org/stable/tutorials/colors/colormaps.html
+    Other Parameters >> loc
+    EXTENSION:
+    https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html
+    Other Parameters >> format
+    AXISES COLOR AND LABELS COLOR:
+    https://htmlcolorcodes.com/
+
+    OUTPUT:
+    N/A
+
+    EXAMPLE:
+    # PLOT SETUP
+    PLOT_SETUP = {'NAME': 'WANDER',
+                    'EXTENSION': '.svg',
+                    'DPI': 600,
+                    'WIDTH': 0.20,
+                    'HEIGHT': 0.10,
+                    'X DATA': 'S_0',
+                    'Y DATA': 'R_0',
+                    'X AXIS SIZE': 20,
+                    'Y AXIS SIZE': 20,
+                    'AXISES COLOR': '#000000',
+                    'X AXIS LABEL': '$S_0 R_0$',
+                    'Y AXIS LABEL': '$SOMATÓRIO$',
+                    'LABELS SIZE': 16,
+                    'LABELS COLOR': '#000000',
+                    'C VALUE': 'G_0',
+                    'TRANSPARENCY': 0.8,
+                    'COLOR MAP': 'viridis',
+                    'BINS': '50',
+                    'ALPHA': '0.6'}
+    # RESULTS
+    DATASET = RESULTS_RASD
+    # CALL PLOT
+    RASD.RASD_PLOT_4(DATASET, PLOT_SETUP)
+    """
+    # SETUP CHART
+    NAME = PLOT_SETUP['NAME']
+    EXT = PLOT_SETUP['EXTENSION']
+    DPI = PLOT_SETUP['DPI']
+    W = PLOT_SETUP['WIDTH']
+    H = PLOT_SETUP['HEIGHT']
+    X_DATA = PLOT_SETUP['X DATA']
+    Y_DATA = PLOT_SETUP['Y DATA']
+    X_AXIS_SIZE = PLOT_SETUP['X AXIS SIZE']
+    Y_AXIS_SIZE = PLOT_SETUP['Y AXIS SIZE']
+    AXISES_COLOR = PLOT_SETUP['AXISES COLOR']
+    X_AXIS_LABEL = PLOT_SETUP['X AXIS LABEL']
+    Y_AXIS_LABEL = PLOT_SETUP['Y AXIS LABEL']
+    LABELS_SIZE = PLOT_SETUP['LABELS SIZE']
+    LABELS_COLOR = PLOT_SETUP['LABELS COLOR']
+    C_VALUE = PLOT_SETUP['C VALUE']
+    TRANSPARENCY = PLOT_SETUP['TRANSPARENCY']
+    COLOR_MAP = PLOT_SETUP['COLOR MAP']
+    BINS = int(PLOT_SETUP['BINS'])
+    ALPHA = float(PLOT_SETUP['ALPHA'])
+    # CONVERT UNITS OF SIZE FIGURE
+    [W, H] = CONVERT_SI_TO_INCHES(W, H)
+    # PLOT
+
+    plt.subplots(figsize=(W, H))
+    plt.hist(DATASET['R_0'], bins=BINS, label='$R_0$', alpha=ALPHA)
+    plt.hist(DATASET['S_0'], bins=BINS, label='$S_0$', alpha=ALPHA)
+    plt.legend()
+
+    plt.xlabel(X_AXIS_LABEL)
+    plt.ylabel(Y_AXIS_LABEL)
+
+    #plt.tick_params(axis='x', labelsize=X_AXIS_SIZE, colors=AXISES_COLOR)
+    #plt.tick_params(axis='y', labelsize=Y_AXIS_SIZE, colors=AXISES_COLOR)
+    #AUX_1 = ScalarMappable(norm=AUX, cmap=COLOR_MAP)
+    #FIG.colorbar(AUX_1)
     # SAVEFIG
     SAVE_GRAPHIC(NAME, EXT, DPI)
