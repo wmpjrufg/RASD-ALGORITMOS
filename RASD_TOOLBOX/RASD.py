@@ -7,7 +7,8 @@
 
 ################################################################################
 # DESCRIÇÃO ALGORITMO:
-# BIBLIO. RASD DE ALGORITMOS ESTOCÁSTICOS DE CONFIABILIDADE
+# BIBLIOTECA DE ALGORITMOS ESTOCÁSTICOS PARA ANÁLISE DE CONFIABILIDADE ESTRUTU-
+# RAL DESENVOLVIDA PELO GRUPO DE PESQUISAS E ESTUDOS EM ENGENHARIA (GPEE)
 ################################################################################
 
 ################################################################################
@@ -24,132 +25,113 @@ from datetime import datetime
 # BIBLIOTECAS DESENVOLVEDORES GPEE
 import RASD_TOOLBOX.RASD_COMMON_LIBRARY as RASD_CL
 
-# FUNÇÃO PRINCIPAL PARA A PLATAFORMA RASD ESTOCÁSTICA 
-def RASD_STOCHASTIC(SETUP, OBJ):
+def RASD_STOCHASTIC(SETUP, OF_FUNCTION):
     """
-    STOCHASTIC RASD ALGORITHM
-    "RASD - RELIABILITY ANALYSIS FOR STRUCTURAL DESIGN"
+    This function creates the samples and evaluates the limit state functions.
     
-    INPUT:
-    SETUP: STOCHASTIC RANDOM VARIABLES DESCRIPTION (DICTIONARY, MIXED)
-    OBJ: EXTERNAL FUNCTION _def_ USER TYPE STATE LIMIT FUNCITON
+    Input:
+    SETUP            |  Random variables description             | Py dictionary
+                     |  # Dictionary tags                        | 
+                     |  'N_REP': Total of repetitions            | Integer
+                     |  'POP': Total of samplings in             | Py list[D]
+                     |      I repetition                         | 
+                     |      Example:                             |
+                     |      POP = [10, 100, 300]                 |                     
+                     |  'N_G': Total of State                    | Integer
+                     |      Limit functions                      |
+                     |  'D': Number of variables                 | Integer
+                     |  'VARS': Description of variables         | Py list[D]
+                     |      Example:                             |
+                     |      V_1 = ['NORMAL', 500, 100]           |
+                     |      V_2 = ['NORMAL', 1000, 1000]         |
+                     |      VARS = [V_1, V_2]                    |
+                     |  'MODEL': Algorithm setup                 | String
+                     |      'MCS': Monte Carlo Sampling          |
+                     |      'LHS': Latim Hypercube Sampling      |
+    OF_FUNCTION      |  External def user input this function in | Py function
+                     |      arguments                            |
 
-    OUTPUT:
-    RESULTS_RASD: RELIABILITY ANALYSIS RESULTS (DATAFRAME [N_SAMPLING, D + N_G * 2 + 2], FLOAT)
-    N_SAMPLIG: TOTAL SAMPLES
-    D: DIMENSION PROBLEM
-    N_G: TOTAL STATE LIMIT FUNCTIONS
-    +2 : RESISTANCE AND DEMAND COLUMNS IN NP.ARRAY
+    Output:
+    RESULTS          | All Results                               | Py dictionary
+                     |     'TOTAL RESULTS':                      | Py dictionary
+                     |     Sampling, Resistance, Demand, Limit   |
+                     |         State Function, I count           |
+                     |     'NUMBER OF FAILURES': Number of       | Py list[N_G]
+                     |         failure                           | 
+                     |     'PROBABILITY OF FAILURE': failure     | Py list[N_G]
+                     |         probability                       | 
+    """
+    # Setup
+    N_REP = SETUP['N_REP']
+    POP = SETUP['POP']
+    N_G = SETUP['N_G']
+    D = SETUP['D']
+    MODEL = SETUP['MODEL']
+    VARS = SETUP['VARS']
+    RESULTS = []
+    for J_COUNT, N_POP in enumerate(POP):
+        RESULTS_X = np.zeros((N_POP, D))
+        RESULTS_R = np.zeros((N_POP, N_G))
+        RESULTS_S = np.zeros((N_POP, N_G))
+        RESULTS_G = np.zeros((N_POP, N_G))
+        RESULTS_I = np.zeros((N_POP, N_G))
+        # Creating samples   
+        DATASET_X = RASD_CL.SAMPLING(N_POP, D, MODEL, VARS)
+        # Evaluates Limit State functions
+        for I_COUNT in range(N_POP):
+            # I sample 
+            RESULTS_X[I_COUNT, :] = DATASET_X[I_COUNT, :]
+            SAMPLE = DATASET_X[I_COUNT, :]
+            # Limit State function
+            [R, S, G] = OF_FUNCTION(SAMPLE)
+            # Failure or not failure - I sample 
+            for K_COUNT in range(N_G):
+                # Resistance
+                RESULTS_R[I_COUNT, K_COUNT] = R[K_COUNT]
+                # Demand
+                RESULTS_S[I_COUNT, K_COUNT] = S[K_COUNT]
+                # Limit State function
+                RESULTS_G[I_COUNT, K_COUNT] = G[K_COUNT]
+                # Failure check
+                if G[K_COUNT] <= 0: 
+                    I = 0
+                    RESULTS_I[I_COUNT, K_COUNT] = int(I)
+                elif G[K_COUNT] > 0: 
+                    I = 1
+                    RESULTS_I[I_COUNT, K_COUNT] = int(I) 
+        # Storage all results
+        AUX = np.hstack((RESULTS_X, RESULTS_R, RESULTS_S, RESULTS_G, RESULTS_I))
+        RESULTS_RASD = pd.DataFrame(AUX)          
+        # Rename columns in dataframe 
+        COLUMNS_NAMES = []
+        P_F = []
+        N_F = []
+        for L_COUNT in range(D):
+            COLUMNS_NAMES.append('X_' + str(L_COUNT))
+        for L_COUNT in range(N_G):
+            COLUMNS_NAMES.append('R_' + str(L_COUNT))    
+        for L_COUNT in range(N_G):
+            COLUMNS_NAMES.append('S_' + str(L_COUNT)) 
+        for L_COUNT in range(N_G):
+            COLUMNS_NAMES.append('G_' + str(L_COUNT))
+        for L_COUNT in range(N_G):
+            COLUMNS_NAMES.append('I_' + str(L_COUNT))
+        RESULTS_RASD.columns = COLUMNS_NAMES
+        # Failure probability
+        for L_COUNT in range(N_G):
+            INDEX = 'I_' + str(L_COUNT)
+            N_FAILURE = RESULTS_RASD[INDEX].sum()
+            N_F.append(N_FAILURE)
+            P_FVALUE = N_FAILURE / N_POP
+            P_F.append(P_FVALUE)
+        RESULTS_REP = {'TOTAL RESULTS': RESULTS_RASD, 'NUMBER OF FAILURES': N_F, 'PROBABILITY OF FAILURE': P_F}
+        RESULTS.append(RESULTS_REP)
+        # NAME_PT_1 = 'TOTAL RESULTS ' + str(SETUP['TOTAL SAMPLING']) + ' SAMPLES ' + str(
+        #    SETUP['TOTAL DESIGN VARIABLES']) + ' VARIABLES '
+        # NAME_PT_2 = str(datetime.now().strftime('%Y%m%d %H%M%S')) + '.txt'
 
-    STOCHASTIC RASD EXAMPLE:
-    >>> # CHARACTERISTICS OF THE VARIABLES 
-    >>> V_1 = ['NORMAL', 500, 100]
-    >>> V_2 = ['NORMAL', 1000, 1000]
-    >>> # DICTIONARY
-    >>> SETUP = {'REPETITIONS': 1,
-                 'TOTAL SAMPLING': 10,
-                 'TOTAL G FUNCTIONS': 1,
-                 'TOTAL DESIGN VARIABLES': 2,
-                 'VARS': [V_1, V_2],
-                 'MODEL': 'MCS'}     
-    >>> # MCS - SIMPLE MONTE CARLO SAMPLING
-    >>> # LHS - LATIN HYPER CUBE SAMPLING
-    >>> # STATE LIMIT FUNCTIONS
-    >>> def OBJ(X):
-            R = []
-            S = []
-            G = []
-            D0 = 3
-            Length = 100
-            E = 30 * 10**6
-            W = 2
-        T = 4
-        Px = X[0]
-        Py = X[1]
-        # LIMIT
-        R_1 = D0
-        # DEMAND                      
-        S_1 = (4 * Length ** 3 / (E * W * T)) * (((Py / T ** 2) ** 2  + (Px / W ** 2) ** 2) ** 0.5)
-        # STATE LIMIT FUNCTION
-        G_1 = R_1 - S_1
-        R = [R_1] 
-        S = [S_1] 
-        G = [G_1]
-    return R, S, G
-    # CALL RASD
-    RESULTS_TEST = RASD.MAIN_STOCHASTIC(SETUP, OBJ)
-    # RESULTS
-    print(RESULTS_TEST)
-    ###################################################
-    X_1         X_2         R_1     S_1     G_1     I
-    4.25e+02    2.10e+02    3.00    2.82    0.18    0
-    ...
-    ...
-    ...
-    4.72e+02    3.35e+03    3.00    4.00   -1.00    1
-    ###################################################
-    """  
-    # CREATING SAMPLES   
-    DATASET_X = RASD_CL.SAMPLING(SETUP)
-    # SETUP ALGORITHM
-    N_SAMPLING = SETUP['TOTAL SAMPLING']
-    N_G = SETUP['TOTAL G FUNCTIONS']
-    D = SETUP['TOTAL DESIGN VARIABLES']
-    # CREATING EMPTY RESULTS
-    RESULTS_X = np.zeros((N_SAMPLING, D))
-    RESULTS_R = np.zeros((N_SAMPLING, N_G))
-    RESULTS_S = np.zeros((N_SAMPLING, N_G))
-    RESULTS_G = np.zeros((N_SAMPLING, N_G))
-    RESULTS_I = np.zeros((N_SAMPLING, N_G))
-    # LOPPING CHECK STATE LIMITE FUNCTIONS
-    for I_COUNT in range(N_SAMPLING):
-        # STORAGE OF DESIGN VARIABLES
-        for J_COUNT in range(D):
-            RESULTS_X[I_COUNT, J_COUNT] = DATASET_X[I_COUNT, J_COUNT]
-        # STATE LIMIT CHECK
-        SAMPLE = DATASET_X[I_COUNT, :]
-        [R, S, G] = OBJ(SAMPLE)
-        # FAILLURE OR NOT FAILURE - I VARIABLE
-        for K_COUNT in range(N_G):
-            # LIMIT
-            RESULTS_R[I_COUNT, K_COUNT] = R[K_COUNT]
-            # DEMAND
-            RESULTS_S[I_COUNT, K_COUNT] = S[K_COUNT]
-            # STATE LIMIT FUNCTION
-            RESULTS_G[I_COUNT, K_COUNT] = G[K_COUNT]
-            # FALILURE CHECK
-            if G[K_COUNT] >= 0: 
-                I = 0
-                RESULTS_I[I_COUNT, K_COUNT] = int(I)
-            elif G[K_COUNT] < 0: 
-                I = 1
-                RESULTS_I[I_COUNT, K_COUNT] = int(I) 
-    # STORAGE ALL RESULTS
-    RESULTS = np.hstack((RESULTS_X, RESULTS_R, RESULTS_S, RESULTS_G, RESULTS_I))
-    RESULTS_RASD = pd.DataFrame(RESULTS)          
-    # RENAME COLUMNS IN DATAFRAME
-    COLUMNS_NAMES = []
-    for L_COUNT in range(D):
-        COLUMNS_NAMES.append('X_' + str(L_COUNT))
-    for L_COUNT in range(N_G):
-        COLUMNS_NAMES.append('R_' + str(L_COUNT))    
-    for L_COUNT in range(N_G):
-        COLUMNS_NAMES.append('S_' + str(L_COUNT)) 
-    for L_COUNT in range(N_G):
-        COLUMNS_NAMES.append('G_' + str(L_COUNT))
-    COLUMNS_NAMES.append('I') 
-    RESULTS_RASD.columns = COLUMNS_NAMES
-    P_F = RESULTS_RASD['I'].sum() / N_SAMPLING
-    N_F = RESULTS_RASD['I'].sum()
-    RESULTS = {"TOTAL RESULTS": RESULTS_RASD, "NUMBER OF FAILURES": N_F, "PROBABILITY OF FAILURE": P_F}
-
-    NAME_PT_1 = 'TOTAL RESULTS ' + str(SETUP['TOTAL SAMPLING']) + ' SAMPLES ' + str(
-        SETUP['TOTAL DESIGN VARIABLES']) + ' VARIABLES '
-    NAME_PT_2 = str(datetime.now().strftime('%Y%m%d %H%M%S')) + '.txt'
-
-    HEADER_NAMES =  ';'.join(COLUMNS_NAMES)
-    np.savetxt(NAME_PT_1 + NAME_PT_2, RESULTS['TOTAL RESULTS'], fmt='%d', delimiter=';' , header=HEADER_NAMES)
-
+        # HEADER_NAMES =  ';'.join(COLUMNS_NAMES)
+        # np.savetxt(NAME_PT_1 + NAME_PT_2, RESULTS['TOTAL RESULTS'], fmt='%d', delimiter=';' , header=HEADER_NAMES)
     return RESULTS
 
 # BIBLIOTECA GRÁFICA
@@ -508,3 +490,60 @@ def RASD_PLOT_4(DATASET, PLOT_SETUP):
     #FIG.colorbar(AUX_1)
     # SAVEFIG
     SAVE_GRAPHIC(NAME, EXT, DPI)
+    
+    
+    """
+    RESULTS_RASD: RELIABILITY ANALYSIS RESULTS (DATAFRAME [N_POP, D + N_G * 2 + 2], FLOAT)
+    N_SAMPLIG: TOTAL SAMPLES
+    D: DIMENSION PROBLEM
+    N_G: TOTAL STATE LIMIT FUNCTIONS
+    +2 : RESISTANCE AND DEMAND COLUMNS IN NP.ARRAY
+
+    STOCHASTIC RASD EXAMPLE:
+    >>> # CHARACTERISTICS OF THE VARIABLES 
+    >>> V_1 = ['NORMAL', 500, 100]
+    >>> V_2 = ['NORMAL', 1000, 1000]
+    >>> # DICTIONARY
+    >>> SETUP = {'REPETITIONS': 1,
+                 'TOTAL SAMPLING': 10,
+                 'TOTAL G FUNCTIONS': 1,
+                 'TOTAL DESIGN VARIABLES': 2,
+                 'VARS': [V_1, V_2],
+                 'MODEL': 'MCS'}     
+    >>> # MCS - SIMPLE MONTE CARLO SAMPLING
+    >>> # LHS - LATIN HYPER CUBE SAMPLING
+    >>> # STATE LIMIT FUNCTIONS
+    >>> def OF_FUNCTION(X):
+            R = []
+            S = []
+            G = []
+            D0 = 3
+            Length = 100
+            E = 30 * 10**6
+            W = 2
+        T = 4
+        Px = X[0]
+        Py = X[1]
+        # LIMIT
+        R_1 = D0
+        # DEMAND                      
+        S_1 = (4 * Length ** 3 / (E * W * T)) * (((Py / T ** 2) ** 2  + (Px / W ** 2) ** 2) ** 0.5)
+        # STATE LIMIT FUNCTION
+        G_1 = R_1 - S_1
+        R = [R_1] 
+        S = [S_1] 
+        G = [G_1]
+    return R, S, G
+    # CALL RASD
+    RESULTS_TEST = RASD.MAIN_STOCHASTIC(SETUP, OF_FUNCTION)
+    # RESULTS
+    print(RESULTS_TEST)
+    ###################################################
+    X_1         X_2         R_1     S_1     G_1     I
+    4.25e+02    2.10e+02    3.00    2.82    0.18    0
+    ...
+    ...
+    ...
+    4.72e+02    3.35e+03    3.00    4.00   -1.00    1
+    ###################################################
+    """  

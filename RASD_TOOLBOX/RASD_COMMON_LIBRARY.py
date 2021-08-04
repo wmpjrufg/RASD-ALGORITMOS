@@ -7,7 +7,8 @@
 
 ################################################################################
 # DESCRIÇÃO ALGORITMO:
-# BIBLIO. RASD DE ALGORITMOS ESTOCÁSTICOS DE CONFIABILIDADE
+# BIBLIOTECA RASD DE ALGORITMOS ESTOCÁSTICOS DE CONFIABILIDADE DESENVOLVIDOS
+# PELO GRUPO DE PESQUISA DE ESTUDOS EM ENGENHARIA (GPEE)
 ################################################################################
 
 ################################################################################
@@ -18,92 +19,82 @@ from scipy.stats.distributions import *
 
 ################################################################################
 # BIBLIOTECAS DESENVOLVEDORES GPEE
-def SAMPLING(SETUP):
+def SAMPLING(N_POP, D, MODEL, VARS):
     """
-    THIS FUNCTION GENERATES RANDOM SAMPLES ACCORDING, TO CHOICE SAMPLING METHOD
+    This function generates random samples according to the chosen sampling method.
     
-    INPUT:
-    SETUP: STOCHASTIC RANDOM VARIABLES DESCRIPTION (DICTIONARY, MIXED)
+    Input:
+    N_POP            |  Total of samplings                      | Integer
+    D                |  Number of variables                     | Integer  
+    MODEL            |  Algorithm setup                         | String
+                     |      'MCS': Monte Carlo Sampling         |
+                     |      'LHS': Latim Hypercube Sampling     | 
+    VARS             |  Description of variables                | Py list[D]
+                     |      Example:                            |
+                     |      V_1 = ['NORMAL', 500, 100]          |
+                     |      V_2 = ['NORMAL', 1000, 1000]        |
+                     |      VARS = [V_1, V_2]                   |
 
-    OUTPUT:
-    RANDOM_SAMPLING: STOCHASTIC RANDOM SAMPLING (NP.ARRAY [N_SAMPLING x D], FLOAT)
-
-    EXAMPLE:
-    # CHARACTERISTICS OF THE VARIABLES 
-    V_1 = ['NORMAL', 500, 100]
-    V_2 = ['NORMAL', 1000, 1000]
-    # DICTIONARY
-    SETUP = {'REPETITIONS': 1,
-            'TOTAL SAMPLING': 10,
-            'TOTAL G FUNCTIONS': 3,
-            'TOTAL DESIGN VARIABLES': 2,
-            'VARS': [V_1, V_2],
-            'MODEL': 'MCS'}
-    
-    # DISTRIBUITIONS
-    # https://docs.scipy.org/doc/numpy-1.9.3/reference/routines.random.html
-    # https://docs.scipy.org/doc/scipy/reference/stats.html 
+    Output:
+    RANDOM_SAMPLING  |  Samples                                 | Py Numpy array[N_POP x D]
     """
-    # START RESERVED SPACE FOR SAMPLING
-    N_SAMPLING = SETUP['TOTAL SAMPLING']
-    D = SETUP['TOTAL DESIGN VARIABLES']
-    MODEL = SETUP['MODEL']
-    RANDOM_SAMPLING = np.zeros((N_SAMPLING, D))
-    # MONTE CARLO SAMPLING
+    # Creating the variables
+    RANDOM_SAMPLING = np.zeros((N_POP, D))
+    # Monte Carlo sampling
     if MODEL == 'MCS':
         for I_COUNT in range(D):
-            # SETUP TYPE, MEAN AND STD I VARIABLE
-            TYPE = SETUP['VARS'][I_COUNT][0]
-            MEAN = SETUP['VARS'][I_COUNT][1]
-            STD = SETUP['VARS'][I_COUNT][2]
-            # NORMAL AND GAUSSIAN DISTRIBUITION
+            # Type of distribution, mean and standard deviation
+            TYPE = VARS[I_COUNT][0]
+            MEAN = VARS[I_COUNT][1]
+            STD = VARS[I_COUNT][2]
+            # Normal or Gaussian
             if (TYPE == 'GAUSSIAN' or TYPE == 'NORMAL'):
-                RANDOM_NUMBERS = np.random.normal(MEAN, STD, N_SAMPLING)
+                RANDOM_NUMBERS = np.random.normal(MEAN, STD, N_POP)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # GUMBEL MAXIMUM DISTRIBUITION
+            # Gumbel maximum
             elif TYPE == 'GUMBEL MAX':
-                RANDOM_NUMBERS = np.random.gumbel(MEAN, STD, N_SAMPLING)
+                RANDOM_NUMBERS = np.random.gumbel(MEAN, STD, N_POP)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # LOGNORMAL DISTRIBUITION
+            # Lognormal
             elif TYPE == 'LOGNORMAL':
-                RANDOM_NUMBERS = np.random.lognormal(MEAN, STD, N_SAMPLING)
+                RANDOM_NUMBERS = np.random.lognormal(MEAN, STD, N_POP)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # GAMMA DISTRIBUITION
+            # Gamma
             elif TYPE == 'GAMMA':
-                RANDOM_NUMBERS = np.random.gamma(MEAN, STD, N_SAMPLING)
+                RANDOM_NUMBERS = np.random.gamma(MEAN, STD, N_POP)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBER                 
-            # LAPLACE DISTRIBUITION
+            # Laplace
             elif TYPE == 'LAPLACE':
-                RANDOM_NUMBERS = np.random.laplace(MEAN, STD, N_SAMPLING)
+                RANDOM_NUMBERS = np.random.laplace(MEAN, STD, N_POP)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # LOGISTIC DISTRIBUITION
+            # Logistic
             elif TYPE == 'LOGISTIC':
-                RANDOM_NUMBERS = np.random.logistic(MEAN, STD, N_SAMPLING)
+                RANDOM_NUMBERS = np.random.logistic(MEAN, STD, N_POP)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # MULTINOMIAL DISTRIBUITION
+            # Multinomial
             elif TYPE == 'MULTINOMIAL':
-                RANDOM_NUMBERS = np.random.multinomial(MEAN, STD, N_SAMPLING)
+                RANDOM_NUMBERS = np.random.multinomial(MEAN, STD, N_POP)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # MULTIVARIATE NORMAL
+            # Multivariate normal
             elif TYPE == 'MULTIVARIATE NORMAL':
-                RANDOM_NUMBERS = np.random.multivariate_normal(MEAN, STD, N_SAMPLING)
+                RANDOM_NUMBERS = np.random.multivariate_normal(MEAN, STD, N_POP)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # NEGATIVE BINOMIAL DISTRIBUITION
+            # Negative binomial
             elif TYPE == 'NEGATIVE BINOMIAL':
-                RANDOM_NUMBERS = np.random.negative_binomial(MEAN, STD, N_SAMPLING)
+                RANDOM_NUMBERS = np.random.negative_binomial(MEAN, STD, N_POP)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # NONCENTRAL CHISQUARE DISTRIBUITION
+            # Noncentral chisquare
             elif TYPE == 'NONCENTRAL CHISQUARE':
-                RANDOM_NUMBERS = np.random.noncentral_chisquare(MEAN, STD, N_SAMPLING)
+                RANDOM_NUMBERS = np.random.noncentral_chisquare(MEAN, STD, N_POP)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # UNIFORM DISTRIBUITION
+            # Uniform
             elif TYPE == 'UNIFORM':
-                RANDOM_NUMBERS = np.random.uniform(MEAN, STD, N_SAMPLING)
+                RANDOM_NUMBERS = np.random.uniform(MEAN, STD, N_POP)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS  
     # LATIN HYPER CUBE SAMPLING            
     elif MODEL == 'LHS':
-        DESIGN = lhs(N_SAMPLING)
-        NEW_TOTAL_SAMPLING=N_SAMPLING
+        DESIGN = lhs(N_POP)
+        NEW_TOTAL_SAMPLING=N_POP
         NEW_ARRAY_RANDOM = []
         for I_COUNT in range(D):
             # SETUP TYPE, MEAN AND STD I VARIABLE
@@ -136,3 +127,8 @@ def SAMPLING(SETUP):
                 for J_COUNT in range (NEW_TOTAL_SAMPLING):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]   
     return RANDOM_SAMPLING
+
+
+# DISTRIBUITIONS
+# https://docs.scipy.org/doc/numpy-1.9.3/reference/routines.random.html
+# https://docs.scipy.org/doc/scipy/reference/stats.html 
