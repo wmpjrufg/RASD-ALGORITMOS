@@ -50,6 +50,7 @@
 ################################################################################
 # BIBLIOTECAS NATIVAS PYTHON
 import matplotlib.pyplot as plt
+import seaborn as sns
 from matplotlib.cm import ScalarMappable
 
 ################################################################################
@@ -228,7 +229,7 @@ def RASD_PLOT_2(DATASET, PLOT_SETUP):
     [W, H] = CONVERT_SI_TO_INCHES(W, H)
     # PLOT
     FIG, AX = plt.subplots(figsize = (W, H))
-    sns.scatterplot(data = DATASET, x = X_DATA, y = Y_DATA, hue = 'I')
+    sns.scatterplot(data = DATASET, x = X_DATA, y = Y_DATA, hue = 'I_0')
     font = {'fontname': 'Arial',
         'color':  LABELS_COLOR,
         'weight': 'bold',
