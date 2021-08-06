@@ -1,0 +1,58 @@
+def OBJ(X):
+    P2Y = X[0]
+    P3Y = X[1]
+    # Dataset
+    FRAME_00 = {"TYPE_ELEMENT": 0,
+              "TYPE_SOLUTION": 0,
+              "N_NODES": 6,
+              "N_MATERIALS": 1,
+              "N_SECTIONS": 1,
+              "N_ELEMENTS": 5,
+              "N_DOFPRESCRIPTIONS": 5,
+              "N_DOFLOADED": 3,
+              "N_DOFSPRINGS": 0,
+              "COORDINATES": 
+              np.array([[0.0,0.0],
+                [0.0,3.0],
+                [1.0,3.0],
+                [2.0,3.0],
+                [3.0,3.0],
+                [3.0,0.0]]),
+              "ELEMENTS": 
+              np.array([[0,1,0,0,0,0],
+                [1,2,0,0,0,0],
+                [2,3,0,0,0,0],
+                [3,4,0,0,0,0],
+                [4,5,0,0,0,0]]),
+              "MATERIALS": 
+              np.array([[24E9,0.20,7800.0,1E-8]]),
+              "SECTIONS": 
+              np.array([
+                [0.08,-1989,0.001067,-1989,-1989]]),
+              "PRESCRIBED DISPLACEMENTS": 
+              np.array([[0,0,0],
+                [0,1,0],
+                [0,2,0],
+                [5,0,0],
+                [5,1,-0.10]]),
+              "ELEMENT LOADS": None,
+              "NODAL LOADS": 
+              np.array([
+                [1,0,1000],
+                [2,1,-P2Y],
+                [3,1,-P3Y]]),
+              "SPRINGS": None}
+    FRAME_00_RESULTS = MEF1D(DICTIONARY = FRAME_00)
+    FRAME_00_BAR_0 = FRAME_00_RESULTS[0]
+    AXIAL_FORCE_LIST_BAR_0 = FRAME_00_BAR_0['N']
+    N = AXIAL_FORCE_LIST_BAR_0[5]              
+    S_1 = np.abs(N)
+    R_1 = 143E3
+    
+    # STATE LIMIT FUNCTION
+    
+    G_0 = R_1 - S_1
+    R = [R_1] 
+    S = [S_1] 
+    G = [G_0]
+    return R, S, G
