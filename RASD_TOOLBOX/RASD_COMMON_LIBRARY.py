@@ -49,7 +49,7 @@
 
 ################################################################################
 # BIBLIOTECAS NATIVAS PYTHON
-import pyDOE
+from pyDOE import *
 import numpy as np
 from scipy.stats.distributions import *
 
@@ -57,7 +57,7 @@ from scipy.stats.distributions import *
 # BIBLIOTECAS DESENVOLVEDORES GPEE
 def SAMPLING(N_POP, D, MODEL, VARS):
     """
-    This function generates random samples according to the chosen sampling method.
+    This function generates random samples according to chosen sampling method.
     
     Input:
     N_POP            |  Total of samplings                      | Integer
@@ -74,7 +74,7 @@ def SAMPLING(N_POP, D, MODEL, VARS):
     Output:
     RANDOM_SAMPLING  |  Samples                                 | Py Numpy array[N_POP x D]
     """
-    # Creating the variables
+    # Creating variables
     RANDOM_SAMPLING = np.zeros((N_POP, D))
     # Monte Carlo sampling
     if MODEL == 'MCS':
@@ -127,26 +127,25 @@ def SAMPLING(N_POP, D, MODEL, VARS):
             elif TYPE == 'UNIFORM':
                 RANDOM_NUMBERS = np.random.uniform(MEAN, STD, N_POP)
                 RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS  
-    # LATIN HYPER CUBE SAMPLING            
+    # Latin Hyper Cube Sampling            
     elif MODEL == 'LHS':
         DESIGN = lhs(N_POP)
         NEW_TOTAL_SAMPLING=N_POP
         NEW_ARRAY_RANDOM = []
         for I_COUNT in range(D):
-            # SETUP TYPE, MEAN AND STD I VARIABLE
-            TYPE = SETUP['VARS'][I_COUNT][0]
-            MEAN = SETUP['VARS'][I_COUNT][1]
-            STD = SETUP['VARS'][I_COUNT][2]     
-            # NORMAL AND GAUSSIAN DISTRIBUITION
+            # Type of distribution, mean and standard deviation
+            TYPE = VARS[I_COUNT][0]
+            MEAN = VARS[I_COUNT][1]
+            STD = VARS[I_COUNT][2]  
+            # Normal or Gaussian
             if (TYPE == 'NORMAL'):
                 ARRAY_RANDOM = norm(loc=MEAN, scale=STD).ppf(DESIGN)   
                 for I_AUX in ARRAY_RANDOM:
                     for J_AUX in I_AUX:
                       NEW_ARRAY_RANDOM.append(J_AUX)
-                
                 for J_COUNT in range (NEW_TOTAL_SAMPLING):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]   
-            # GUMBEL MAXIMUM DISTRIBUITION        
+            # Gumbel maximum       
             elif TYPE == 'GUMBEL':
                 ARRAY_RANDOM = gumbel_r(loc=MEAN, scale=STD).ppf(DESIGN)  
                 for I_AUX in ARRAY_RANDOM:
@@ -154,7 +153,7 @@ def SAMPLING(N_POP, D, MODEL, VARS):
                       NEW_ARRAY_RANDOM.append(J_AUX)
                 for J_COUNT in range (NEW_TOTAL_SAMPLING):
                     RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]
-            # LOGNORMAL MAXIMUM DISTRIBUITION        
+            # Lognormal maximum     
             elif TYPE == 'LOGNORMAL':
                 ARRAY_RANDOM = lognorm(loc=MEAN, scale=STD).ppf(DESIGN)  
                 for I_AUX in ARRAY_RANDOM:
