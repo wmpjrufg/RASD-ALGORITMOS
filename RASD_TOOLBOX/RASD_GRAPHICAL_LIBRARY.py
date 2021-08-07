@@ -55,60 +55,72 @@ from matplotlib.cm import ScalarMappable
 
 ################################################################################
 # BIBLIOTECAS DESENVOLVEDORES GPEE 
+
 def CONVERT_SI_TO_INCHES(WIDTH, HEIGHT):
     """ 
-    THIS FUNCTION CONVERT FIGURE SIZE SI TO INCHES
+    This function convert figure size meters to inches.
     
-    INPUT 
-    WIDTH: FIGURE WIDTH IN SI UNITS, (FLOAT)
-    HEIGHT: FIGURE HEIGHT IN SI UNITS, (FLOAT)
+    Input:
+    WIDTH    |  Figure width in SI units   | Float
+    HEIGHT   |  Figure height in SI units  | Float
     
-    OUTPUT:
-    WIDTH: FIGURE WIDTH IN INCHES UNITS, (FLOAT)
-    HEIGHT: FIGURE HEIGHT IN INCHES UNITS, (FLOAT)
+    Output:
+    WIDTH    |  Figure width in INCHES units   | Float
+    HEIGHT   |  Figure height in INCHES units  | Float
     """
     WIDTH = WIDTH / 0.0254
     HEIGHT = HEIGHT / 0.0254
     return WIDTH, HEIGHT
 
-# SALVA A FIGURA NA PASTA OU CAMINHO DESEJADO
 def SAVE_GRAPHIC(NAME, EXT, DPI):
     """ 
-    THIS FUNCTION SAVE GRAPHICS ON A SPECIFIC PATH
-    EXTENSIONS OPTIONS : 
+    This function save graphics on a specific path extensions options.
+
     - 'svg'
     - 'png'
     - 'eps'
     - 'pdf'
 
-    INPUT: 
-    NAME: PATH + NAME FIGURE (STRING)
-    EXT: FILE EXTENSION (STRING)
-    DPI: THE RESOLUTION IN DOTS PER INCH (INTEGER)
+    Input: 
+    NAME  | Path + name figure               | String
+    EXT   | File extension                   | String
+    DPI   | The resolution in dots per inch  | Integer
+    
+    Output:
+    N/A
     """
     plt.savefig(NAME + EXT, dpi = DPI, bbox_inches = 'tight', transparent = True)
 
-# PLOTAGEM 1
+
 def RASD_PLOT_1(DATASET, PLOT_SETUP):
     """
-    THIS FUNCTION PLOT BOXPLOT AND HISTOGRAMS IN A SINGLE CHART
+    This function shows a boxplot and histograms in a single chart.
     
-    INPUT: 
-    DATASET: RESULTS ABOUT RASD ALGORITHM (NP.ARRAY[? X ?] FLOAT)
-    PLOT_SETUP: CONTAINS THE SPECIFICATION OF EACH MODEL OF CHART
+    Input: 
+    DATASET     | Results from a variable you want to view the distribution | Py Dataframe or Py Numpy array[N_POP x 1]
+    PLOT_SETUP  | Contains specifications of each model of chart           | Py Dictionary
+                |    Tags:                                                 |
+                |    'NAME'          == Filename output file               | String 
+                |    'WIDTH'         == Width figure                       | Float
+                |    'HEIGHT         == Height figure                      | Float
+                |    'X AXIS LABEL'  == X label name                       | String and LaTeX
+                |    'X AXIS SIZE'   == X axis size                        | Float
+                |    'Y AXIS SIZE'   == Y axis size                        | Float
+                |    'AXISES COLOR'  == Axis color                         | String (Hexadecimal)
+                |    'LABELS SIZE'   == Labels size                        | Float
+                |    'CHART COLOR'   == Boxplot and histogram color        | String (Hexadecimal)
+                |    'BINS'          == Range representing the width of    | Float
+                |                       a single bar                       | Float
+                |    'KDE'           == Smooth of the random distribution  | Boolean      
+                |    'DPI'           == Dots Per Inch - Image quality      | Integer   
+                |    'EXTENSION'     == Extension output file              | String ('.svg, '.png', '.eps' or '.pdf')
     
-    EXTENSION:
-    https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html
-    Other Parameters >> format
-    AXISES COLOR, LABELS COLOR AND CHART COLOR:
-    https://htmlcolorcodes.com/
-
-    OUTPUT:
+    Output:
     N/A
 
-    EXAMPLE:
-    # PLOT SETUP
-    PLOT_SETUP = {'NAME': 'WANDER',
+    Example:
+    # Plot Setup
+    PLOT_SETUP = {  'NAME': 'WANDER',
                     'WIDTH': 0.40, 
                     'HEIGHT': 0.20, 
                     'X AXIS LABEL': '$x_1$ - Dead Load $(kN / m)$',
@@ -116,18 +128,21 @@ def RASD_PLOT_1(DATASET, PLOT_SETUP):
                     'Y AXIS SIZE': 20,
                     'AXISES COLOR': '#000000',
                     'LABELS SIZE': 16,
-                    'LABELS COLOR': '#000000',  
-                    'CHART COLOR': '#FEB625',
+                    'LABELS COLOR': '#000000', 
+                    'CHART COLOR': '#FEB625', 
+                    'BINS': 20,
                     'KDE': False,
                     'DPI': 600, 
                     'EXTENSION': '.svg'}
-    # RESULTS X_0 VARIABLE
-    DATASET = RESULTS_RASD['X_0']            
-    # CALL PLOT
-    RASD.RASD_PLOT_1(DATASET, PLOT_SETUP)
+    # Data
+    DATASET = RESULTS['X_0']            
+    # Plot
+    RASD_PLOT_1(DATASET, PLOT_SETUP)
     """
-    # SETUP CHART
+    # Setup
     NAME = PLOT_SETUP['NAME']
+    W = PLOT_SETUP['WIDTH']
+    H = PLOT_SETUP['HEIGHT']
     X_AXIS_LABEL = PLOT_SETUP['X AXIS LABEL']
     X_AXIS_SIZE = PLOT_SETUP['X AXIS SIZE']
     Y_AXIS_SIZE = PLOT_SETUP['Y AXIS SIZE']
@@ -137,14 +152,11 @@ def RASD_PLOT_1(DATASET, PLOT_SETUP):
     CHART_COLOR = PLOT_SETUP['CHART COLOR']
     BINS = PLOT_SETUP['BINS']
     KDE = PLOT_SETUP['KDE']
-    EXT = PLOT_SETUP['EXTENSION']
     DPI = PLOT_SETUP['DPI']
-    W = PLOT_SETUP['WIDTH']
-    H = PLOT_SETUP['HEIGHT']
-    sns.set(style = 'ticks')
-    # CONVERT UNITS OF SIZE FIGURE
+    EXT = PLOT_SETUP['EXTENSION']
+    # Plot
     [W, H] = CONVERT_SI_TO_INCHES(W, H)
-    # PLOT
+    sns.set(style = 'ticks')
     FIG, (AX_BOX, AX_HIST) = plt.subplots(2, figsize = (W, H), sharex = True, gridspec_kw = {'height_ratios': (.15, .85)})
     sns.boxplot(DATASET, ax = AX_BOX, color = CHART_COLOR)
     sns.histplot(DATASET, ax = AX_HIST, kde = KDE, color = CHART_COLOR, bins = BINS)
@@ -160,28 +172,38 @@ def RASD_PLOT_1(DATASET, PLOT_SETUP):
     AX_HIST.tick_params(axis= 'y', labelsize = Y_AXIS_SIZE, colors = AXISES_COLOR)
     sns.despine(ax = AX_HIST)
     sns.despine(ax = AX_BOX, left = True)
-    # SAVEFIG
+    # Save figure
     SAVE_GRAPHIC(NAME, EXT, DPI)
 
 # PLOTAGEM 2
 def RASD_PLOT_2(DATASET, PLOT_SETUP):
     """
-    THIS FUNCTION PLOT SCATTER CHART X AND Z VARIABLES A FUNCTION OF I VALUE
-    
-    INPUT: 
-    DATASET: RESULTS ABOUT RASD ALGORITHM (NP.ARRAY[? X ?] FLOAT)
-    PLOT_SETUP: CONTAINS THE SPECIFICATION OF EACH MODEL OF CHART
-    
-    LOC LEGEND: 
-    https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html
-    Other Parameters >> loc
-    EXTENSION:
-    https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html
-    Other Parameters >> format
-    AXISES COLOR AND LABELS COLOR:
-    https://htmlcolorcodes.com/
 
-    OUTPUT:
+    This function shows a scatter chart with results between limits and resistances demands
+
+    Input: 
+    DATASET     | Limits results (R_I) and demand (S_I) with a referenced  | Py Dataframe or Py Numpy array[N_POP x 1]
+                | color shape of fail scale (I_I)                          | 
+    PLOT_SETUP  | Contains specifications of each model of chart           | Py Dictionary
+                |    Tags:                                                 |
+                |    'NAME'          == Filename output file               | String 
+                |    'WIDTH'         == Width figure                       | Float
+                |    'HEIGHT         == Height figure                      | Float
+                |    'X DATA'        == Data plotted in X                  | Float or away
+                |    'Y DATA':       == Data plotted in Y                  | Float or away
+                |    'X AXIS SIZE'   == X axis size                        | Float
+                |    'Y AXIS SIZE'   == Y axis size                        | Float
+                |    'AXISES COLOR'  == Axis color                         | String (Hexadecimal)
+                |    'X AXIS LABEL'  == X label name                       | String and LaTeX
+                |    'Y AXIS LABEL'  == Y label name                       | String and LaTeX              
+                |    'LABELS SIZE'   == Labels size                        | Float
+                |    'LABELS COLOR'  == labels color                       | Float
+                |    'LOC LEGEND'    == Legend position                    | String
+                |    'TITLE LEGEND'  == Text in legend                     | String
+                |    'DPI'           == Dots Per Inch - Image quality      | Integer   
+                |    'EXTENSION'     == Extension output file              | String ('.svg, '.png', '.eps' or '.pdf')
+    
+    Output:
     N/A
 
     EXAMPLE:
@@ -206,7 +228,9 @@ def RASD_PLOT_2(DATASET, PLOT_SETUP):
     DATASET = RESULTS_RASD
     # CALL PLOT
     RASD.RASD_PLOT_2(DATASET, PLOT_SETUP)
+
     """
+
     # SETUP CHART
     NAME = PLOT_SETUP['NAME']
     EXT = PLOT_SETUP['EXTENSION']

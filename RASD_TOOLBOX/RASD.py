@@ -160,7 +160,7 @@ def RASD_STOCHASTIC(SETUP, OF_FUNCTION):
         # Save results
         RESULTS_REP = {'TOTAL RESULTS': RESULTS_RASD, 'NUMBER OF FAILURES': N_F, 'PROBABILITY OF FAILURE': P_F}
         RESULTS.append(RESULTS_REP)
-        NAME = 'RASD_' + 'REP_' + str(J_COUNT) + '_SAMPLES_' + str(N_POP) + '_' + str(datetime.now().strftime('%Y%m%d %H%M%S')) + '.txt'
+        NAME = 'RASD_' + MODEL + '_REP_' + str(J_COUNT) + '_SAMPLES_' + str(N_POP) + '_' + str(datetime.now().strftime('%Y%m%d %H%M%S')) + '.txt'
         HEADER_NAMES =  ';'.join(COLUMNS_NAMES)
         np.savetxt(NAME, RESULTS_RASD, fmt = '%d', delimiter = ';' , header = HEADER_NAMES)
     return RESULTS
