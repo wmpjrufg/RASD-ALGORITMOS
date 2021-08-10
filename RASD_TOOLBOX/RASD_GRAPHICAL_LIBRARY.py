@@ -66,6 +66,7 @@ WWWWWWWWd;,:OWWWWWWN0o;,,,,lKMWk:,;xNWWWWWWWWWNd,,:OWWKl,,,,,,,,,,,,,,,,;:xXWWNd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib.cm import ScalarMappable
+import numpy as np
 
 ################################################################################
 # BIBLIOTECAS DESENVOLVEDORES GPEE 
@@ -188,8 +189,8 @@ def RASD_PLOT_2(DATASET, PLOT_SETUP):
     DATASET     | Results from a RASD Toolboox                             | Py dataframe or Py Numpy array[N_POP x 1]
                 |    Dictionary tags                                       |
                 |    'DATA'          == Complete data                      | Py Numpy array[N_POP x 1]
-                |    'X DATA'        == Dataframe column plot in X axis    | String
-                |    'Y DATA'        == Dataframe column plot in Y axis    | String
+                |    'X DATA'        == Dataframe column plots in X axis   | String
+                |    'Y DATA'        == Dataframe column plots in Y axis   | String
                 |    'HUE VALUE'     == Data plotted in Y                  | String
     PLOT_SETUP  | Contains specifications of each model of chart           | Py dictionary
                 |    Dictionary tags                                       |
@@ -250,23 +251,33 @@ def RASD_PLOT_2(DATASET, PLOT_SETUP):
 # PLOTAGEM 3
 def RASD_PLOT_3(DATASET, PLOT_SETUP):
     """
-    THIS FUNCTION PLOT SCATTER CHART X AND Z VARIABLES A FUNCTION OF G VALUE
+    This functions plots a scatter chart with variables X and Z in function of G value
     
-    INPUT: 
-    DATASET: RESULTS ABOUT RASD ALGORITHM (NP.ARRAY[? X ?] FLOAT)
-    PLOT_SETUP: CONTAINS THE SPECIFICATION OF EACH MODEL OF CHART
+    Input: 
+    DATASET     | Results from a RASD Toolboox                             | Py dataframe or Py Numpy array[N_POP x 1]
+                |    Dictionary tags                                       |
+                |    'DATA'          == Complete data                      | Py Numpy array[N_POP x 1]
+                |    'X DATA'        == Dataframe name column plots in X   | String
+                |    'Y DATA'        == Dataframe column plots in Y        | String
+                |    'C VALUE'       == Dataframe column plots in C        | String
+    PLOT_SETUP  | Contains specifications of each model of chart           | Py dictionary
+                |    Dictionary tags                                       |
+                |    'NAME'          == Filename output file               | String 
+                |    'WIDTH'         == Width figure                       | Float
+                |    'HEIGHT         == Height figure                      | Float
+                |    'X AXIS SIZE'   == X axis size                        | Float
+                |    'Y AXIS SIZE'   == Y axis size                        | Float
+                |    'AXISES COLOR'  == Axis color                         | String
+                |    'X AXIS LABEL'  == X label name                       | String
+                |    'Y AXIS LABEL'  == Y label name                       | String             
+                |    'LABELS SIZE'   == Labels size                        | Float
+                |    'LABELS COLOR'  == Labels color                       | Float
+                |    'TRANSPARENCY'  == Blending value                     | Float
+                |    'COLOR MAP'     == Colormap instance, Registered name | String
+                |    'DPI'           == Dots Per Inch - Image quality      | Integer   
+                |    'EXTENSION'     == Extension output file              | String ('.svg, '.png', '.eps' or '.pdf')
     
-    COLOR MAP: 
-    https://matplotlib.org/stable/tutorials/colors/colormaps.html
-    Other Parameters >> loc
-    EXTENSION:
-    https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html
-    Other Parameters >> format
-    AXISES COLOR AND LABELS COLOR:
-    https://htmlcolorcodes.com/
-
-    OUTPUT:
-    N/A
+    Output:
 
     EXAMPLE:
     # PLOT SETUP
@@ -284,7 +295,7 @@ def RASD_PLOT_3(DATASET, PLOT_SETUP):
                     'Y AXIS LABEL': '$R_0$',
                     'LABELS SIZE': 16,
                     'LABELS COLOR': '#000000',
-                    'C VALUE': 'G_0',
+                    'C VALUE: 'G_0',
                     'TRANSPARENCY': 0.8,
                     'COLOR MAP': 'viridis'}
     # RESULTS
@@ -298,8 +309,8 @@ def RASD_PLOT_3(DATASET, PLOT_SETUP):
     DPI = PLOT_SETUP['DPI']
     W = PLOT_SETUP['WIDTH']
     H = PLOT_SETUP['HEIGHT']
-    X_DATA = PLOT_SETUP['X DATA']
-    Y_DATA = PLOT_SETUP['Y DATA']
+    X_DATA = DATASET['X DATA']
+    Y_DATA = DATASET['Y DATA']
     X_AXIS_SIZE = PLOT_SETUP['X AXIS SIZE']
     Y_AXIS_SIZE = PLOT_SETUP['Y AXIS SIZE']
     AXISES_COLOR = PLOT_SETUP['AXISES COLOR']
@@ -307,15 +318,16 @@ def RASD_PLOT_3(DATASET, PLOT_SETUP):
     Y_AXIS_LABEL = PLOT_SETUP['Y AXIS LABEL']
     LABELS_SIZE = PLOT_SETUP['LABELS SIZE']
     LABELS_COLOR = PLOT_SETUP['LABELS COLOR']
-    C_VALUE = PLOT_SETUP['G VALUE']
+    C_VALUE = DATASET['G VALUE']
     TRANSPARENCY = PLOT_SETUP['TRANSPARENCY']
     COLOR_MAP = PLOT_SETUP['COLOR MAP']
+    A_UX = DATASET['DATASET']
     # CONVERT UNITS OF SIZE FIGURE
     [W, H] = CONVERT_SI_TO_INCHES(W, H)
     # PLOT
-    AUX = plt.Normalize(DATASET[C_VALUE].min(), DATASET[C_VALUE].max())
+    AUX = plt.Normalize(A_UX[C_VALUE].min(), A_UX[C_VALUE].max())
     FIG, AX = plt.subplots(figsize = (W, H))
-    plt.scatter(x = DATASET[X_DATA], y = DATASET[Y_DATA], c = DATASET[C_VALUE], cmap = COLOR_MAP, alpha = TRANSPARENCY)
+    plt.scatter(x = A_UX[X_DATA], y = A_UX[Y_DATA], c = A_UX[C_VALUE], cmap = COLOR_MAP, alpha = TRANSPARENCY)
     font = {'fontname': 'Arial',
         'color':  LABELS_COLOR,
         'weight': 'bold',
@@ -332,23 +344,33 @@ def RASD_PLOT_3(DATASET, PLOT_SETUP):
 # PLOTAGEM 4
 def RASD_PLOT_4(DATASET, PLOT_SETUP):
     """
-    THIS FUNCTION PLOTS TWO HISTOGRAMS IN A SINGLE ONE CHART
+    This function plots two histograms in a single one chart
 
-    INPUT:
-    DATASET: RESULTS ABOUT RASD ALGORITHM (NP.ARRAY[? X ?] FLOAT)
-    PLOT_SETUP: CONTAINS THE SPECIFICATION OF EACH CHART MODEL
-
-    COLOR MAP:
-    https://matplotlib.org/stable/tutorials/colors/colormaps.html
-    Other Parameters >> loc
-    EXTENSION:
-    https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html
-    Other Parameters >> format
-    AXISES COLOR AND LABELS COLOR:
-    https://htmlcolorcodes.com/
-
-    OUTPUT:
-    N/A
+    Input: 
+    DATASET     | Results from a RASD Toolboox                             | Py dataframe or Py Numpy array[N_POP x 1]
+                |    Dictionary tags                                       |
+                |    'DATA'          == Complete data                      | Py Numpy array[N_POP x 1]
+                |    'X DATA'        == Dataframe name column plots in X   | String
+                |    'Y DATA'        == Dataframe column plots in Y        | String
+                |    'C VALUE'       == Dataframe column plots in C        | String
+    PLOT_SETUP  | Contains specifications of each model of chart           | Py dictionary
+                |    Dictionary tags                                       |
+                |    'NAME'          == Filename output file               | String 
+                |    'WIDTH'         == Width figure                       | Float
+                |    'HEIGHT         == Height figure                      | Float
+                |    'X AXIS SIZE'   == X axis size                        | Float
+                |    'Y AXIS SIZE'   == Y axis size                        | Float
+                |    'AXISES COLOR'  == Axis color                         | String
+                |    'X AXIS LABEL'  == X label name                       | String
+                |    'Y AXIS LABEL'  == Y label name                       | String             
+                |    'LABELS SIZE'   == Labels size                        | Float
+                |    'LABELS COLOR'  == Labels color                       | Float
+                |    'ALPHA'         == Blending value                     | Float
+                |    'BINS'          == Equal width bins in the range      | Integer
+                |    'DPI'           == Dots Per Inch - Image quality      | Integer   
+                |    'EXTENSION'     == Extension output file              | String ('.svg, '.png', '.eps' or '.pdf')
+    
+    Output:
 
     EXAMPLE:
     # PLOT SETUP
@@ -382,8 +404,8 @@ def RASD_PLOT_4(DATASET, PLOT_SETUP):
     DPI = PLOT_SETUP['DPI']
     W = PLOT_SETUP['WIDTH']
     H = PLOT_SETUP['HEIGHT']
-    X_DATA = PLOT_SETUP['X DATA']
-    Y_DATA = PLOT_SETUP['Y DATA']
+    X_DATA = DATASET['X DATA']
+    Y_DATA = DATASET['Y DATA']
     X_AXIS_SIZE = PLOT_SETUP['X AXIS SIZE']
     Y_AXIS_SIZE = PLOT_SETUP['Y AXIS SIZE']
     AXISES_COLOR = PLOT_SETUP['AXISES COLOR']
@@ -391,18 +413,19 @@ def RASD_PLOT_4(DATASET, PLOT_SETUP):
     Y_AXIS_LABEL = PLOT_SETUP['Y AXIS LABEL']
     LABELS_SIZE = PLOT_SETUP['LABELS SIZE']
     LABELS_COLOR = PLOT_SETUP['LABELS COLOR']
-    C_VALUE = PLOT_SETUP['C VALUE']
+    #C_VALUE = DATASET['C VALUE']
     TRANSPARENCY = PLOT_SETUP['TRANSPARENCY']
     COLOR_MAP = PLOT_SETUP['COLOR MAP']
     BINS = int(PLOT_SETUP['BINS'])
     ALPHA = float(PLOT_SETUP['ALPHA'])
+    A_UX = DATASET['DATASET']
     # CONVERT UNITS OF SIZE FIGURE
     [W, H] = CONVERT_SI_TO_INCHES(W, H)
     # PLOT
 
     plt.subplots(figsize=(W, H))
-    plt.hist(DATASET['R_0'], bins=BINS, label='$R_0$', alpha=ALPHA)
-    plt.hist(DATASET['S_0'], bins=BINS, label='$S_0$', alpha=ALPHA)
+    plt.hist(A_UX[X_DATA], bins=BINS, label='$R_0$', alpha=ALPHA)
+    plt.hist(A_UX[Y_DATA], bins=BINS, label='$S_0$', alpha=ALPHA)
     plt.legend()
 
     plt.xlabel(X_AXIS_LABEL)
