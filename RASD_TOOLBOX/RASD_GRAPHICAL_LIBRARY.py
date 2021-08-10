@@ -1,38 +1,52 @@
 """
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::..::::::::::::::::::::::::::::::::::::::::
-:::::::::::::::::::::::::::::::::::...::...:::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::..:!%@&&@%!:..::::::::::::::::::::::::::::::::::
-:::::::::::::::::::::::::::::..:!%@###@@###@%!:..:::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::..:!%@##&$*::::*$&##@%!:..::::::::::::::::::::::::::::
-::::::::::::::::::::::::::!%&##&$*::*$&&$*::*$&##&%!::::::::::::::::::::::::::::
-::::::::::::::::::::::::.$##&$*::*@&##@@&@*.:::!$&##$.::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&!.:@####%:..::!$&&@*.:&#@:::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&:.:!%&##&$**$&##&&##::&#@:::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&::$%::!%@####&%!:$#&::&#$:::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&::##@...:!%%!:...$#&!:*:::::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&::&#@.:::....:::.$#&!.*$$:::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&::##&!:..::::..:!@##!:&#@:::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&::$&##@%!:..:!%@##&$::&#@:::::::::::::::::::::::::::
-::::::::::::::::::::::::.@##@*::*$&##@$%@##&$*::*@##@:::::::::::::::::::::::::::
-::::::::::::::::::::::::::%@##&@*::*$&##&$*::*$&##@%!:::::::::::::::::::::::::::
-:::::::::::::::::::::::::..:!%@###@*::!!::*@###@%!:..:::::::::::::::::::::::::::
-::::::::::::::::::::::::::::...:*@###@%%@###@%!:..::::::::::::::::::::::::::::::
-:::::::::::::::::::::::::::::::...:*$&##&@*:...:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::...:**:...::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::...:::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:::::::::::::::::::::........::.......::........:........:::::::::::::::::::::::
-:::::::::::::::::::::%$$$$$$*.:%$$$$$%::*$$$$$$*:%$$$$$$*:::::::::::::::::::::::
-:::::::::::::::::::::&&****@#:%#%***$#*!#$*****!:&&****@&:::::::::::::::::::::::
-:::::::::::::::::::::&&@@@$@$.%#@@@@@#*:@@$@@@@*:&@....$&:::::::::::::::::::::::
-:::::::::::::::::::::&@:%&@*!.$#!:::*#*:!*****#@.&@!!!!@#:::::::::::::::::::::::
-:::::::::::::::::::::$%..:$@$:*@:...!@!:@@@@@@@!:$@@@@@@%:::::::::::::::::::::::
-:::::::::::::::::::::..::....::.:::::.:::.......:.....:..:::::::::::::::::::::::
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWX0xl;'''';:cdOXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNKko:,''''''''''',:okKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWN0xl;''''''''''''''''''';lx0XWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWKOdc,'''''''',:lddo:;,'''''''',:okKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWN0xl;,'''''''';cdOXWWWWXK0dc;''''''''';lx0NWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWXOdc,'''''''',:lx0NWWWWWWWWWWWNKko:,'''''''',cdOKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWNKko:,'''''''',cdOXNWWWWN0kddk0XNWWWWWXOdc;'''''''',;lx0NWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWXOdc;''''''''';lx0NWWWWWXOdc,'''',;cdOXWWWWWN0ko:,'''''''',cdOXWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWXko:,'''''''',:okKNWWWWNKko:,''''''''''',:lxKWWWWWWXOdc,'''''''',:lkKWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWW0c''''''''';lx0XWWWWWXOdc;''''''''''''''''',cOWWWWWWWWWN0xl;,'''''''':OWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''''';okKNWWWWNKko:,'''''''',:oddoc;;:lx0NWWWWWX0KNWWWWWKOo:'''''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''''c0WWWWWN0xl;''''''''';lx0XWWWWNXKXNWWWWNKko:,;cdOXWWWWWKl''''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWWWNk;'''''''''',l0NWWWWWWWWWWWWWX0xl;''''''',:o0WWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWWWWKdc,''''''''';okKNWWWWWWWWKko:,'''''''''''''oNWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWWWWWWN0xl;''''''''';lxOKKOxdl;,'''''''';;,'''''oXWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWWNNWWWWWNKko:,'''''''',,,,''''''''',:okKk;'''''oXWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNkclx0NWWWWWX0dc;''''''''''''''';cdOXWWWO;'''''oXWWWx,'''',xWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd''';cxXWWWWWWNKko:,''''''',:okKNWWWWWWO;'''''oXWWWx,',:okXWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWXOdl::cdxOXWWWWWWWWWWO;'''''oXWWW0dxOXWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWWWWNNXNWWWWWWWWWWWWWWO;'''''oXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWO;'''''oXWWWWWWN0xd0WWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWO;'''''oXWWWXOdc,',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWO;'''''oXWWWk;'''',dNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk;'''',xWWWNd''''',dXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNx;'''''oXWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd'''''',cdOXWWWWWWWWWWWWWWWWWWWWWWWXOdl;''''''oXWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNk;'''''''',:okKNWWWWWWWWWWWWWWWNKko:,'''''''',xNWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',dNWWWN0xl;''''''''';lx0XWWWWWWWWWN0xl;''''''''';cd0NWWWNd,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,''''';dKNWWWWNKko:,'''''''',:okKXXKOxdc,'''''''',:okKNWWWWNKx;''''',dNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWO;''''''';lx0XWWWWWX0xc;''''''''';::;,''''''''';cdOXWWWWWN0xl;''''''',xWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWX0xl;''''''''';lx0NWWWWWXOdc;''''''''',cdOXWWWWWN0kl:,'''''''',cdOXWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWNKko:,'''''''',cdOKWWWWWNKxl:;,:ldx0NWWWWWXOdc;'''''''',:lk0NWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWXOdc;'''''''',;lx0NWWWWWXKKXWWWWWWNKko:,'''''''',cdOXNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWNKko:,'''''''',cdOXWWWWWWWWWXOxc;''''''''';lx0NWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWXOdc,'''''''',:lk0XXKkxo:,'''''''',:dOKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWXOdc,''''''''''''''',:okKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWN0xl;''''''''';cxOXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNKkoc:;:odkKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNXXNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWOooooooooooooooodx0NWWWWXOdooooooooooooodOXWWWWNX0xdoooooooooooooooONWNOdooooooooooooooox0NWWWW
+WWWWWWWWo''''''''''''''''';xNWWKl,''''''''''''''',oKWWNx:;'''''''''''''''''oNMNd''''''''''''''''';xNWWW
+WWWWWWWWd'',okkkkkkkkkkd;''cKWWk;''ckkkkkkkkkkxc'';OWWKc''';dkkkkkkkkkOkkkOKWWNd'',okkkkkkkkOOd;''cKWWW
+WWWWWWWWd'';kWWWWWWWWWW0c''cKWWk;''dXWWWWWWWWWXo'';OWWKc'''c0WWWWWWWWWWWWWWWWWNd'';kWWWWWWWWWWKc''cKWWW
+WWWWWWWWd''':llllllllllc,''lXWWk;'';lllllllllll;'';OWWXl''',cllllllllllloxKWWWNd'';kWWWWWWWWWWKc''cKWWW
+WWWWWWWWd'''''''''''',,,,;l0WWWk;''''',,''',,''''';OWWW0xl;,'''''',',,,''':OWWNd'';kWWWWWWWWWWKc''cKWWW
+WWWWWWWWd'',oOko;''';dOO0KNWWWWk;''lkOOOOOOOOOkc'';OWWWWWNK0OOOOOOOOOOOo,''dNWNd'';kWWWWWWWWWWKc''cKWWW
+WWWWWWWWd'';kWWN0o;'';dKNNNNWWWk;',dNWWWWWWWWMNo'';OWWWWNNWNNNNNNNNNNNNk;''oNWNd'';kNNNNNNNNNN0c''cKWWW
+WWWWWWWWd'';kWWWWN0o;'';cccdXWWk;',dNWWWWWWWWWNo'';OWWXxccccccccccccccc:'',xNWNd''':cccccccccc:,''lXWWW
+WWWWWWWWd;,:OWWWWWWN0o;,,,,lKMWk:,;xNWWWWWWWWWNd,,:OWWKl,,,,,,,,,,,,,,,,;:xXWWNd;,,,,,,,,,,,,,,,:o0WWWW
 """
 ################################################################################
 # UNIVERSIDADE FEDERAL DE CATALÃO (UFCAT)
@@ -56,13 +70,14 @@ from matplotlib.cm import ScalarMappable
 ################################################################################
 # BIBLIOTECAS DESENVOLVEDORES GPEE 
 
+# CONVERTE SI PARA POLEGADAS NO TAMANHO DO GRÁFICO
 def CONVERT_SI_TO_INCHES(WIDTH, HEIGHT):
     """ 
     This function convert figure size meters to inches.
     
     Input:
-    WIDTH    |  Figure width in SI units   | Float
-    HEIGHT   |  Figure height in SI units  | Float
+    WIDTH    |  Figure width in SI units       | Float
+    HEIGHT   |  Figure height in SI units      | Float
     
     Output:
     WIDTH    |  Figure width in INCHES units   | Float
@@ -72,6 +87,7 @@ def CONVERT_SI_TO_INCHES(WIDTH, HEIGHT):
     HEIGHT = HEIGHT / 0.0254
     return WIDTH, HEIGHT
 
+# SALVA A FIGURA
 def SAVE_GRAPHIC(NAME, EXT, DPI):
     """ 
     This function save graphics on a specific path extensions options.
@@ -92,52 +108,33 @@ def SAVE_GRAPHIC(NAME, EXT, DPI):
     plt.savefig(NAME + EXT, dpi = DPI, bbox_inches = 'tight', transparent = True)
 
 
+# PLOTAGEM TIPO 1: CAIXA DA DISTRIBUIÇÃO + HISTOGRAMA
 def RASD_PLOT_1(DATASET, PLOT_SETUP):
     """
     This function shows a boxplot and histograms in a single chart.
     
     Input: 
-    DATASET     | Results from a variable you want to view the distribution | Py Dataframe or Py Numpy array[N_POP x 1]
-    PLOT_SETUP  | Contains specifications of each model of chart           | Py Dictionary
-                |    Tags:                                                 |
-                |    'NAME'          == Filename output file               | String 
-                |    'WIDTH'         == Width figure                       | Float
-                |    'HEIGHT         == Height figure                      | Float
-                |    'X AXIS LABEL'  == X label name                       | String and LaTeX
-                |    'X AXIS SIZE'   == X axis size                        | Float
-                |    'Y AXIS SIZE'   == Y axis size                        | Float
-                |    'AXISES COLOR'  == Axis color                         | String (Hexadecimal)
-                |    'LABELS SIZE'   == Labels size                        | Float
-                |    'CHART COLOR'   == Boxplot and histogram color        | String (Hexadecimal)
-                |    'BINS'          == Range representing the width of    | Float
-                |                       a single bar                       | Float
-                |    'KDE'           == Smooth of the random distribution  | Boolean      
-                |    'DPI'           == Dots Per Inch - Image quality      | Integer   
-                |    'EXTENSION'     == Extension output file              | String ('.svg, '.png', '.eps' or '.pdf')
+    DATASET     | Results from a variable you want to view the distribution | Py dataframe or Py Numpy array[N_POP x 1]
+    PLOT_SETUP  | Contains specifications of each model of chart            | Py dictionary
+                |    Dictionary tags                                        |
+                |    'NAME'          == Filename output file                | String 
+                |    'WIDTH'         == Width figure                        | Float
+                |    'HEIGHT         == Height figure                       | Float
+                |    'X AXIS SIZE'   == X axis size                         | Float
+                |    'Y AXIS SIZE'   == Y axis size                         | Float
+                |    'AXISES COLOR'  == Axis color                          | String
+                |    'X AXIS LABEL'  == X label name                        | String
+                |    'LABELS SIZE'   == Labels size                         | Float
+                |    'LABELS COLOR'  == Labels color                        | String
+                |    'CHART COLOR'   == Boxplot and histogram color         | String
+                |    'BINS'          == Range representing the width of     | Float
+                |                       a single bar                        | 
+                |    'KDE'           == Smooth of the random distribution   | Boolean      
+                |    'DPI'           == Dots Per Inch - Image quality       | Integer   
+                |    'EXTENSION'     == Extension output file               | String ('.svg, '.png', '.eps' or '.pdf')
     
     Output:
     N/A
-
-    Example:
-    # Plot Setup
-    PLOT_SETUP = {  'NAME': 'WANDER',
-                    'WIDTH': 0.40, 
-                    'HEIGHT': 0.20, 
-                    'X AXIS LABEL': '$x_1$ - Dead Load $(kN / m)$',
-                    'X AXIS SIZE': 20,
-                    'Y AXIS SIZE': 20,
-                    'AXISES COLOR': '#000000',
-                    'LABELS SIZE': 16,
-                    'LABELS COLOR': '#000000', 
-                    'CHART COLOR': '#FEB625', 
-                    'BINS': 20,
-                    'KDE': False,
-                    'DPI': 600, 
-                    'EXTENSION': '.svg'}
-    # Data
-    DATASET = RESULTS['X_0']            
-    # Plot
-    RASD_PLOT_1(DATASET, PLOT_SETUP)
     """
     # Setup
     NAME = PLOT_SETUP['NAME']
@@ -168,34 +165,37 @@ def RASD_PLOT_1(DATASET, PLOT_SETUP):
             'size': LABELS_SIZE}
     AX_HIST.set_xlabel(X_AXIS_LABEL, fontdict = font)
     AX_HIST.set_ylabel('$COUNT$', fontdict = font)
-    AX_HIST.tick_params(axis= 'x', labelsize = X_AXIS_SIZE, colors = AXISES_COLOR)
-    AX_HIST.tick_params(axis= 'y', labelsize = Y_AXIS_SIZE, colors = AXISES_COLOR)
+    AX_HIST.tick_params(axis = 'x', labelsize = X_AXIS_SIZE, colors = AXISES_COLOR)
+    AX_HIST.tick_params(axis = 'y', labelsize = Y_AXIS_SIZE, colors = AXISES_COLOR)
     sns.despine(ax = AX_HIST)
     sns.despine(ax = AX_BOX, left = True)
     # Save figure
     SAVE_GRAPHIC(NAME, EXT, DPI)
 
-# PLOTAGEM 2
+# PLOTAGEM TIPO 1: GRÁFICO DE PONTOS PELO INDE
 def RASD_PLOT_2(DATASET, PLOT_SETUP):
     """
 
     This function shows a scatter chart with results between limits and resistances demands
 
     Input: 
-    DATASET     | Limits results (R_I) and demand (S_I) with a referenced  | Py Dataframe or Py Numpy array[N_POP x 1]
+    DATASET     | Limits results (R_I) and demand (S_I) with a referenced  | Py dataframe or Py Numpy array[N_POP x 1]
                 | color shape of fail scale (I_I)                          | 
-    PLOT_SETUP  | Contains specifications of each model of chart           | Py Dictionary
-                |    Tags:                                                 |
+                |    Dictionary tags                                       |
+                |    'DATA'          == Complete data                      | Py Numpy array[N_POP x 1]
+                |    'X DATA'        == Data plotted in X                  | String
+                |    'Y DATA'        == Data plotted in Y                  | String
+                |    'HUE VALUE'     == Data plotted in Y                  | String
+    PLOT_SETUP  | Contains specifications of each model of chart           | Py dictionary
+                |    Dictionary tags                                       |
                 |    'NAME'          == Filename output file               | String 
                 |    'WIDTH'         == Width figure                       | Float
                 |    'HEIGHT         == Height figure                      | Float
-                |    'X DATA'        == Data plotted in X                  | Float or away
-                |    'Y DATA':       == Data plotted in Y                  | Float or away
                 |    'X AXIS SIZE'   == X axis size                        | Float
                 |    'Y AXIS SIZE'   == Y axis size                        | Float
-                |    'AXISES COLOR'  == Axis color                         | String (Hexadecimal)
-                |    'X AXIS LABEL'  == X label name                       | String and LaTeX
-                |    'Y AXIS LABEL'  == Y label name                       | String and LaTeX              
+                |    'AXISES COLOR'  == Axis color                         | String
+                |    'X AXIS LABEL'  == X label name                       | String
+                |    'Y AXIS LABEL'  == Y label name                       | String             
                 |    'LABELS SIZE'   == Labels size                        | Float
                 |    'LABELS COLOR'  == labels color                       | Float
                 |    'LOC LEGEND'    == Legend position                    | String
@@ -205,40 +205,13 @@ def RASD_PLOT_2(DATASET, PLOT_SETUP):
     
     Output:
     N/A
-
-    EXAMPLE:
-    # PLOT SETUP
-    PLOT_SETUP = {'NAME': 'WANDER',
-                    'EXTENSION': '.svg',
-                    'DPI': 600,
-                    'WIDTH': 0.40, 
-                    'HEIGHT': 0.20,              
-                    'X DATA': 'S_0',
-                    'Y DATA': 'R_0',
-                    'X AXIS SIZE': 20,
-                    'Y AXIS SIZE': 20,
-                    'AXISES COLOR': '#000000',
-                    'X AXIS LABEL': '$S_0$',
-                    'Y AXIS LABEL': '$R_0$',
-                    'LABELS SIZE': 16,
-                    'LABELS COLOR': '#000000',
-                    'LOC LEGEND': 'lower right',
-                    'TITLE LEGEND': 'Failure index ($I$):'}
-    # RESULTS
-    DATASET = RESULTS_RASD
-    # CALL PLOT
-    RASD.RASD_PLOT_2(DATASET, PLOT_SETUP)
-
     """
-
-    # SETUP CHART
+    # Setup
     NAME = PLOT_SETUP['NAME']
     EXT = PLOT_SETUP['EXTENSION']
     DPI = PLOT_SETUP['DPI']
     W = PLOT_SETUP['WIDTH']
     H = PLOT_SETUP['HEIGHT']
-    X_DATA = PLOT_SETUP['X DATA']
-    Y_DATA = PLOT_SETUP['Y DATA']
     X_AXIS_SIZE = PLOT_SETUP['X AXIS SIZE']
     Y_AXIS_SIZE = PLOT_SETUP['Y AXIS SIZE']
     AXISES_COLOR = PLOT_SETUP['AXISES COLOR']
@@ -248,22 +221,25 @@ def RASD_PLOT_2(DATASET, PLOT_SETUP):
     LABELS_COLOR = PLOT_SETUP['LABELS COLOR']
     LOC_LEGEND = PLOT_SETUP['LOC LEGEND']
     TITLE_LEGEND = PLOT_SETUP['TITLE LEGEND']
+    DATA = DATASET['X DATA']
+    X_DATA = DATASET['X DATA']
+    Y_DATA = DATASET['Y DATA']
+    HUE_VALUE = DATASET['HUE VALUE']
     sns.set(style = 'ticks')
-    # CONVERT UNITS OF SIZE FIGURE
+    # Plot
     [W, H] = CONVERT_SI_TO_INCHES(W, H)
-    # PLOT
     FIG, AX = plt.subplots(figsize = (W, H))
-    sns.scatterplot(data = DATASET, x = X_DATA, y = Y_DATA, hue = 'I_0')
+    sns.scatterplot(data = DATA, x = X_DATA, y = Y_DATA, hue = HUE_VALUE)
     font = {'fontname': 'Arial',
         'color':  LABELS_COLOR,
         'weight': 'bold',
         'size': LABELS_SIZE}
     AX.set_xlabel(X_AXIS_LABEL, fontdict = font)
     AX.set_ylabel(Y_AXIS_LABEL, fontdict = font)
-    AX.tick_params(axis= 'x', labelsize = X_AXIS_SIZE, colors = AXISES_COLOR)
-    AX.tick_params(axis= 'y', labelsize = Y_AXIS_SIZE, colors = AXISES_COLOR)
+    AX.tick_params(axis = 'x', labelsize = X_AXIS_SIZE, colors = AXISES_COLOR)
+    AX.tick_params(axis = 'y', labelsize = Y_AXIS_SIZE, colors = AXISES_COLOR)
     AX.legend(loc = LOC_LEGEND, title = TITLE_LEGEND)
-    # SAVEFIG
+    # Save figure
     SAVE_GRAPHIC(NAME, EXT, DPI)
 
 # PLOTAGEM 3
@@ -326,7 +302,7 @@ def RASD_PLOT_3(DATASET, PLOT_SETUP):
     Y_AXIS_LABEL = PLOT_SETUP['Y AXIS LABEL']
     LABELS_SIZE = PLOT_SETUP['LABELS SIZE']
     LABELS_COLOR = PLOT_SETUP['LABELS COLOR']
-    C_VALUE = PLOT_SETUP['C VALUE']
+    C_VALUE = PLOT_SETUP['G VALUE']
     TRANSPARENCY = PLOT_SETUP['TRANSPARENCY']
     COLOR_MAP = PLOT_SETUP['COLOR MAP']
     # CONVERT UNITS OF SIZE FIGURE
@@ -341,8 +317,8 @@ def RASD_PLOT_3(DATASET, PLOT_SETUP):
         'size': LABELS_SIZE}
     AX.set_xlabel(X_AXIS_LABEL, fontdict = font)
     AX.set_ylabel(Y_AXIS_LABEL, fontdict = font)
-    AX.tick_params(axis= 'x', labelsize = X_AXIS_SIZE, colors = AXISES_COLOR)
-    AX.tick_params(axis= 'y', labelsize = Y_AXIS_SIZE, colors = AXISES_COLOR)
+    AX.tick_params(axis = 'x', labelsize = X_AXIS_SIZE, colors = AXISES_COLOR)
+    AX.tick_params(axis = 'y', labelsize = Y_AXIS_SIZE, colors = AXISES_COLOR)
     AUX1 =  ScalarMappable(norm = AUX, cmap = COLOR_MAP)
     FIG.colorbar(AUX1, ax = AX)
     # SAVEFIG
@@ -433,60 +409,3 @@ def RASD_PLOT_4(DATASET, PLOT_SETUP):
     #FIG.colorbar(AUX_1)
     # SAVEFIG
     SAVE_GRAPHIC(NAME, EXT, DPI)
-    
-    
-    """
-    RESULTS_RASD: RELIABILITY ANALYSIS RESULTS (DATAFRAME [N_POP, D + N_G * 2 + 2], FLOAT)
-    N_SAMPLIG: TOTAL SAMPLES
-    D: DIMENSION PROBLEM
-    N_G: TOTAL STATE LIMIT FUNCTIONS
-    +2 : RESISTANCE AND DEMAND COLUMNS IN NP.ARRAY
-
-    STOCHASTIC RASD EXAMPLE:
-    >>> # CHARACTERISTICS OF THE VARIABLES 
-    >>> V_1 = ['NORMAL', 500, 100]
-    >>> V_2 = ['NORMAL', 1000, 1000]
-    >>> # DICTIONARY
-    >>> SETUP = {'REPETITIONS': 1,
-                 'TOTAL SAMPLING': 10,
-                 'TOTAL G FUNCTIONS': 1,
-                 'TOTAL DESIGN VARIABLES': 2,
-                 'VARS': [V_1, V_2],
-                 'MODEL': 'MCS'}     
-    >>> # MCS - SIMPLE MONTE CARLO SAMPLING
-    >>> # LHS - LATIN HYPER CUBE SAMPLING
-    >>> # STATE LIMIT FUNCTIONS
-    >>> def OF_FUNCTION(X):
-            R = []
-            S = []
-            G = []
-            D0 = 3
-            Length = 100
-            E = 30 * 10**6
-            W = 2
-        T = 4
-        Px = X[0]
-        Py = X[1]
-        # LIMIT
-        R_1 = D0
-        # DEMAND                      
-        S_1 = (4 * Length ** 3 / (E * W * T)) * (((Py / T ** 2) ** 2  + (Px / W ** 2) ** 2) ** 0.5)
-        # STATE LIMIT FUNCTION
-        G_1 = R_1 - S_1
-        R = [R_1] 
-        S = [S_1] 
-        G = [G_1]
-    return R, S, G
-    # CALL RASD
-    RESULTS_TEST = RASD.MAIN_STOCHASTIC(SETUP, OF_FUNCTION)
-    # RESULTS
-    print(RESULTS_TEST)
-    ###################################################
-    X_1         X_2         R_1     S_1     G_1     I
-    4.25e+02    2.10e+02    3.00    2.82    0.18    0
-    ...
-    ...
-    ...
-    4.72e+02    3.35e+03    3.00    4.00   -1.00    1
-    ###################################################
-    """  

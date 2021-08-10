@@ -1,38 +1,52 @@
 """
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::..::::::::::::::::::::::::::::::::::::::::
-:::::::::::::::::::::::::::::::::::...::...:::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::..:!%@&&@%!:..::::::::::::::::::::::::::::::::::
-:::::::::::::::::::::::::::::..:!%@###@@###@%!:..:::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::..:!%@##&$*::::*$&##@%!:..::::::::::::::::::::::::::::
-::::::::::::::::::::::::::!%&##&$*::*$&&$*::*$&##&%!::::::::::::::::::::::::::::
-::::::::::::::::::::::::.$##&$*::*@&##@@&@*.:::!$&##$.::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&!.:@####%:..::!$&&@*.:&#@:::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&:.:!%&##&$**$&##&&##::&#@:::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&::$%::!%@####&%!:$#&::&#$:::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&::##@...:!%%!:...$#&!:*:::::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&::&#@.:::....:::.$#&!.*$$:::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&::##&!:..::::..:!@##!:&#@:::::::::::::::::::::::::::
-::::::::::::::::::::::::.@#&::$&##@%!:..:!%@##&$::&#@:::::::::::::::::::::::::::
-::::::::::::::::::::::::.@##@*::*$&##@$%@##&$*::*@##@:::::::::::::::::::::::::::
-::::::::::::::::::::::::::%@##&@*::*$&##&$*::*$&##@%!:::::::::::::::::::::::::::
-:::::::::::::::::::::::::..:!%@###@*::!!::*@###@%!:..:::::::::::::::::::::::::::
-::::::::::::::::::::::::::::...:*@###@%%@###@%!:..::::::::::::::::::::::::::::::
-:::::::::::::::::::::::::::::::...:*$&##&@*:...:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::...:**:...::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::...:::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:::::::::::::::::::::........::.......::........:........:::::::::::::::::::::::
-:::::::::::::::::::::%$$$$$$*.:%$$$$$%::*$$$$$$*:%$$$$$$*:::::::::::::::::::::::
-:::::::::::::::::::::&&****@#:%#%***$#*!#$*****!:&&****@&:::::::::::::::::::::::
-:::::::::::::::::::::&&@@@$@$.%#@@@@@#*:@@$@@@@*:&@....$&:::::::::::::::::::::::
-:::::::::::::::::::::&@:%&@*!.$#!:::*#*:!*****#@.&@!!!!@#:::::::::::::::::::::::
-:::::::::::::::::::::$%..:$@$:*@:...!@!:@@@@@@@!:$@@@@@@%:::::::::::::::::::::::
-:::::::::::::::::::::..::....::.:::::.:::.......:.....:..:::::::::::::::::::::::
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWX0xl;'''';:cdOXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNKko:,''''''''''',:okKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWN0xl;''''''''''''''''''';lx0XWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWKOdc,'''''''',:lddo:;,'''''''',:okKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWN0xl;,'''''''';cdOXWWWWXK0dc;''''''''';lx0NWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWXOdc,'''''''',:lx0NWWWWWWWWWWWNKko:,'''''''',cdOKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWNKko:,'''''''',cdOXNWWWWN0kddk0XNWWWWWXOdc;'''''''',;lx0NWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWXOdc;''''''''';lx0NWWWWWXOdc,'''',;cdOXWWWWWN0ko:,'''''''',cdOXWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWXko:,'''''''',:okKNWWWWNKko:,''''''''''',:lxKWWWWWWXOdc,'''''''',:lkKWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWW0c''''''''';lx0XWWWWWXOdc;''''''''''''''''',cOWWWWWWWWWN0xl;,'''''''':OWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''''';okKNWWWWNKko:,'''''''',:oddoc;;:lx0NWWWWWX0KNWWWWWKOo:'''''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''''c0WWWWWN0xl;''''''''';lx0XWWWWNXKXNWWWWNKko:,;cdOXWWWWWKl''''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWWWNk;'''''''''',l0NWWWWWWWWWWWWWX0xl;''''''',:o0WWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWWWWKdc,''''''''';okKNWWWWWWWWKko:,'''''''''''''oNWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWWWWWWN0xl;''''''''';lxOKKOxdl;,'''''''';;,'''''oXWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWWNNWWWWWNKko:,'''''''',,,,''''''''',:okKk;'''''oXWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNkclx0NWWWWWX0dc;''''''''''''''';cdOXWWWO;'''''oXWWWx,'''',xWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd''';cxXWWWWWWNKko:,''''''',:okKNWWWWWWO;'''''oXWWWx,',:okXWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWXOdl::cdxOXWWWWWWWWWWO;'''''oXWWW0dxOXWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWWWWNNXNWWWWWWWWWWWWWWO;'''''oXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWO;'''''oXWWWWWWN0xd0WWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWO;'''''oXWWWXOdc,',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWO;'''''oXWWWk;'''',dNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk;'''',xWWWNd''''',dXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNx;'''''oXWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNd'''''',cdOXWWWWWWWWWWWWWWWWWWWWWWWXOdl;''''''oXWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',xWWWNk;'''''''',:okKNWWWWWWWWWWWWWWWNKko:,'''''''',xNWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,'''',dNWWWN0xl;''''''''';lx0XWWWWWWWWWN0xl;''''''''';cd0NWWWNd,'''',xNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWk,''''';dKNWWWWNKko:,'''''''',:okKXXKOxdc,'''''''',:okKNWWWWNKx;''''',dNWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWO;''''''';lx0XWWWWWX0xc;''''''''';::;,''''''''';cdOXWWWWWN0xl;''''''',xWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWX0xl;''''''''';lx0NWWWWWXOdc;''''''''',cdOXWWWWWN0kl:,'''''''',cdOXWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWNKko:,'''''''',cdOKWWWWWNKxl:;,:ldx0NWWWWWXOdc;'''''''',:lk0NWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWXOdc;'''''''',;lx0NWWWWWXKKXWWWWWWNKko:,'''''''',cdOXNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWNKko:,'''''''',cdOXWWWWWWWWWXOxc;''''''''';lx0NWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWXOdc,'''''''',:lk0XXKkxo:,'''''''',:dOKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWXOdc,''''''''''''''',:okKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWN0xl;''''''''';cxOXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNKkoc:;:odkKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNXXNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWOooooooooooooooodx0NWWWWXOdooooooooooooodOXWWWWNX0xdoooooooooooooooONWNOdooooooooooooooox0NWWWW
+WWWWWWWWo''''''''''''''''';xNWWKl,''''''''''''''',oKWWNx:;'''''''''''''''''oNMNd''''''''''''''''';xNWWW
+WWWWWWWWd'',okkkkkkkkkkd;''cKWWk;''ckkkkkkkkkkxc'';OWWKc''';dkkkkkkkkkOkkkOKWWNd'',okkkkkkkkOOd;''cKWWW
+WWWWWWWWd'';kWWWWWWWWWW0c''cKWWk;''dXWWWWWWWWWXo'';OWWKc'''c0WWWWWWWWWWWWWWWWWNd'';kWWWWWWWWWWKc''cKWWW
+WWWWWWWWd''':llllllllllc,''lXWWk;'';lllllllllll;'';OWWXl''',cllllllllllloxKWWWNd'';kWWWWWWWWWWKc''cKWWW
+WWWWWWWWd'''''''''''',,,,;l0WWWk;''''',,''',,''''';OWWW0xl;,'''''',',,,''':OWWNd'';kWWWWWWWWWWKc''cKWWW
+WWWWWWWWd'',oOko;''';dOO0KNWWWWk;''lkOOOOOOOOOkc'';OWWWWWNK0OOOOOOOOOOOo,''dNWNd'';kWWWWWWWWWWKc''cKWWW
+WWWWWWWWd'';kWWN0o;'';dKNNNNWWWk;',dNWWWWWWWWMNo'';OWWWWNNWNNNNNNNNNNNNk;''oNWNd'';kNNNNNNNNNN0c''cKWWW
+WWWWWWWWd'';kWWWWN0o;'';cccdXWWk;',dNWWWWWWWWWNo'';OWWXxccccccccccccccc:'',xNWNd''':cccccccccc:,''lXWWW
+WWWWWWWWd;,:OWWWWWWN0o;,,,,lKMWk:,;xNWWWWWWWWWNd,,:OWWKl,,,,,,,,,,,,,,,,;:xXWWNd;,,,,,,,,,,,,,,,:o0WWWW
 """
 ################################################################################
 # UNIVERSIDADE FEDERAL DE CATALÃO (UFCAT)
@@ -51,10 +65,16 @@
 # BIBLIOTECAS NATIVAS PYTHON
 from pyDOE import *
 import numpy as np
-from scipy.stats.distributions import *
+from scipy.stats.distributions import norm
+from scipy.stats.distributions import gumbel_r
+from scipy.stats.distributions import gumbel_l
+from scipy.stats.distributions import lognorm
+from scipy.stats.distributions import uniform
 
 ################################################################################
 # BIBLIOTECAS DESENVOLVEDORES GPEE
+
+# CRIAÇÃO DAS AMOSTRAS VIA MÉTODOS ESTOCÁSTICOS 
 def SAMPLING(N_POP, D, MODEL, VARS):
     """
     This function generates random samples according to chosen sampling method.
@@ -85,85 +105,40 @@ def SAMPLING(N_POP, D, MODEL, VARS):
             STD = VARS[I_COUNT][2]
             # Normal or Gaussian
             if (TYPE == 'GAUSSIAN' or TYPE == 'NORMAL'):
-                RANDOM_NUMBERS = np.random.normal(MEAN, STD, N_POP)
-                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # Gumbel maximum
+                RANDOM_SAMPLING[:, I_COUNT] = norm.rvs(loc = MEAN, scale = STD, size = N_POP, random_state = None)
+            # Gumbel right or Gumbel maximum
             elif TYPE == 'GUMBEL MAX':
-                RANDOM_NUMBERS = np.random.gumbel(MEAN, STD, N_POP)
-                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
+                RANDOM_SAMPLING[:, I_COUNT] = gumbel_r.rvs(loc = MEAN, scale = STD, size = N_POP, random_state = None)
+            # Gumbel left or Gumbel minimum
+            elif TYPE == 'GUMBEL MIN':
+                RANDOM_SAMPLING[:, I_COUNT] = gumbel_l.rvs(loc = MEAN, scale = STD, size = N_POP, random_state = None)
             # Lognormal
             elif TYPE == 'LOGNORMAL':
-                RANDOM_NUMBERS = np.random.lognormal(MEAN, STD, N_POP)
-                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # Gamma
-            elif TYPE == 'GAMMA':
-                RANDOM_NUMBERS = np.random.gamma(MEAN, STD, N_POP)
-                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBER                 
-            # Laplace
-            elif TYPE == 'LAPLACE':
-                RANDOM_NUMBERS = np.random.laplace(MEAN, STD, N_POP)
-                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # Logistic
-            elif TYPE == 'LOGISTIC':
-                RANDOM_NUMBERS = np.random.logistic(MEAN, STD, N_POP)
-                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # Multinomial
-            elif TYPE == 'MULTINOMIAL':
-                RANDOM_NUMBERS = np.random.multinomial(MEAN, STD, N_POP)
-                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # Multivariate normal
-            elif TYPE == 'MULTIVARIATE NORMAL':
-                RANDOM_NUMBERS = np.random.multivariate_normal(MEAN, STD, N_POP)
-                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # Negative binomial
-            elif TYPE == 'NEGATIVE BINOMIAL':
-                RANDOM_NUMBERS = np.random.negative_binomial(MEAN, STD, N_POP)
-                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
-            # Noncentral chisquare
-            elif TYPE == 'NONCENTRAL CHISQUARE':
-                RANDOM_NUMBERS = np.random.noncentral_chisquare(MEAN, STD, N_POP)
-                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS
+                RANDOM_SAMPLING[:, I_COUNT] = lognormal.rvs(loc = MEAN, scale = STD, size = N_POP, random_state = None)
             # Uniform
             elif TYPE == 'UNIFORM':
-                RANDOM_NUMBERS = np.random.uniform(MEAN, STD, N_POP)
-                RANDOM_SAMPLING[:, I_COUNT] = RANDOM_NUMBERS  
+                RANDOM_SAMPLING[:, I_COUNT] = uniform.rvs(loc = MEAN, scale = STD, size = N_POP, random_state = None)
     # Latin Hyper Cube Sampling            
     elif MODEL == 'LHS':
-        DESIGN = lhs(N_POP)
-        NEW_TOTAL_SAMPLING=N_POP
-        NEW_ARRAY_RANDOM = []
+        RANDOM_SAMPLING = lhs(D, criterion = 'center', samples = N_POP)
         for I_COUNT in range(D):
             # Type of distribution, mean and standard deviation
             TYPE = VARS[I_COUNT][0]
             MEAN = VARS[I_COUNT][1]
             STD = VARS[I_COUNT][2]  
             # Normal or Gaussian
-            if (TYPE == 'NORMAL'):
-                ARRAY_RANDOM = norm(loc=MEAN, scale=STD).ppf(DESIGN)   
-                for I_AUX in ARRAY_RANDOM:
-                    for J_AUX in I_AUX:
-                      NEW_ARRAY_RANDOM.append(J_AUX)
-                for J_COUNT in range (NEW_TOTAL_SAMPLING):
-                    RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]   
-            # Gumbel maximum       
-            elif TYPE == 'GUMBEL':
-                ARRAY_RANDOM = gumbel_r(loc=MEAN, scale=STD).ppf(DESIGN)  
-                for I_AUX in ARRAY_RANDOM:
-                    for J_AUX in I_AUX:
-                      NEW_ARRAY_RANDOM.append(J_AUX)
-                for J_COUNT in range (NEW_TOTAL_SAMPLING):
-                    RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]
-            # Lognormal maximum     
+            if (TYPE == 'GAUSSIAN' or TYPE == 'NORMAL'):
+                RANDOM_SAMPLING[:, I_COUNT] = norm(loc = MEAN, scale = STD).ppf(RANDOM_SAMPLING[:, I_COUNT])
+            # Gumbel right or Gumbel maximum       
+            elif TYPE == 'GUMBEL MAX':
+                RANDOM_SAMPLING[:, I_COUNT] = gumbel_r(loc = MEAN, scale = STD).ppf(RANDOM_SAMPLING[:, I_COUNT])
+            # Gumbel left or Gumbel minimum
+            elif TYPE == 'GUMBEL MIN':
+                RANDOM_SAMPLING[:, I_COUNT] = gumbel_l(loc = MEAN, scale = STD).ppf(RANDOM_SAMPLING[:, I_COUNT])
+            # Lognormal
             elif TYPE == 'LOGNORMAL':
-                ARRAY_RANDOM = lognorm(loc=MEAN, scale=STD).ppf(DESIGN)  
-                for I_AUX in ARRAY_RANDOM:
-                    for J_AUX in I_AUX:
-                      NEW_ARRAY_RANDOM.append(J_AUX)
-                for J_COUNT in range (NEW_TOTAL_SAMPLING):
-                    RANDOM_SAMPLING[J_COUNT,I_COUNT]=NEW_ARRAY_RANDOM[J_COUNT]   
+                RANDOM_SAMPLING[:, I_COUNT] = lognormal(loc = MEAN, scale = STD).ppf(RANDOM_SAMPLING[:, I_COUNT])
+            # Uniform
+            elif TYPE == 'UNIFORM':
+                RANDOM_SAMPLING[:, I_COUNT] = uniform(loc = MEAN, scale = STD).ppf(RANDOM_SAMPLING[:, I_COUNT])
     return RANDOM_SAMPLING
-
-
-# DISTRIBUITIONS
-# https://docs.scipy.org/doc/numpy-1.9.3/reference/routines.random.html
-# https://docs.scipy.org/doc/scipy/reference/stats.html 
