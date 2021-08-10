@@ -114,7 +114,10 @@ def RASD_PLOT_1(DATASET, PLOT_SETUP):
     This function shows a boxplot and histograms in a single chart.
     
     Input: 
-    DATASET     | Results from a variable you want to view the distribution | Py dataframe or Py Numpy array[N_POP x 1]
+    DATASET     | Results from a RASD Toolboox                              | Py dataframe or Py Numpy array[N_POP x 1]
+                |    Dictionary tags                                        |
+                |    'DATA'          == Complete data                       | Py Numpy array[N_POP x 1]
+                |    'COLUMN'        == Dataframe column                    | String
     PLOT_SETUP  | Contains specifications of each model of chart            | Py dictionary
                 |    Dictionary tags                                        |
                 |    'NAME'          == Filename output file                | String 
@@ -151,12 +154,15 @@ def RASD_PLOT_1(DATASET, PLOT_SETUP):
     KDE = PLOT_SETUP['KDE']
     DPI = PLOT_SETUP['DPI']
     EXT = PLOT_SETUP['EXTENSION']
+    AUX = DATASET['DATASET']
+    COLUMN = DATASET['COLUMN']
+    DATA = AUX[COLUMN]
     # Plot
     [W, H] = CONVERT_SI_TO_INCHES(W, H)
     sns.set(style = 'ticks')
     FIG, (AX_BOX, AX_HIST) = plt.subplots(2, figsize = (W, H), sharex = True, gridspec_kw = {'height_ratios': (.15, .85)})
-    sns.boxplot(DATASET, ax = AX_BOX, color = CHART_COLOR)
-    sns.histplot(DATASET, ax = AX_HIST, kde = KDE, color = CHART_COLOR, bins = BINS)
+    sns.boxplot(DATA, ax = AX_BOX, color = CHART_COLOR)
+    sns.histplot(DATA, ax = AX_HIST, kde = KDE, color = CHART_COLOR, bins = BINS)
     AX_BOX.set(yticks = [])
     AX_BOX.set(xlabel='')
     font = {'fontname': 'Arial',
@@ -179,12 +185,11 @@ def RASD_PLOT_2(DATASET, PLOT_SETUP):
     This function shows a scatter chart with results between limits and resistances demands
 
     Input: 
-    DATASET     | Limits results (R_I) and demand (S_I) with a referenced  | Py dataframe or Py Numpy array[N_POP x 1]
-                | color shape of fail scale (I_I)                          | 
+    DATASET     | Results from a RASD Toolboox                             | Py dataframe or Py Numpy array[N_POP x 1]
                 |    Dictionary tags                                       |
                 |    'DATA'          == Complete data                      | Py Numpy array[N_POP x 1]
-                |    'X DATA'        == Data plotted in X                  | String
-                |    'Y DATA'        == Data plotted in Y                  | String
+                |    'X DATA'        == Dataframe column plot in X axis    | String
+                |    'Y DATA'        == Dataframe column plot in Y axis    | String
                 |    'HUE VALUE'     == Data plotted in Y                  | String
     PLOT_SETUP  | Contains specifications of each model of chart           | Py dictionary
                 |    Dictionary tags                                       |
@@ -221,12 +226,12 @@ def RASD_PLOT_2(DATASET, PLOT_SETUP):
     LABELS_COLOR = PLOT_SETUP['LABELS COLOR']
     LOC_LEGEND = PLOT_SETUP['LOC LEGEND']
     TITLE_LEGEND = PLOT_SETUP['TITLE LEGEND']
-    DATA = DATASET['X DATA']
+    DATA = DATASET['DATASET']
     X_DATA = DATASET['X DATA']
     Y_DATA = DATASET['Y DATA']
     HUE_VALUE = DATASET['HUE VALUE']
-    sns.set(style = 'ticks')
     # Plot
+    sns.set(style = 'ticks')
     [W, H] = CONVERT_SI_TO_INCHES(W, H)
     FIG, AX = plt.subplots(figsize = (W, H))
     sns.scatterplot(data = DATA, x = X_DATA, y = Y_DATA, hue = HUE_VALUE)
