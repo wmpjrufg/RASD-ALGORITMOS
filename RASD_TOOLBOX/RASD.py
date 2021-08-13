@@ -154,6 +154,7 @@ def RASD_STOCHASTIC(SETUP, OF_FUNCTION):
         # Rename columns in dataframe 
         COLUMNS_NAMES = []
         P_F = []
+        BETA_F = []
         N_F = []
         for L_COUNT in range(D):
             COLUMNS_NAMES.append('X_' + str(L_COUNT))
@@ -172,11 +173,18 @@ def RASD_STOCHASTIC(SETUP, OF_FUNCTION):
             N_FAILURE = RESULTS_RASD[INDEX].sum()
             N_F.append(N_FAILURE)
             P_FVALUE = N_FAILURE / N_POP
+            print(P_FVALUE)
             P_F.append(P_FVALUE)
+            BETA_DF = pd.read_csv('RASD_TOOLBOX/beta_df.txt', delimiter = ";",  names = ['PF' ,'B'])
+            print(BETA_DF[BETA_DF['PF']==round(P_FVALUE,5)])    
+            #BETA_VALUE = BETA_DF[BETA_DF['PF']==round(P_FVALUE,5)].iloc[0][1]
+
+            print(BETA_VALUE)
+            BETA_F.append(BETA_VALUE)
         # Save results
-        RESULTS_REP = {'TOTAL RESULTS': RESULTS_RASD, 'NUMBER OF FAILURES': N_F, 'PROBABILITY OF FAILURE': P_F}
+        RESULTS_REP = {'TOTAL RESULTS': RESULTS_RASD, 'NUMBER OF FAILURES': N_F, 'PROBABILITY OF FAILURE': P_F, 'BETA': BETA_F}
         RESULTS.append(RESULTS_REP)
         NAME = 'RASD_' + MODEL + '_REP_' + str(J_COUNT) + '_SAMPLES_' + str(N_POP) + '_' + str(datetime.now().strftime('%Y%m%d %H%M%S')) + '.txt'
         HEADER_NAMES =  ';'.join(COLUMNS_NAMES)
-        np.savetxt(NAME, RESULTS_RASD, fmt = '%d', delimiter = ';' , header = HEADER_NAMES)
+        np.savetxt(NAME, RESULTS_RASD, fmt = '%1.2f', delimiter = ';' , header = HEADER_NAMES)
     return RESULTS
