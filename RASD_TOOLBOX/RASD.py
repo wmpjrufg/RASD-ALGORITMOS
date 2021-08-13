@@ -173,13 +173,10 @@ def RASD_STOCHASTIC(SETUP, OF_FUNCTION):
             N_FAILURE = RESULTS_RASD[INDEX].sum()
             N_F.append(N_FAILURE)
             P_FVALUE = N_FAILURE / N_POP
-            print(P_FVALUE)
             P_F.append(P_FVALUE)
-            BETA_DF = pd.read_csv('RASD_TOOLBOX/beta_df.txt', delimiter = ";",  names = ['PF' ,'B'])
-            print(BETA_DF[BETA_DF['PF']==round(P_FVALUE,5)])    
-            #BETA_VALUE = BETA_DF[BETA_DF['PF']==round(P_FVALUE,5)].iloc[0][1]
-
-            print(BETA_VALUE)
+            BETA_DF = pd.read_csv('RASD_TOOLBOX/beta_df.txt', delimiter = ";",  names = ['PF' ,'BETA'])
+            #BETA_APROX = round(P_FVALUE,5)
+            BETA_VALUE = (BETA_DF['PF'].sub(P_FVALUE).abs().idxmin())/1000    
             BETA_F.append(BETA_VALUE)
         # Save results
         RESULTS_REP = {'TOTAL RESULTS': RESULTS_RASD, 'NUMBER OF FAILURES': N_F, 'PROBABILITY OF FAILURE': P_F, 'BETA': BETA_F}
