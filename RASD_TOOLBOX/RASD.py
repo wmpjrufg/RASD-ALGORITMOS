@@ -179,7 +179,7 @@ def RASD_STOCHASTIC(SETUP, OF_FUNCTION):
             BETA_VALUE = (BETA_DF['PF'].sub(P_FVALUE).abs().idxmin())/1000    
             BETA_F.append(BETA_VALUE)
         # Save results
-        RESULTS_REP = {'TOTAL RESULTS': RESULTS_RASD, 'NUMBER OF FAILURES': N_F, 'PROBABILITY OF FAILURE': P_F, 'BETA': BETA_F}
+        RESULTS_REP = {'TOTAL RESULTS': RESULTS_RASD, 'NUMBER OF FAILURES': N_F, 'PROBABILITY OF FAILURE': P_F, 'BETA INDEX': BETA_F}
         RESULTS.append(RESULTS_REP)
         NAME = 'RASD_' + MODEL + '_REP_' + str(J_COUNT) + '_SAMPLES_' + str(N_POP) + '_' + str(datetime.now().strftime('%Y%m%d %H%M%S')) + '.txt'
         HEADER_NAMES =  ';'.join(COLUMNS_NAMES)
