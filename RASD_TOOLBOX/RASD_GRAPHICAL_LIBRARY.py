@@ -478,18 +478,20 @@ def RASD_PLOT_5(DATASET, PLOT_SETUP):
                     'X AXIS SIZE': 20,
                     'Y AXIS SIZE': 20,
                     'AXISES COLOR': '#000000',
-                    'X AXIS LABEL': '$S_0 R_0$',
-                    'Y AXIS LABEL': '$SOMATÓRIO$',
+                    'X AXIS LABEL': 'Número de Simulações (ns)',
+                    'Y AXIS LABEL': 'Beta',
                     'LABELS SIZE': 16,
                     'LABELS COLOR': '#000000',
                     'CHART COLOR': 'blue',
-                    'POPULATION' : max(POP),
+                    'POPULATION' : POP,
                     'TYPE' : 'Beta'}
     # RESULTS
-    DATASET = RESULTS_RASD
+    OPCOES_DADOS = {'DATASET': RESULTS_TEST}       
+
     # CALL PLOT
-    RASD.RASD_PLOT_4(DATASET, PLOT_SETUP)
+    RASD_PLOT_5(OPCOES_DADOS, OPCOES_GRAFICAS)
     """
+
     # SETUP CHART
     NAME = PLOT_SETUP['NAME']
     EXT = PLOT_SETUP['EXTENSION']
