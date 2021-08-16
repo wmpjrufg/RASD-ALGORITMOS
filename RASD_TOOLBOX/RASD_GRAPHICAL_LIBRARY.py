@@ -443,7 +443,7 @@ def RASD_PLOT_4(DATASET, PLOT_SETUP):
     # PLOTAGEM 5
 def RASD_PLOT_5(DATASET, PLOT_SETUP):
     """
-    This function plots two histograms in a single one chart
+    This function plots a chart with values of number of simulations X Beta/Failure Probability
 
     Input: 
     DATASET     | Results from a RASD Toolboox                             | Py dataframe or Py Numpy array[N_POP x 1]
