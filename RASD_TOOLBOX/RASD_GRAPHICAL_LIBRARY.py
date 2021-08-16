@@ -437,3 +437,110 @@ def RASD_PLOT_4(DATASET, PLOT_SETUP):
     #FIG.colorbar(AUX_1)
     # SAVEFIG
     SAVE_GRAPHIC(NAME, EXT, DPI)
+
+
+
+    # PLOTAGEM 5
+def RASD_PLOT_5(DATASET, PLOT_SETUP):
+    """
+    This function plots two histograms in a single one chart
+
+    Input: 
+    DATASET     | Results from a RASD Toolboox                             | Py dataframe or Py Numpy array[N_POP x 1]
+                |    Dictionary tags                                       |
+                |    'DATA'          == Complete data                      | Py Numpy array[N_POP x 1]
+                |    'X DATA'        == Dataframe name column plots in X   | String
+                |    'Y DATA'        == Dataframe column plots in Y        | String
+                |    'C VALUE'       == Dataframe column plots in C        | String
+    PLOT_SETUP  | Contains specifications of each model of chart           | Py dictionary
+                |    Dictionary tags                                       |
+                |    'NAME'          == Filename output file               | String 
+                |    'WIDTH'         == Width figure                       | Float
+                |    'HEIGHT         == Height figure                      | Float
+                |    'X AXIS SIZE'   == X axis size                        | Float
+                |    'Y AXIS SIZE'   == Y axis size                        | Float
+                |    'AXISES COLOR'  == Axis color                         | String
+                |    'X AXIS LABEL'  == X label name                       | String
+                |    'Y AXIS LABEL'  == Y label name                       | String             
+                |    'LABELS SIZE'   == Labels size                        | Float
+                |    'LABELS COLOR'  == Labels color                       | Float
+                |    'ALPHA'         == Blending value                     | Float
+                |    'BINS'          == Equal width bins in the range      | Integer
+                |    'DPI'           == Dots Per Inch - Image quality      | Integer   
+                |    'EXTENSION'     == Extension output file              | String ('.svg, '.png', '.eps' or '.pdf')
+    
+    Output:
+
+    EXAMPLE:
+    # PLOT SETUP
+    PLOT_SETUP = {'NAME': 'WANDER',
+                    'EXTENSION': '.svg',
+                    'DPI': 600,
+                    'WIDTH': 0.20,
+                    'HEIGHT': 0.10,
+                    'X DATA': 'S_0',
+                    'Y DATA': 'R_0',
+                    'X AXIS SIZE': 20,
+                    'Y AXIS SIZE': 20,
+                    'AXISES COLOR': '#000000',
+                    'X AXIS LABEL': '$S_0 R_0$',
+                    'Y AXIS LABEL': '$SOMATÓRIO$',
+                    'LABELS SIZE': 16,
+                    'LABELS COLOR': '#000000',
+                    'C VALUE': 'G_0',
+                    'TRANSPARENCY': 0.8,
+                    'COLOR MAP': 'viridis',
+                    'BINS': '50',
+                    'ALPHA': '0.6',
+                    'CHART COLOR': 'blue',
+                    'POPULATION' : max(POP)}
+    # RESULTS
+    DATASET = RESULTS_RASD
+    # CALL PLOT
+    RASD.RASD_PLOT_4(DATASET, PLOT_SETUP)
+    """
+    # SETUP CHART
+    NAME = PLOT_SETUP['NAME']
+    EXT = PLOT_SETUP['EXTENSION']
+    DPI = PLOT_SETUP['DPI']
+    W = PLOT_SETUP['WIDTH']
+    H = PLOT_SETUP['HEIGHT']
+    X_DATA = DATASET['X DATA']
+    Y_DATA = DATASET['Y DATA']
+    X_AXIS_SIZE = PLOT_SETUP['X AXIS SIZE']
+    Y_AXIS_SIZE = PLOT_SETUP['Y AXIS SIZE']
+    AXISES_COLOR = PLOT_SETUP['AXISES COLOR']
+    X_AXIS_LABEL = PLOT_SETUP['X AXIS LABEL']
+    Y_AXIS_LABEL = PLOT_SETUP['Y AXIS LABEL']
+    LABELS_SIZE = PLOT_SETUP['LABELS SIZE']
+    LABELS_COLOR = PLOT_SETUP['LABELS COLOR']
+    TRANSPARENCY = PLOT_SETUP['TRANSPARENCY']
+    COLOR_MAP = PLOT_SETUP['COLOR MAP']
+    BINS = int(PLOT_SETUP['BINS'])
+    ALPHA = float(PLOT_SETUP['ALPHA'])
+    A_UX = DATASET['DATASET']
+    CHART_COLOR = PLOT_SETUP['CHART COLOR']
+    PF_AUX = []
+    BETA_AUX = []
+    POP_SIZE = POPULATION
+    # CONVERT UNITS OF SIZE FIGURE
+    [W, H] = CONVERT_SI_TO_INCHES(W, H)
+    # PLOT
+
+    for i in range(POP_SIZE):
+        PF_AUX.append(DATASET[i]['PROBABILITY OF FAILURE'][0])
+        BETA_AUX.append(DATASET[i]['BETA INDEX'][0])
+
+    plt.subplots(figsize=(W, H))
+    plt.plot(POP, PF_AUX, color=CHART_COLOR)
+    plt.legend()
+
+    plt.xlabel(X_AXIS_LABEL)
+    plt.ylabel(Y_AXIS_LABEL)
+
+    #plt.tick_params(axis='x', labelsize=X_AXIS_SIZE, colors=AXISES_COLOR)
+    #plt.tick_params(axis='y', labelsize=Y_AXIS_SIZE, colors=AXISES_COLOR)
+    #AUX_1 = ScalarMappable(norm=AUX, cmap=COLOR_MAP)
+    #FIG.colorbar(AUX_1)
+    # SAVEFIG
+    SAVE_GRAPHIC(NAME, EXT, DPI)
