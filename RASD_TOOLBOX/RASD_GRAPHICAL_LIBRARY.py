@@ -449,9 +449,6 @@ def RASD_PLOT_5(DATASET, PLOT_SETUP):
     DATASET     | Results from a RASD Toolboox                             | Py dataframe or Py Numpy array[N_POP x 1]
                 |    Dictionary tags                                       |
                 |    'DATA'          == Complete data                      | Py Numpy array[N_POP x 1]
-                |    'X DATA'        == Dataframe name column plots in X   | String
-                |    'Y DATA'        == Dataframe column plots in Y        | String
-                |    'C VALUE'       == Dataframe column plots in C        | String
     PLOT_SETUP  | Contains specifications of each model of chart           | Py dictionary
                 |    Dictionary tags                                       |
                 |    'NAME'          == Filename output file               | String 
@@ -464,9 +461,9 @@ def RASD_PLOT_5(DATASET, PLOT_SETUP):
                 |    'Y AXIS LABEL'  == Y label name                       | String             
                 |    'LABELS SIZE'   == Labels size                        | Float
                 |    'LABELS COLOR'  == Labels color                       | Float
-                |    'ALPHA'         == Blending value                     | Float
-                |    'BINS'          == Equal width bins in the range      | Integer
-                |    'DPI'           == Dots Per Inch - Image quality      | Integer   
+                |    'DPI'           == Dots Per Inch - Image quality      | Integer 
+                |    'POPULATION'    == Population array                   | Py Numpy array[N_POP x N_SIMULACOCES]
+                |    'TYPE'          == Chart type                         | String ('Beta', 'Pf')
                 |    'EXTENSION'     == Extension output file              | String ('.svg, '.png', '.eps' or '.pdf')
     
     Output:
@@ -478,8 +475,6 @@ def RASD_PLOT_5(DATASET, PLOT_SETUP):
                     'DPI': 600,
                     'WIDTH': 0.20,
                     'HEIGHT': 0.10,
-                    'X DATA': 'S_0',
-                    'Y DATA': 'R_0',
                     'X AXIS SIZE': 20,
                     'Y AXIS SIZE': 20,
                     'AXISES COLOR': '#000000',
@@ -487,13 +482,9 @@ def RASD_PLOT_5(DATASET, PLOT_SETUP):
                     'Y AXIS LABEL': '$SOMATÓRIO$',
                     'LABELS SIZE': 16,
                     'LABELS COLOR': '#000000',
-                    'C VALUE': 'G_0',
-                    'TRANSPARENCY': 0.8,
-                    'COLOR MAP': 'viridis',
-                    'BINS': '50',
-                    'ALPHA': '0.6',
                     'CHART COLOR': 'blue',
-                    'POPULATION' : max(POP)}
+                    'POPULATION' : max(POP),
+                    'TYPE' : 'Beta'}
     # RESULTS
     DATASET = RESULTS_RASD
     # CALL PLOT
@@ -505,8 +496,7 @@ def RASD_PLOT_5(DATASET, PLOT_SETUP):
     DPI = PLOT_SETUP['DPI']
     W = PLOT_SETUP['WIDTH']
     H = PLOT_SETUP['HEIGHT']
-    X_DATA = DATASET['X DATA']
-    Y_DATA = DATASET['Y DATA']
+    DATAS = DATASET['DATASET']
     X_AXIS_SIZE = PLOT_SETUP['X AXIS SIZE']
     Y_AXIS_SIZE = PLOT_SETUP['Y AXIS SIZE']
     AXISES_COLOR = PLOT_SETUP['AXISES COLOR']
@@ -514,26 +504,28 @@ def RASD_PLOT_5(DATASET, PLOT_SETUP):
     Y_AXIS_LABEL = PLOT_SETUP['Y AXIS LABEL']
     LABELS_SIZE = PLOT_SETUP['LABELS SIZE']
     LABELS_COLOR = PLOT_SETUP['LABELS COLOR']
-    TRANSPARENCY = PLOT_SETUP['TRANSPARENCY']
-    COLOR_MAP = PLOT_SETUP['COLOR MAP']
-    BINS = int(PLOT_SETUP['BINS'])
-    ALPHA = float(PLOT_SETUP['ALPHA'])
-    A_UX = DATASET['DATASET']
     CHART_COLOR = PLOT_SETUP['CHART COLOR']
     PF_AUX = []
     BETA_AUX = []
-    POP_SIZE = POPULATION
+    POP_SIZE = len(PLOT_SETUP['POPULATION'])
+    POPULATION = PLOT_SETUP['POPULATION']
+    CHART_TYPE = PLOT_SETUP['TYPE']
     # CONVERT UNITS OF SIZE FIGURE
     [W, H] = CONVERT_SI_TO_INCHES(W, H)
     # PLOT
 
     for i in range(POP_SIZE):
-        PF_AUX.append(DATASET[i]['PROBABILITY OF FAILURE'][0])
-        BETA_AUX.append(DATASET[i]['BETA INDEX'][0])
+        PF_AUX.append(DATAS[i]['PROBABILITY OF FAILURE'][0])
+        BETA_AUX.append(DATAS[i]['BETA INDEX'][0])
 
-    plt.subplots(figsize=(W, H))
-    plt.plot(POP, PF_AUX, color=CHART_COLOR)
-    plt.legend()
+    plt.subplots(figsize=(W, H))    
+
+    if CHART_TYPE.upper() == 'PF':
+        plt.plot(POPULATION, PF_AUX, color=CHART_COLOR)
+    elif CHART_TYPE.upper() == 'BETA':
+        plt.plot(POPULATION, BETA_AUX, color=CHART_COLOR)
+    else:
+        print("Chart type unknow.")
 
     plt.xlabel(X_AXIS_LABEL)
     plt.ylabel(Y_AXIS_LABEL)
