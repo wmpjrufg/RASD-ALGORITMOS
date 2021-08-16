@@ -67,6 +67,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib.cm import ScalarMappable
 import numpy as np
+import pandas as pd
 
 ################################################################################
 # BIBLIOTECAS DESENVOLVEDORES GPEE 
@@ -109,7 +110,7 @@ def SAVE_GRAPHIC(NAME, EXT, DPI):
     plt.savefig(NAME + EXT, dpi = DPI, bbox_inches = 'tight', transparent = True)
 
 
-# PLOTAGEM TIPO 1: CAIXA DA DISTRIBUIÇÃO + HISTOGRAMA
+# PLOTAGEM 1
 def RASD_PLOT_1(DATASET, PLOT_SETUP):
     """
     This function shows a boxplot and histograms in a single chart.
@@ -179,7 +180,7 @@ def RASD_PLOT_1(DATASET, PLOT_SETUP):
     # Save figure
     SAVE_GRAPHIC(NAME, EXT, DPI)
 
-# PLOTAGEM TIPO 1: GRÁFICO DE PONTOS PELO INDE
+# PLOTAGEM 2
 def RASD_PLOT_2(DATASET, PLOT_SETUP):
     """
 
@@ -304,6 +305,7 @@ def RASD_PLOT_3(DATASET, PLOT_SETUP):
     RASD.RASD_PLOT_3(DATASET, PLOT_SETUP)
     """
     # SETUP CHART
+
     NAME = PLOT_SETUP['NAME']
     EXT = PLOT_SETUP['EXTENSION']
     DPI = PLOT_SETUP['DPI']
@@ -324,7 +326,9 @@ def RASD_PLOT_3(DATASET, PLOT_SETUP):
     A_UX = DATASET['DATASET']
     # CONVERT UNITS OF SIZE FIGURE
     [W, H] = CONVERT_SI_TO_INCHES(W, H)
+
     # PLOT
+
     AUX = plt.Normalize(A_UX[C_VALUE].min(), A_UX[C_VALUE].max())
     FIG, AX = plt.subplots(figsize = (W, H))
     plt.scatter(x = A_UX[X_DATA], y = A_UX[Y_DATA], c = A_UX[C_VALUE], cmap = COLOR_MAP, alpha = TRANSPARENCY)
@@ -399,6 +403,7 @@ def RASD_PLOT_4(DATASET, PLOT_SETUP):
     RASD.RASD_PLOT_4(DATASET, PLOT_SETUP)
     """
     # SETUP CHART
+
     NAME = PLOT_SETUP['NAME']
     EXT = PLOT_SETUP['EXTENSION']
     DPI = PLOT_SETUP['DPI']
@@ -421,24 +426,21 @@ def RASD_PLOT_4(DATASET, PLOT_SETUP):
     A_UX = DATASET['DATASET']
     # CONVERT UNITS OF SIZE FIGURE
     [W, H] = CONVERT_SI_TO_INCHES(W, H)
+
     # PLOT
 
     plt.subplots(figsize=(W, H))
     plt.hist(A_UX[X_DATA], bins=BINS, label='$R_0$', alpha=ALPHA)
     plt.hist(A_UX[Y_DATA], bins=BINS, label='$S_0$', alpha=ALPHA)
     plt.legend()
-
     plt.xlabel(X_AXIS_LABEL)
     plt.ylabel(Y_AXIS_LABEL)
-
     #plt.tick_params(axis='x', labelsize=X_AXIS_SIZE, colors=AXISES_COLOR)
     #plt.tick_params(axis='y', labelsize=Y_AXIS_SIZE, colors=AXISES_COLOR)
     #AUX_1 = ScalarMappable(norm=AUX, cmap=COLOR_MAP)
     #FIG.colorbar(AUX_1)
     # SAVEFIG
     SAVE_GRAPHIC(NAME, EXT, DPI)
-
-
 
     # PLOTAGEM 5
 def RASD_PLOT_5(DATASET, PLOT_SETUP):
@@ -493,6 +495,7 @@ def RASD_PLOT_5(DATASET, PLOT_SETUP):
     """
 
     # SETUP CHART
+
     NAME = PLOT_SETUP['NAME']
     EXT = PLOT_SETUP['EXTENSION']
     DPI = PLOT_SETUP['DPI']
@@ -514,24 +517,21 @@ def RASD_PLOT_5(DATASET, PLOT_SETUP):
     CHART_TYPE = PLOT_SETUP['TYPE']
     # CONVERT UNITS OF SIZE FIGURE
     [W, H] = CONVERT_SI_TO_INCHES(W, H)
+
     # PLOT
 
     for i in range(POP_SIZE):
         PF_AUX.append(DATAS[i]['PROBABILITY OF FAILURE'][0])
         BETA_AUX.append(DATAS[i]['BETA INDEX'][0])
-
     plt.subplots(figsize=(W, H))    
-
     if CHART_TYPE.upper() == 'PF':
         plt.plot(POPULATION, PF_AUX, color=CHART_COLOR)
     elif CHART_TYPE.upper() == 'BETA':
         plt.plot(POPULATION, BETA_AUX, color=CHART_COLOR)
     else:
         print("Chart type unknow.")
-
     plt.xlabel(X_AXIS_LABEL)
     plt.ylabel(Y_AXIS_LABEL)
-
     #plt.tick_params(axis='x', labelsize=X_AXIS_SIZE, colors=AXISES_COLOR)
     #plt.tick_params(axis='y', labelsize=Y_AXIS_SIZE, colors=AXISES_COLOR)
     #AUX_1 = ScalarMappable(norm=AUX, cmap=COLOR_MAP)
