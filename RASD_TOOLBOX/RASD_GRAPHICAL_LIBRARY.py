@@ -172,7 +172,7 @@ def RASD_PLOT_1(DATASET, PLOT_SETUP):
             'weight': 'normal',
             'size': LABELS_SIZE}
     AX_HIST.set_xlabel(X_AXIS_LABEL, fontdict = font)
-    AX_HIST.set_ylabel('$COUNT$', fontdict = font)
+    AX_HIST.set_ylabel('Frequência', fontdict = font)
     AX_HIST.tick_params(axis = 'x', labelsize = X_AXIS_SIZE, colors = AXISES_COLOR)
     AX_HIST.tick_params(axis = 'y', labelsize = Y_AXIS_SIZE, colors = AXISES_COLOR)
     sns.despine(ax = AX_HIST)
