@@ -141,4 +141,5 @@ def SAMPLING(N_POP, D, MODEL, VARS):
             # Uniform
             elif TYPE == 'UNIFORM':
                 RANDOM_SAMPLING[:, I_COUNT] = uniform(loc = MEAN, scale = STD).ppf(RANDOM_SAMPLING[:, I_COUNT])
+
     return RANDOM_SAMPLING

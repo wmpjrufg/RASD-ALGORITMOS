@@ -37,7 +37,7 @@ def DEFINICAO_SECAO(LAMBDA, LAMBDA_R, LAMBDA_P):
       TIPO_SEC = "ESBELTA"
   return TIPO_SEC
 
-def MOMENTO_MRD_ALMA(E_S, F_Y, H_W, T_W, Z, W_C, W_T, PERFIL, GAMMA_A1):
+def MOMENTO_MRD_ALMA(E_S, F_Y, H_W, T_W, Z, W_C, W_T, PARAMETRO_PERFIL, TIPO_PERFIL, GAMMA_A1):
     """
     Esta função classifica e verifica o momento resistente na alma de um perfil metálico
     de acordo com a NBR 8800.
@@ -59,9 +59,9 @@ def MOMENTO_MRD_ALMA(E_S, F_Y, H_W, T_W, Z, W_C, W_T, PERFIL, GAMMA_A1):
     # Classificação perfil
     LAMBDA = H_W / T_W
     LAMBDA_R = 5.70 * (E_S / F_Y) ** 0.5
-    if PERFIL == "DUPLA SIMETRIA":
+    if PARAMETRO_PERFIL == "DUPLA SIMETRIA":
         D = 3.76
-    elif PERFIL == "MONO SIMETRIA":
+    elif PARAMETRO_PERFIL == "MONO SIMETRIA":
         pass # depois tem que implementar o monosimentrico
     LAMBDA_P = D * (E_S / F_Y) ** 0.5
     if LAMBDA_P >= LAMBDA_R: 
@@ -87,7 +87,7 @@ def MOMENTO_MRD_ALMA(E_S, F_Y, H_W, T_W, Z, W_C, W_T, PERFIL, GAMMA_A1):
         M_RD = M_RDMAX
     return M_RD
 
-def MOMENTO_MRD_MESA(E_S, F_Y, H_W, T_W, B_F, T_F, Z, W_C, W_T, PERFIL, GAMMA_A1):
+def MOMENTO_MRD_MESA(E_S, F_Y, H_W, T_W, B_F, T_F, Z, W_C, W_T, PARAMETRO_PERFIL, TIPO_PERFIL, GAMMA_A1):
     """
     Esta função classifica e verifica o momento resistente na mesa de um perfil metálico
     de acordo com a NBR 8800.
@@ -110,11 +110,11 @@ def MOMENTO_MRD_MESA(E_S, F_Y, H_W, T_W, B_F, T_F, Z, W_C, W_T, PERFIL, GAMMA_A1
     # Classificação perfil
     LAMBDA = B_F / (2 * T_F)
     LAMBDA_P = 0.38 * (E_S / F_Y) ** 0.5 
-    if PERFIL == "SOLDADO":
+    if TIPO_PERFIL == "SOLDADO":
         C = 0.95
         AUX_0 = 4 / (H_W / T_W) ** 0.50
         K_C = np.clip(AUX_0, 0.35, 0.76)
-    elif PERFIL == "LAMINADO":
+    elif TIPO_PERFIL == "LAMINADO":
         C = 0.83
         K_C = 1.00
     AUX_1 = 0.70 * F_Y / K_C
@@ -180,22 +180,58 @@ def CORTANTE_VRD(H_W, T_W, E_S, F_Y, GAMMA_A1):
     V_RD = (C_V * 0.6 * F_Y * AW) / GAMMA_A1
     return V_RD
 
-def VERIFICA_VIGA_METALICA(VIGA):
-
-    G = [];  R = [];   S = []
-    #Demandas de projeto
-    M_SDMAX = VIGA['M_SDMAX']
-    V_SDMAX = VIGA['V_SDMAX']
-    DELTA_SDMAX = VIGA['DELTA_SDMAX']
+def VERIFICACAO_VIGA_METALICA_MOMENTO_FLETOR(VIGA, ESFORCOS):
+    E_S = VIGA['E_S']
+    F_Y = VIGA['F_Y']
+    H_W = VIGA['H_W']
+    T_W = VIGA['T_W']
+    B_F = VIGA['B_F']
+    T_F = VIGA['T_F']
+    Z = VIGA['Z']
+    W_C = VIGA['W_C']
+    W_T = VIGA['W_T']
+    PARAMETRO_PERFIL = VIGA['PARAMETRO_PERFIL']
+    TIPO_PERFIL = VIGA['TIPO_PERFIL'] 
+    GAMMA_A1 = VIGA['GAMMA_A1']
+    M_SD = ESFORCOS['M_SD']
 
     #Resistencia momento fletor de projeto
-    M_RDMESA = MOMENTO_MRD_MESA(E_S, F_Y, H_W, T_W, B_F, T_F, Z, W_C, W_T, PERFIL, GAMMA_A1)
-    M_RDALMA = MOMENTO_MRD_ALMA(E_S, F_Y, H_W, T_W, Z, W_C, W_T, PERFIL, GAMMA_A1)
+    M_RDMESA = MOMENTO_MRD_MESA(E_S, F_Y, H_W, T_W, B_F, T_F, Z, W_C, W_T, PARAMETRO_PERFIL, TIPO_PERFIL, GAMMA_A1)
+    M_RDALMA = MOMENTO_MRD_ALMA(E_S, F_Y, H_W, T_W, Z, W_C, W_T, PARAMETRO_PERFIL, TIPO_PERFIL, GAMMA_A1)
     M_RD = min(M_RDMESA, M_RDALMA)
+    R = M_RD
+    S = M_SD
+    G = -M_RD + M_SD
 
-    R.append(M_RD)
-    S.append(M_SDMAX)
-    G.append(-M_RD + M_SDMAX)
+    return(R, S, G)
+
+
+def VERIFICACAO_VIGA_METALICA_ESFORCO_CORTANTE(VIGA, ESFORCOS):
+    E_S = VIGA['E_S']
+    F_Y = VIGA['F_Y']
+    H_W = VIGA['H_W']
+    T_W = VIGA['T_W']
+    V_SD = ESFORCOS['V_SD']
 
     #Resistencia esforco cortante de projeto
-    
+    V_RD = CALCULO_CV(H_W, T_W, E_S, F_Y)
+    R = V_RD
+    S = V_SD
+    G = -V_RD + V_SD
+
+    return(R,S,G)
+
+
+def VERIFICACAO_VIGA_METALICA_DEFORMACAO(VIGA, ESFORCOS):
+    D_SD = ESFORCOS['D_SD']
+    L_MAX = ESFORCOS['L_MAX']
+    D_MAX = L_MAX*100/350
+
+    R = D_MAX
+    S = D_SD
+    G = -D_MAX + D_SD
+
+    return(R,S,G)
+
+
+
