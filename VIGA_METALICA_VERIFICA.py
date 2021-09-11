@@ -177,7 +177,7 @@ def CORTANTE_VRD(H_W, T_W, E_S, F_Y, GAMMA_A1):
     """
     A_W = H_W * T_W
     C_V = CALCULO_CV(H_W, T_W, E_S, F_Y)
-    V_RD = (C_V * 0.6 * F_Y * AW) / GAMMA_A1
+    V_RD = (C_V * 0.6 * F_Y * A_W) / GAMMA_A1
     return V_RD
 
 def VERIFICACAO_VIGA_METALICA_MOMENTO_FLETOR(VIGA, ESFORCOS):
@@ -212,9 +212,10 @@ def VERIFICACAO_VIGA_METALICA_ESFORCO_CORTANTE(VIGA, ESFORCOS):
     H_W = VIGA['H_W']
     T_W = VIGA['T_W']
     V_SD = ESFORCOS['V_SD']
+    GAMMA_A1 = VIGA['GAMMA_A1']
 
     #Resistencia esforco cortante de projeto
-    V_RD = CALCULO_CV(H_W, T_W, E_S, F_Y)
+    V_RD = CORTANTE_VRD(H_W, T_W, E_S, F_Y, GAMMA_A1)
     R = V_RD
     S = V_SD
     G = -V_RD + V_SD
@@ -225,10 +226,10 @@ def VERIFICACAO_VIGA_METALICA_ESFORCO_CORTANTE(VIGA, ESFORCOS):
 def VERIFICACAO_VIGA_METALICA_DEFORMACAO(VIGA, ESFORCOS):
     D_SD = ESFORCOS['D_SD']
     L_MAX = ESFORCOS['L_MAX']
-    D_MAX = L_MAX*100/350
+    D_MAX = L_MAX / 350
 
     R = D_MAX
-    S = D_SD
+    S = D_SD / 100
     G = -D_MAX + D_SD
 
     return(R,S,G)
