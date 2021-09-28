@@ -1,53 +1,12 @@
-"""
-WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWX0xl;'''';:cdOXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNKko:,''''''''''',:okKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWN0xl;''''''''''''''''''';lx0XWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWWWWWWWWWWWWWKOdc,'''''''',:lddo:;,'''''''',:okKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWWWWWWWWWN0xl;,'''''''';cdOXWWWWXK0dc;''''''''';lx0NWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWWWWWWXOdc,'''''''',:lx0NWWWWWWWWWWWNKko:,'''''''',cdOKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWWNKko:,'''''''',cdOXNWWWWN0kddk0XNWWWWWXOdc;'''''''',;lx0NWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWXOdc;''''''''';lx0NWWWWWXOdc,'''',;cdOXWWWWWN0ko:,'''''''',cdOXWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWXko:,'''''''',:okKNWWWWNKko:,''''''''''',:lxKWWWWWWXOdc,'''''''',:lkKWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWW0c''''''''';lx0XWWWWWXOdc;''''''''''''''''',cOWWWWWWWWWN0xl;,'''''''':OWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''''';okKNWWWWNKko:,'''''''',:oddoc;;:lx0NWWWWWX0KNWWWWWKOo:'''''',xNWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''''c0WWWWWN0xl;''''''''';lx0XWWWWNXKXNWWWWNKko:,;cdOXWWWWWKl''''',xNWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',xWWWWWNk;'''''''''',l0NWWWWWWWWWWWWWX0xl;''''''',:o0WWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',xWWWWWWKdc,''''''''';okKNWWWWWWWWKko:,'''''''''''''oNWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',xWWWWWWWWN0xl;''''''''';lxOKKOxdl;,'''''''';;,'''''oXWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',xWWWWNNWWWWWNKko:,'''''''',,,,''''''''',:okKk;'''''oXWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',xWWWNkclx0NWWWWWX0dc;''''''''''''''';cdOXWWWO;'''''oXWWWx,'''',xWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',xWWWNd''';cxXWWWWWWNKko:,''''''',:okKNWWWWWWO;'''''oXWWWx,',:okXWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWXOdl::cdxOXWWWWWWWWWWO;'''''oXWWW0dxOXWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWWWWNNXNWWWWWWWWWWWWWWO;'''''oXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWO;'''''oXWWWWWWN0xd0WWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWO;'''''oXWWWXOdc,',xNWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',xWWWNd''''';kWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWO;'''''oXWWWk;'''',dNWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk;'''',xWWWNd''''',dXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNx;'''''oXWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',xWWWNd'''''',cdOXWWWWWWWWWWWWWWWWWWWWWWWXOdl;''''''oXWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',xWWWNk;'''''''',:okKNWWWWWWWWWWWWWWWNKko:,'''''''',xNWWWx,'''',xNWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,'''',dNWWWN0xl;''''''''';lx0XWWWWWWWWWN0xl;''''''''';cd0NWWWNd,'''',xNWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWk,''''';dKNWWWWNKko:,'''''''',:okKXXKOxdc,'''''''',:okKNWWWWNKx;''''',dNWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWO;''''''';lx0XWWWWWX0xc;''''''''';::;,''''''''';cdOXWWWWWN0xl;''''''',xWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWX0xl;''''''''';lx0NWWWWWXOdc;''''''''',cdOXWWWWWN0kl:,'''''''',cdOXWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWNKko:,'''''''',cdOKWWWWWNKxl:;,:ldx0NWWWWWXOdc;'''''''',:lk0NWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWWWWXOdc;'''''''',;lx0NWWWWWXKKXWWWWWWNKko:,'''''''',cdOXNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWWWWWWWNKko:,'''''''',cdOXWWWWWWWWWXOxc;''''''''';lx0NWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWWWWWWWWWWWXOdc,'''''''',:lk0XXKkxo:,'''''''',:dOKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWXOdc,''''''''''''''',:okKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWN0xl;''''''''';cxOXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNKkoc:;:odkKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNXXNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WWWWWWWWOooooooooooooooodx0NWWWWXOdooooooooooooodOXWWWWNX0xdoooooooooooooooONWNOdooooooooooooooox0NWWWW
-WWWWWWWWo''''''''''''''''';xNWWKl,''''''''''''''',oKWWNx:;'''''''''''''''''oNMNd''''''''''''''''';xNWWW
-WWWWWWWWd'',okkkkkkkkkkd;''cKWWk;''ckkkkkkkkkkxc'';OWWKc''';dkkkkkkkkkOkkkOKWWNd'',okkkkkkkkOOd;''cKWWW
-WWWWWWWWd'';kWWWWWWWWWW0c''cKWWk;''dXWWWWWWWWWXo'';OWWKc'''c0WWWWWWWWWWWWWWWWWNd'';kWWWWWWWWWWKc''cKWWW
-WWWWWWWWd''':llllllllllc,''lXWWk;'';lllllllllll;'';OWWXl''',cllllllllllloxKWWWNd'';kWWWWWWWWWWKc''cKWWW
-WWWWWWWWd'''''''''''',,,,;l0WWWk;''''',,''',,''''';OWWW0xl;,'''''',',,,''':OWWNd'';kWWWWWWWWWWKc''cKWWW
-WWWWWWWWd'',oOko;''';dOO0KNWWWWk;''lkOOOOOOOOOkc'';OWWWWWNK0OOOOOOOOOOOo,''dNWNd'';kWWWWWWWWWWKc''cKWWW
-WWWWWWWWd'';kWWN0o;'';dKNNNNWWWk;',dNWWWWWWWWMNo'';OWWWWNNWNNNNNNNNNNNNk;''oNWNd'';kNNNNNNNNNN0c''cKWWW
-WWWWWWWWd'';kWWWWN0o;'';cccdXWWk;',dNWWWWWWWWWNo'';OWWXxccccccccccccccc:'',xNWNd''':cccccccccc:,''lXWWW
-WWWWWWWWd;,:OWWWWWWN0o;,,,,lKMWk:,;xNWWWWWWWWWNd,,:OWWKl,,,,,,,,,,,,,,,,;:xXWWNd;,,,,,,,,,,,,,,,:o0WWWW
-"""
+#  /$$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$$        /$$$$$$$$ /$$$$$$   /$$$$$$  /$$       /$$$$$$$   /$$$$$$  /$$   /$$
+# | $$__  $$ /$$__  $$ /$$__  $$| $$__  $$      |__  $$__//$$__  $$ /$$__  $$| $$      | $$__  $$ /$$__  $$| $$  / $$
+# | $$  \ $$| $$  \ $$| $$  \__/| $$  \ $$         | $$  | $$  \ $$| $$  \ $$| $$      | $$  \ $$| $$  \ $$|  $$/ $$/
+# | $$$$$$$/| $$$$$$$$|  $$$$$$ | $$  | $$         | $$  | $$  | $$| $$  | $$| $$      | $$$$$$$ | $$  | $$ \  $$$$/ 
+# | $$__  $$| $$__  $$ \____  $$| $$  | $$         | $$  | $$  | $$| $$  | $$| $$      | $$__  $$| $$  | $$  >$$  $$ 
+# | $$  \ $$| $$  | $$ /$$  \ $$| $$  | $$         | $$  | $$  | $$| $$  | $$| $$      | $$  \ $$| $$  | $$ /$$/\  $$
+# | $$  | $$| $$  | $$|  $$$$$$/| $$$$$$$/         | $$  |  $$$$$$/|  $$$$$$/| $$$$$$$$| $$$$$$$/|  $$$$$$/| $$  \ $$
+# |__/  |__/|__/  |__/ \______/ |_______/          |__/   \______/  \______/ |________/|_______/  \______/ |__/  |__/
+
 ################################################################################
 # UNIVERSIDADE FEDERAL DE CATALÃO (UFCAT)
 # WANDERLEI MALAQUIAS PEREIRA JUNIOR                   ENG. CIVIL / PROF (UFCAT)
@@ -185,3 +144,12 @@ def RASD_STOCHASTIC(SETUP, OF_FUNCTION):
         HEADER_NAMES =  ';'.join(COLUMNS_NAMES)
         np.savetxt(NAME, RESULTS_RASD, fmt = '%1.2f', delimiter = ';' , header = HEADER_NAMES)
     return RESULTS
+
+#   /$$$$$$  /$$$$$$$  /$$$$$$$$ /$$$$$$$$       /$$$$$$$$ /$$$$$$$$  /$$$$$$  /$$   /$$ /$$   /$$  /$$$$$$  /$$        /$$$$$$   /$$$$$$  /$$$$$$ /$$$$$$$$  /$$$$$$ 
+#  /$$__  $$| $$__  $$| $$_____/| $$_____/      |__  $$__/| $$_____/ /$$__  $$| $$  | $$| $$$ | $$ /$$__  $$| $$       /$$__  $$ /$$__  $$|_  $$_/| $$_____/ /$$__  $$
+# | $$  \__/| $$  \ $$| $$      | $$               | $$   | $$      | $$  \__/| $$  | $$| $$$$| $$| $$  \ $$| $$      | $$  \ $$| $$  \__/  | $$  | $$      | $$  \__/
+# | $$ /$$$$| $$$$$$$/| $$$$$   | $$$$$            | $$   | $$$$$   | $$      | $$$$$$$$| $$ $$ $$| $$  | $$| $$      | $$  | $$| $$ /$$$$  | $$  | $$$$$   |  $$$$$$ 
+# | $$|_  $$| $$____/ | $$__/   | $$__/            | $$   | $$__/   | $$      | $$__  $$| $$  $$$$| $$  | $$| $$      | $$  | $$| $$|_  $$  | $$  | $$__/    \____  $$
+# | $$  \ $$| $$      | $$      | $$               | $$   | $$      | $$    $$| $$  | $$| $$\  $$$| $$  | $$| $$      | $$  | $$| $$  \ $$  | $$  | $$       /$$  \ $$
+# |  $$$$$$/| $$      | $$$$$$$$| $$$$$$$$         | $$   | $$$$$$$$|  $$$$$$/| $$  | $$| $$ \  $$|  $$$$$$/| $$$$$$$$|  $$$$$$/|  $$$$$$/ /$$$$$$| $$$$$$$$|  $$$$$$/
+#  \______/ |__/      |________/|________/         |__/   |________/ \______/ |__/  |__/|__/  \__/ \______/ |________/ \______/  \______/ |______/|________/ \______/ 
