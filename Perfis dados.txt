@@ -1,0 +1,12 @@
+#150 X 18,0
+P1 = ['NORMAL', 200E9, 12E9] #E MPa      6%         
+P2 = ['NORMAL', 250E6, 15E6] #Fy MPa   6%            
+P3 = ['NORMAL', 10000, 1000] #F N     10%
+P4 = ['NORMAL', 1, 0.03] #Incerteza de Modelo 1 adimensional 3%
+P5 = ['NORMAL', 1, 0.03] #Incerteza de Modelo 2 adimensional 3%
+P6 = ['NORMAL', 139, 6.95] #H_W mm 5%
+P7 = ['NORMAL', 5.8, 0.29] #T_W mm 5%
+P8 = ['NORMAL', 102, 5.1] #B_F mm 5%
+P9 = ['NORMAL', 7.1, 0.355] #T_F mm 5%
+P10 = ['NORMAL', 139.4, 6.97] #Z cm3 5%
+P11 = ['NORMAL', 939, 46.95] #I cm4 

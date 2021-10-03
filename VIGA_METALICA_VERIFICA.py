@@ -211,10 +211,13 @@ def VERIFICACAO_VIGA_METALICA_MOMENTO_FLETOR(VIGA, ESFORCOS):
               | 'B_F'   ==  Largura da mesa                      | Float
               | 'Z'     ==  Módulo plastico da seção             | Float
               | 'W_C'   ==  Módulo plastico da seção compressao  | Float
-              | 'W_T'   ==  Módulo plastico da seção tracao      | Float  
+              | 'W_T'   ==  Módulo plastico da seção tracao      | Float 
+              | 'S1'    ==  Erro de modelo 1                     | Float
+              | 'S2'    ==  Erro de modelo 2                     | Float    
               | 'PARAMETRO_PERFIL' ==  Caracteristica do perfil  | String
               | 'TIPO_PERFIL'      ==  Tipo de perfil analisado  | String
               | 'GAMMA_A1'         ==  Coeficiente de ponderação | Float 
+
     ESFORCOS  | Tags dicionario
               | 'M_SD'  == Momento fletor solicitante            | Float  
 
@@ -231,6 +234,8 @@ def VERIFICACAO_VIGA_METALICA_MOMENTO_FLETOR(VIGA, ESFORCOS):
     T_F = VIGA['T_F']
     Z = VIGA['Z']
     INERCIA = VIGA['INERCIA']
+    S1 = VIGA['S1']
+    S2 = VIGA['S2']
     Y_GC = (( T_F * 2) + H_W) / 2 
     W_C = INERCIA / Y_GC
     W_T = W_C
@@ -243,8 +248,8 @@ def VERIFICACAO_VIGA_METALICA_MOMENTO_FLETOR(VIGA, ESFORCOS):
     M_RDMESA = MOMENTO_MRD_MESA(E_S, F_Y, H_W, T_W, B_F, T_F, Z, W_C, W_T, PARAMETRO_PERFIL, TIPO_PERFIL, GAMMA_A1)
     M_RDALMA = MOMENTO_MRD_ALMA(E_S, F_Y, H_W, T_W, Z, W_C, W_T, PARAMETRO_PERFIL, TIPO_PERFIL, GAMMA_A1)
     M_RD = min(M_RDMESA, M_RDALMA)
-    R = M_RD
-    S = M_SD
+    R = S1 * M_RD
+    S = S2 * M_SD
 
     return(R, S)
 
@@ -260,6 +265,8 @@ def VERIFICACAO_VIGA_METALICA_ESFORCO_CORTANTE(VIGA, ESFORCOS):
               | 'F_Y'   ==  Tensão de escoamento do aço          | Float
               | 'H_W'   ==  Altura da alma                       | Float
               | 'T_W'   ==  Largura da alma                      | Float 
+              | 'S1'    ==  Erro de modelo 1                     | Float
+              | 'S2'    ==  Erro de modelo 2                     | Float  
               | 'GAMMA_A1'  ==  Coeficiente de ponderação        | Float 
     ESFORCOS  | Tags dicionario 
               | 'V_SD'  == Esforco cortante solicitante          | Float 
@@ -273,13 +280,15 @@ def VERIFICACAO_VIGA_METALICA_ESFORCO_CORTANTE(VIGA, ESFORCOS):
     F_Y = VIGA['F_Y']
     H_W = VIGA['H_W']
     T_W = VIGA['T_W']
+    S1 = VIGA['S1']
+    S2 = VIGA['S2']
     V_SD = ESFORCOS['V_SD']
     GAMMA_A1 = VIGA['GAMMA_A1']
 
     #Resistencia esforco cortante de projeto
     V_RD = CORTANTE_VRD(H_W, T_W, E_S, F_Y, GAMMA_A1)
-    R = V_RD
-    S = V_SD
+    R = S1 * V_RD
+    S = S2 * V_SD
 
     return(R, S)
 
@@ -292,6 +301,8 @@ def VERIFICACAO_VIGA_METALICA_DEFORMACAO(VIGA, ESFORCOS):
     Entrada:
     VIGA      | Tags dicionario  
               | 'L_MAX' == Largura do elemento                   | Float 
+              | 'S1'    ==  Erro de modelo 1                     | Float
+              | 'S2'    ==  Erro de modelo 2                     | Float  
     ESFORCOS  | Tags dicionario 
               | 'D_SD'  == Deflexao solicitante                  | Float 
 
@@ -301,10 +312,12 @@ def VERIFICACAO_VIGA_METALICA_DEFORMACAO(VIGA, ESFORCOS):
     """
 
     D_SD = ESFORCOS['D_SD']
+    S1 = VIGA['S1']
+    S2 = VIGA['S2']
     L_MAX = ESFORCOS['L_MAX']
     D_MAX = L_MAX / 350
 
-    R = D_MAX
-    S = D_SD / 100
+    R = S1 * D_MAX
+    S = S2 * D_SD / 100
 
     return(R, S)
