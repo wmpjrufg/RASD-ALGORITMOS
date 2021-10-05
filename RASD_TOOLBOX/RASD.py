@@ -88,6 +88,7 @@ def RASD_STOCHASTIC(SETUP, OF_FUNCTION):
         # Evaluates Limit State functions
         for I_COUNT in range(N_POP):
             # I sample 
+            print(I_COUNT)
             RESULTS_X[I_COUNT, :] = DATASET_X[I_COUNT, :]
             SAMPLE = DATASET_X[I_COUNT, :]
             # Limit State function
