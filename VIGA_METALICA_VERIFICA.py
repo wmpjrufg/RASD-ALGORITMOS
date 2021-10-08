@@ -20,12 +20,10 @@ import numpy as np
 def DEFINICAO_SECAO(LAMBDA, LAMBDA_R, LAMBDA_P):
   """
   Está função define se uma seção metálica é compacta, semi-compacta ou esbelta.
-
   Entrada:
   LAMBDA    | Esbeltez calculada                    |  -  | Float  
   LAMBDA_R  | Esbeltez secao compacta calculada     |  -  | Float  
   LAMBDA_P  | Esbeltez secao semicompacta calculada |  -  | Float 
-
   Saída:
   TIPO_SEC  | Tipo de secao calculada               |  -  | String                     
   """
@@ -41,7 +39,6 @@ def MOMENTO_MRD_ALMA(E_S, F_Y, H_W, T_W, Z, W_C, W_T, PARAMETRO_PERFIL, TIPO_PER
     """
     Esta função classifica e verifica o momento resistente na alma de um perfil metálico
     de acordo com a NBR 8800.
-
     Entrada:
     E_S       | Módulo de elasticidade do aço       | kN/m² | Float
     F_Y       | Tensão de escoamento do aço         | kN/m² | Float
@@ -54,7 +51,6 @@ def MOMENTO_MRD_ALMA(E_S, F_Y, H_W, T_W, Z, W_C, W_T, PARAMETRO_PERFIL, TIPO_PER
     W_T       | Módulo plastico da seção tracao     | kN/m² | Float    
     PERFIL    | Caracteristica do perfil            |       | String
     GAMMA_A1  | Coeficiente de ponderação           |       | Float
-
     Saída: 
     M_RD      | Momento resistido de projeto        | kN*m  | Float
     """
@@ -94,7 +90,6 @@ def MOMENTO_MRD_MESA(E_S, F_Y, H_W, T_W, B_F, T_F, Z, W_C, W_T, PARAMETRO_PERFIL
     """
     Esta função classifica e verifica o momento resistente na mesa de um perfil metálico
     de acordo com a NBR 8800.
-
     Entrada:
     E_S       | Módulo de elasticidade do aço       | kN/m² | Float
     F_Y       | Tensão de escoamento do aço         | kN/m² | Float
@@ -107,7 +102,6 @@ def MOMENTO_MRD_MESA(E_S, F_Y, H_W, T_W, B_F, T_F, Z, W_C, W_T, PARAMETRO_PERFIL
     W_T       | Módulo plastico da seção tracao     | kN/m² | Float    
     PERFIL    | Caracteristica do perfil            |   -   | String
     GAMMA_A1  | Coeficiente de ponderação           |   -   | Float
-
     Saída: 
     M_RD      | Momento fletor resistido            | kN*m  | Float
     """
@@ -154,16 +148,13 @@ def MOMENTO_MRD_MESA(E_S, F_Y, H_W, T_W, B_F, T_F, Z, W_C, W_T, PARAMETRO_PERFIL
 def CALCULO_CV(H_W, T_W, E_S, F_Y):
     """
     Esta função determina o coeficiente de redução do cisalhamento resistente Cv.
-
     Entrada:
     E_S       | Módulo de elasticidade do aço       | kN/m² | Float
     F_Y       | Tensão de escoamento do aço         | kN/m² | Float
     H_W       | Altura da alma                      |   m   | Float
     T_W       | Largura da alma                     |   m   | Float
-
     Saída:
     C_V       | Coeficiente de cisalhmento          |   -   | Float 
-
     """
     LAMBDA = H_W / T_W
     LAMBDA_P = 2.46 * (E_S / F_Y) ** 0.5
@@ -186,7 +177,6 @@ def CORTANTE_VRD(H_W, T_W, E_S, F_Y, GAMMA_A1):
     H_W       | Altura da alma                      |   m   | Float
     T_W       | Largura da alma                     |   m   | Float
     GAMMA_A1  | Coeficiente de ponderação           |   -   | Float
-
     Saída:
     V_RD      | Esforco cortante resistido          |  kN   | Float
     
@@ -217,10 +207,8 @@ def VERIFICACAO_VIGA_METALICA_MOMENTO_FLETOR(VIGA, ESFORCOS):
               | 'PARAMETRO_PERFIL' ==  Caracteristica do perfil  | String
               | 'TIPO_PERFIL'      ==  Tipo de perfil analisado  | String
               | 'GAMMA_A1'         ==  Coeficiente de ponderação | Float 
-
     ESFORCOS  | Tags dicionario
               | 'M_SD'  == Momento fletor solicitante            | Float  
-
     Saída:
     R         | Momento fletor resistente                        | Float
     S         | Momento fletor solicitante                       | Float
@@ -270,7 +258,6 @@ def VERIFICACAO_VIGA_METALICA_ESFORCO_CORTANTE(VIGA, ESFORCOS):
               | 'GAMMA_A1'  ==  Coeficiente de ponderação        | Float 
     ESFORCOS  | Tags dicionario 
               | 'V_SD'  == Esforco cortante solicitante          | Float 
-
     Saída:
     R         | Esforco cortante resistente                      | Float
     S         | Esforco cortante solicitante                     | Float
@@ -305,7 +292,6 @@ def VERIFICACAO_VIGA_METALICA_DEFORMACAO(VIGA, ESFORCOS):
               | 'S2'    ==  Erro de modelo 2                     | Float  
     ESFORCOS  | Tags dicionario 
               | 'D_SD'  == Deflexao solicitante                  | Float 
-
     Saída:
     R         | Esforco cortante resistente                      | Float
     S         | Esforco cortante solicitante                     | Float
@@ -321,3 +307,46 @@ def VERIFICACAO_VIGA_METALICA_DEFORMACAO(VIGA, ESFORCOS):
     S = S2 * D_SD / 100
 
     return(R, S)
+
+def INERCIA_CALCULO(B_F, T_F, H_W, T_W):
+
+    CG_A1 = B_F * T_F
+    CG_Y1 =  T_F/2
+    CG_PT1 = CG_A1 * CG_Y1
+
+    CG_A2 = H_W * T_W 
+    CG_Y2 = (T_F)+(H_W/2)
+    CG_PT2 = CG_A2 * CG_Y2
+
+    CG_A3 = B_F * T_F
+    CG_Y3 = (T_F/2)+(T_F+H_W)
+    CG_PT3 = CG_A3 * CG_Y3
+
+    CG = (CG_PT1+CG_PT2+CG_PT3)/(CG_A1+CG_A2+CG_A3)
+
+    INERCIA1_PT1 = (B_F * (T_F**3))/12
+    INERCIA1_PT2 = (CG - CG_Y1) ** 2
+    INERCIA1_PT3 = B_F * T_F
+    INERCIA1 = INERCIA1_PT1 + INERCIA1_PT3 * INERCIA1_PT2
+
+    INERCIA2_PT1 = (T_W * (H_W **3))/12
+    INERCIA2_PT2 = (CG - CG_Y2) ** 2
+    INERCIA2_PT3 = H_W * T_W 
+    INERCIA2 = INERCIA2_PT1 + INERCIA2_PT3 * INERCIA2_PT2
+
+    INERCIA3_PT1 = (B_F * (T_F**3))/12
+    INERCIA3_PT2 = (CG - CG_Y3) ** 2
+    INERCIA3_PT3 = B_F * T_F
+    INERCIA3 = INERCIA3_PT1 + INERCIA3_PT3 * INERCIA3_PT2
+    INERCIA_TOTAL = (INERCIA1 + INERCIA2 + INERCIA3) * 0.000000000001 #m4
+
+    return (INERCIA_TOTAL)
+
+def MODULO_PLASTICO(B_F, T_F, H_W, T_W):
+    H = (H_W)+(2*T_F)
+    PT1 = B_F * T_F * (H - T_F)
+    PT2 = (T_W/4)*(H - 2 * T_F)**2
+
+    Z = (PT1 + PT2) * 0.000000001 #m3
+
+    return(Z)

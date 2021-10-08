@@ -219,7 +219,7 @@ def RASD_PLOT_3(DATASET, PLOT_SETUP):
                 |    'DATA'          == Complete data                      | Py Numpy array[N_POP x 1]
                 |    'X DATA'        == Dataframe name column plots in X   | String
                 |    'Y DATA'        == Dataframe column plots in Y        | String
-                |    'C VALUE'       == Dataframe column plots in C        | String
+                |    'G VALUE'       == Dataframe column plots in C        | String
     PLOT_SETUP  | Contains specifications of each model of chart           | Py dictionary
                 |    Dictionary tags                                       |
                 |    'NAME'          == Filename output file               | String 
@@ -290,7 +290,7 @@ def RASD_PLOT_3(DATASET, PLOT_SETUP):
 
     AUX = plt.Normalize(A_UX[C_VALUE].min(), A_UX[C_VALUE].max())
     FIG, AX = plt.subplots(figsize = (W, H))
-    plt.scatter(x = A_UX[X_DATA], y = A_UX[Y_DATA], c = A_UX[C_VALUE], cmap = COLOR_MAP, alpha = TRANSPARENCY)
+    plt.scatter(x = A_UX[X_DATA], y = A_UX[Y_DATA], c = -A_UX[C_VALUE], cmap = COLOR_MAP, alpha = TRANSPARENCY)
     font = {'fontname': 'Arial',
         'color':  LABELS_COLOR,
         'weight': 'bold',
