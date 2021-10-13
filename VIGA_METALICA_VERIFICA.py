@@ -338,7 +338,7 @@ def INERCIA_CALCULO(B_F, T_F, H_W, T_W):
     INERCIA3_PT2 = (CG - CG_Y3) ** 2
     INERCIA3_PT3 = B_F * T_F
     INERCIA3 = INERCIA3_PT1 + INERCIA3_PT3 * INERCIA3_PT2
-    INERCIA_TOTAL = (INERCIA1 + INERCIA2 + INERCIA3) * 0.000000000001 #m4
+    INERCIA_TOTAL = (INERCIA1 + INERCIA2 + INERCIA3) * 0.000000000001 #mm4 para m4
 
     return (INERCIA_TOTAL)
 
@@ -347,6 +347,6 @@ def MODULO_PLASTICO(B_F, T_F, H_W, T_W):
     PT1 = B_F * T_F * (H - T_F)
     PT2 = (T_W/4)*(H - 2 * T_F)**2
 
-    Z = (PT1 + PT2) * 0.000000001 #m3
+    Z = (PT1 + PT2) * 0.000000001 #mm3 para m3
 
     return(Z)

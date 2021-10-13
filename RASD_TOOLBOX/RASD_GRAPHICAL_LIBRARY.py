@@ -377,6 +377,8 @@ def RASD_PLOT_4(DATASET, PLOT_SETUP):
     Y_AXIS_LABEL = PLOT_SETUP['Y AXIS LABEL']
     LABELS_SIZE = PLOT_SETUP['LABELS SIZE']
     LABELS_COLOR = PLOT_SETUP['LABELS COLOR']
+    X_DATA_LABEL = PLOT_SETUP['X DATA']
+    Y_DATA_LABEL = PLOT_SETUP['Y DATA']
     #C_VALUE = DATASET['C VALUE']
     TRANSPARENCY = PLOT_SETUP['TRANSPARENCY']
     COLOR_MAP = PLOT_SETUP['COLOR MAP']
@@ -389,8 +391,8 @@ def RASD_PLOT_4(DATASET, PLOT_SETUP):
     # PLOT
 
     plt.subplots(figsize=(W, H))
-    plt.hist(A_UX[X_DATA], bins=BINS, label='$R_0$', alpha=ALPHA)
-    plt.hist(A_UX[Y_DATA], bins=BINS, label='$S_0$', alpha=ALPHA)
+    plt.hist(A_UX[X_DATA], bins=BINS, label=X_DATA_LABEL, alpha=ALPHA)
+    plt.hist(A_UX[Y_DATA], bins=BINS, label=Y_DATA_LABEL, alpha=ALPHA)
     plt.legend()
     plt.xlabel(X_AXIS_LABEL)
     plt.ylabel(Y_AXIS_LABEL)
