@@ -304,7 +304,7 @@ def VERIFICACAO_VIGA_METALICA_DEFORMACAO(VIGA, ESFORCOS):
     D_MAX = L_MAX / 350
 
     R = S1 * D_MAX
-    S = S2 * D_SD / 100
+    S = S2 * D_SD
 
     return(R, S)
 

@@ -143,7 +143,7 @@ def RASD_STOCHASTIC(SETUP, OF_FUNCTION):
         RESULTS.append(RESULTS_REP)
         NAME = 'RASD_' + MODEL + '_REP_' + str(J_COUNT) + '_SAMPLES_' + str(N_POP) + '_' + str(datetime.now().strftime('%Y%m%d %H%M%S')) + '.txt'
         HEADER_NAMES =  ';'.join(COLUMNS_NAMES)
-        np.savetxt(NAME, RESULTS_RASD, fmt = '%1.2f', delimiter = ';' , header = HEADER_NAMES)
+        np.savetxt(NAME, RESULTS_RASD, fmt = '%1.5f', delimiter = ';' , header = HEADER_NAMES)
     return RESULTS
 
 #   /$$$$$$  /$$$$$$$  /$$$$$$$$ /$$$$$$$$       /$$$$$$$$ /$$$$$$$$  /$$$$$$  /$$   /$$ /$$   /$$  /$$$$$$  /$$        /$$$$$$   /$$$$$$  /$$$$$$ /$$$$$$$$  /$$$$$$ 
