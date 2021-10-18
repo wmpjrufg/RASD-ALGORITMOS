@@ -24,11 +24,13 @@
 # BIBLIOTECAS NATIVAS PYTHON
 from pyDOE import *
 import numpy as np
+import pandas as pd
 from scipy.stats.distributions import norm
 from scipy.stats.distributions import gumbel_r
 from scipy.stats.distributions import gumbel_l
 from scipy.stats.distributions import lognorm
 from scipy.stats.distributions import uniform
+from scipy.integrate import quad
 
 ################################################################################
 # BIBLIOTECAS DESENVOLVEDORES GPEE
@@ -102,6 +104,29 @@ def SAMPLING(N_POP, D, MODEL, VARS):
                 RANDOM_SAMPLING[:, I_COUNT] = uniform(loc = MEAN, scale = STD).ppf(RANDOM_SAMPLING[:, I_COUNT])
 
     return RANDOM_SAMPLING
+
+def PROBABILITY_OF_FAILURE_AUX(BETA_INITIAL):
+  def INTEGRAND(X):
+      return  ((1/(2*3.14159265359)**0.5)*2.71828182846**(-(X**2/2)))
+  ans, ERR = quad(INTEGRAND, BETA_INITIAL, np.inf)
+  return(ans)
+
+
+def PROBABILITY_OF_FAILURE():
+    SPACE_NUM = np.linspace(0,5,100000)
+    DF_BETA = []
+    DF_PF = []
+
+    HEADER = ['PF','BETA']
+
+    for i in SPACE_NUM:
+      DF_BETA.append(i)
+      DF_PF.append(PROBABILITY_OF_FAILURE_AUX(i))  
+    BETA_DF = pd.DataFrame(np.column_stack([DF_PF, DF_BETA]), columns=['PF','BETA'])
+
+    return(BETA_DF)
+
+
 
 #   /$$$$$$  /$$$$$$$  /$$$$$$$$ /$$$$$$$$       /$$$$$$$$ /$$$$$$$$  /$$$$$$  /$$   /$$ /$$   /$$  /$$$$$$  /$$        /$$$$$$   /$$$$$$  /$$$$$$ /$$$$$$$$  /$$$$$$ 
 #  /$$__  $$| $$__  $$| $$_____/| $$_____/      |__  $$__/| $$_____/ /$$__  $$| $$  | $$| $$$ | $$ /$$__  $$| $$       /$$__  $$ /$$__  $$|_  $$_/| $$_____/ /$$__  $$

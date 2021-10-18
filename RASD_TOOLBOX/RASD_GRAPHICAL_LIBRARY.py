@@ -195,7 +195,7 @@ def RASD_PLOT_2(DATASET, PLOT_SETUP):
     sns.set(style = 'ticks')
     [W, H] = CONVERT_SI_TO_INCHES(W, H)
     FIG, AX = plt.subplots(figsize = (W, H))
-    sns.scatterplot(data = DATA, x = X_DATA, y = Y_DATA, hue = HUE_VALUE)
+    sns.scatterplot(data = DATA, x = X_DATA, y = Y_DATA, hue = HUE_VALUE,  palette=['orange'])
     font = {'fontname': 'Arial',
         'color':  LABELS_COLOR,
         'weight': 'bold',
