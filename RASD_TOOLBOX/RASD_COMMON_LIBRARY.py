@@ -75,7 +75,7 @@ def SAMPLING(N_POP, D, MODEL, VARS):
                 RANDOM_SAMPLING[:, I_COUNT] = gumbel_l.rvs(loc = MEAN, scale = STD, size = N_POP, random_state = None)
             # Lognormal
             elif TYPE == 'LOGNORMAL':
-                RANDOM_SAMPLING[:, I_COUNT] = lognormal.rvs(loc = MEAN, scale = STD, size = N_POP, random_state = None)
+                RANDOM_SAMPLING[:, I_COUNT] = lognorm.rvs(s = STD, loc = 0, scale = np.exp(MEAN), size = N_POP, random_state = None)
             # Uniform
             elif TYPE == 'UNIFORM':
                 RANDOM_SAMPLING[:, I_COUNT] = uniform.rvs(loc = MEAN, scale = STD, size = N_POP, random_state = None)
@@ -105,28 +105,24 @@ def SAMPLING(N_POP, D, MODEL, VARS):
 
     return RANDOM_SAMPLING
 
+# FUNÇÃO DE DISTRIBUIÇÃO NORMAL
 def PROBABILITY_OF_FAILURE_AUX(BETA_INITIAL):
-  def INTEGRAND(X):
-      return  ((1/(2*3.14159265359)**0.5)*2.71828182846**(-(X**2/2)))
-  ans, ERR = quad(INTEGRAND, BETA_INITIAL, np.inf)
-  return(ans)
+    def INTEGRAND(X):
+        return  ((1 / (2 * np.pi) ** 0.5) * np.exp(1) ** (-(X ** 2 / 2)))
+    ANS, ERR = quad(INTEGRAND, BETA_INITIAL, np.inf)
+    return ANS
 
-
+# DETERMINAÇÃO DA PROBABILIDADE DE FALHA
 def PROBABILITY_OF_FAILURE():
-    SPACE_NUM = np.linspace(0,5,100000)
+    SPACE_NUM = np.linspace(0, 5, 100000)
     DF_BETA = []
     DF_PF = []
-
     HEADER = ['PF','BETA']
-
-    for i in SPACE_NUM:
-      DF_BETA.append(i)
-      DF_PF.append(PROBABILITY_OF_FAILURE_AUX(i))  
-    BETA_DF = pd.DataFrame(np.column_stack([DF_PF, DF_BETA]), columns=['PF','BETA'])
-
+    for I_COUNT in SPACE_NUM:
+      DF_BETA.append(I_COUNT)
+      DF_PF.append(PROBABILITY_OF_FAILURE_AUX(I_COUNT))  
+    BETA_DF = pd.DataFrame(np.column_stack([DF_PF, DF_BETA]), columns = ['PF', 'BETA'])
     return(BETA_DF)
-
-
 
 #   /$$$$$$  /$$$$$$$  /$$$$$$$$ /$$$$$$$$       /$$$$$$$$ /$$$$$$$$  /$$$$$$  /$$   /$$ /$$   /$$  /$$$$$$  /$$        /$$$$$$   /$$$$$$  /$$$$$$ /$$$$$$$$  /$$$$$$ 
 #  /$$__  $$| $$__  $$| $$_____/| $$_____/      |__  $$__/| $$_____/ /$$__  $$| $$  | $$| $$$ | $$ /$$__  $$| $$       /$$__  $$ /$$__  $$|_  $$_/| $$_____/ /$$__  $$
